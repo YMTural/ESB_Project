@@ -1,0 +1,1 @@
+FROM uniduees/bazel:latest
