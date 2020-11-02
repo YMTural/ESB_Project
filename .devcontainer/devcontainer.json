@@ -22,7 +22,9 @@
 		"eamodio.gitlens",
 		"npxms.hide-gitignored",
 		"devondcarew.bazel-code",
-		"mutantdino.resourcemonitor"
+		"mutantdino.resourcemonitor",
+		"ms-vscode.cpptools",
+		"bazelbuild.vscode-bazel"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
