@@ -2,7 +2,7 @@ load("@EmbeddedSystemsBuildScripts//Unity:unity.bzl", "generate_a_unity_test_for
 
 generate_a_unity_test_for_every_file(
     cexception = False,
-    file_list = glob(["*_Test.c"]),
+    file_list = glob(["test_*.c"]),
     deps = [
         "//:Library",
         "//bootcamp:HdrOnlyLib",
