@@ -5,6 +5,6 @@ generate_a_unity_test_for_every_file(
     file_list = glob(["test_*.c"]),
     deps = [
         "//:Library",
-        "//bootcamp:HdrOnlyLib",
+        "//libs/bootcamp:HdrOnlyLib",
     ],
 )
