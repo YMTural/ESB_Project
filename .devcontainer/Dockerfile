@@ -1,1 +1,1 @@
-FROM uniduees/bazel:latest
+FROM uniduees/bazel-coverage:latest
