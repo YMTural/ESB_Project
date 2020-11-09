@@ -16,6 +16,6 @@ if "!string:%substring%=!"=="!string!" (
     set suffix=--platforms @AvrToolchain//platforms:ArduinoUno
 ) else ( set suffix=)
 
-docker run -v %localdir%:/app -v %tmpdir%:/root/.cache/bazel uniduees/bazel:latest %* %suffix%
+docker run -v %localdir%:/app -v %tmpdir%:/root/.cache/bazel uniduees/bazel-coverage:latest %* %suffix%
 
 endlocal

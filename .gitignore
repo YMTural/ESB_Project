@@ -3,3 +3,4 @@
 bazel-*
 user.bazelrc
 tmpfolder/
+build/
