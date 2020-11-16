@@ -7,4 +7,5 @@ generate_a_unity_test_for_every_file(
         "//:Library",
         "//libs/bootcamp:HdrOnlyLib",
     ],
+    copts = ["-Ilibs"]
 )
