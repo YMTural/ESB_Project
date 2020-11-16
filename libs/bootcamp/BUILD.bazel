@@ -1,5 +1,0 @@
-cc_library(
-   name = "HdrOnlyLib",
-   hdrs = glob(["**/*.h"]),
-   visibility = ["//visibility:public"],
-)
