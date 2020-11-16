@@ -1,5 +1,5 @@
-#ifndef PRIMEFIELDORDER5_H
-#define PRIMEFIELDORDER5_H
+#ifndef SINUSFUNCTION
+#define SINUSFUNCTION
 
 #include <inttypes.h>
 
@@ -12,5 +12,4 @@ float myFactorialFunction(uint8_t);
 
 
 
-
-#endif //PRIMEFIELDORDER5_H
+#endif 

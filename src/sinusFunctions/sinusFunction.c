@@ -1,4 +1,4 @@
-#include "bootcamp/sinusFunction.h"
+#include "bootcamp/sinusFunctions/sinusFunction.h"
 #include <math.h>
 #define PI 3.141592
 

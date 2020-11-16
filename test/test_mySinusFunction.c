@@ -2,7 +2,7 @@
 #include <unity.h>
 #include <math.h>
 #include <stdlib.h>
-#include "bootcamp/sinusFunction.h"
+#include "bootcamp/sinusFunctions/sinusFunction.h"
 #include <stdio.h>
 #define DELTA 0.01f
 #define RANGE 25
