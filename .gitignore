@@ -1,1 +1,6 @@
-/workspaces/embeddedsystemsbootcamp/.gitignore
+.vscode/
+.clwb/
+bazel-*
+user.bazelrc
+tmpfolder/
+build/
