@@ -1,7 +1,7 @@
 #ifndef FIXPOINTSINUS
 #define FIXPOINTSINUS
 
-
+//11bit Integral, 5bit fractional
 typedef unsigned short fix_point;
 
 fix_point fixPointSinus(float);

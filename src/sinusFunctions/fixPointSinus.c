@@ -1,7 +1,7 @@
 #include <math.h>
 #include "bootcamp/sinusFunctions/fixPointSinus.h"
 #define FRACLENGTH 0x001F
-
+    //Two Complement only for Integral part
     //To-do: -Signed FixPoint with Two's complement
     //          -Adjust Mask
     //          -Adjust Addition
@@ -18,17 +18,15 @@ fix_point addFixPoints(fix_point first, fix_point second){
     unsigned short maskInt = 0xFFFF ^ FRACLENGTH;
     //Only Fraction bits are set
     unsigned short maskFrac = FRACLENGTH;
-    unsigned short mem = 0;
+    fix_point fraction = 0;
+    fix_point integral = 0;
 
     //Add the fractions
-    mem = (first & maskFrac) + (second & maskFrac);
+    fraction = (first & maskFrac) + (second & maskFrac);
 
     //Check for Overflow of Fraction part
-    if(mem & ~FRACLENGTH){
-
-
-
-
+    if(fraction & ~FRACLENGTH){
+        integral++;      
     }
 
 
