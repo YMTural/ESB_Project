@@ -1,7 +1,7 @@
 #include <unity.h>
 #include "bootcamp/circularBuffer.h"
 #include <math.h>
-#define BUFFERSIZE 10
+#define BUFFERSIZE 124
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
 
@@ -109,7 +109,7 @@ void test_circularBuffer_pushCheck(void){
 
     for (size_t i = 0; i < BUFFERSIZE; i++)
     {
-       TEST_ASSERT_EQUAL_INT8(0,circularBuffer_push(test_cBuffer,i));
+        circularBuffer_push(test_cBuffer,i);
     }
     for (size_t i = 0; i < BUFFERSIZE; i++)
     {
@@ -221,7 +221,7 @@ void test_circularBuffer_sizeLooping(void){
     for (size_t i = 0; i < BUFFERSIZE+BUFFERSIZE; i++)
     {
     message[0] = 48+ (char) i;
-     TEST_ASSERT_EQUAL_UINT8( MIN( (BUFFERSIZE / 2) - (BUFFERSIZE / 4),10 ) , circularBuffer_size(test_cBuffer) );   
+     TEST_ASSERT_EQUAL_UINT8( (BUFFERSIZE / 2) - (BUFFERSIZE / 4) , circularBuffer_size(test_cBuffer) );   
      circularBuffer_push(test_cBuffer,i);
      circularBuffer_read(test_cBuffer,&data);
     }
@@ -294,14 +294,14 @@ void test_circularBuffer_overwriteCheckTwice(void){
 
     uint8_t* test_buffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
     circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, BUFFERSIZE);
-
+    uint8_t data;
     for (size_t i = 0; i < BUFFERSIZE; i++)
     {
        circularBuffer_overwrite(test_cBuffer,i);
     }
     for (size_t i = 0; i < BUFFERSIZE; i++)
     {
-        TEST_ASSERT_EQUAL_INT8(i,*(test_buffer+i));
+        circularBuffer_read(test_cBuffer,&data);
     }
     for (size_t i = 0; i < BUFFERSIZE; i++)
     {
