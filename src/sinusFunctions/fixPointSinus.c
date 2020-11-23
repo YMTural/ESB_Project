@@ -7,27 +7,47 @@
     //          -Adjust Addition
     //          -and more
 
-fix_point fixPointSinus(float deg){
+fix_point fixPointSinus_fixPointSinus(float deg){
 
 
 }
 
-fix_point addFixPoints(fix_point first, fix_point second){
+fix_point fixPointSinus_add(fix_point first, fix_point second){
 
     //Only Integral bits are set
     unsigned short maskInt = 0xFFFF ^ FRACLENGTH;
     //Only Fraction bits are set
     unsigned short maskFrac = FRACLENGTH;
+
     fix_point fraction = 0;
     fix_point integral = 0;
 
     //Add the fractions
+    if(!((first >> 15)^(second >> 15)) ){
+
+        fraction = (first & maskFrac) + (second & maskFrac);
+        if(fraction & ~FRACLENGTH){
+            integral++;      
+        }
+    }
+    else
+    {
+       if((first >> 15)){
+            if((first & maskFrac) > (second & maskFrac)){
+    
+                fraction = (first & maskFrac) - (second & maskFrac);
+           }else
+           {
+                fraction = (second & maskFrac) - (first & maskFrac);
+           }
+           
+
+       }
+    }
+    
     fraction = (first & maskFrac) + (second & maskFrac);
 
     //Check for Overflow of Fraction part
-    if(fraction & ~FRACLENGTH){
-        integral++;      
-    }
 
 
 
@@ -35,12 +55,12 @@ fix_point addFixPoints(fix_point first, fix_point second){
 
 }
 
-fix_point multiplyFixPoints(fix_point first, fix_point second){
+fix_point fixPointSinus_multiply(fix_point first, fix_point second){
 
 
 }
 
-fix_point divideFixPoints(fix_point first, fix_point second){
+fix_point fixPointSinus_divide(fix_point first, fix_point second){
 
 
 }
