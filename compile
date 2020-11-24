@@ -18,4 +18,4 @@ else
 fi
 echo ""
 
-docker run -v "$localdir:/app" -v "$tmpdir:/root/.cache/bazel" uniduees/bazel-coverage:latest $@ $suffix
+docker run -v $localdir:/app -v $tmpdir:/root/.cache/bazel uniduees/bazel-coverage:latest $@ $suffix

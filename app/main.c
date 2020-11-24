@@ -8,7 +8,7 @@ main(void)
   DDRB = _BV(5);
   while (true)
   {
-    _delay_ms(500);
+    _delay_ms(750);
     PORTB ^= _BV(5);
   }
 }
