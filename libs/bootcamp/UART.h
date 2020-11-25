@@ -1,6 +1,10 @@
 #ifndef UART_H
 #define UART_H
 
+#include <avr/io.h>
+#define FOSC 1843200 // Clock Speed
+#define BAUD 9600
+#define MYUBRR FOSC/16/BAUD-1
 
 
 /**
