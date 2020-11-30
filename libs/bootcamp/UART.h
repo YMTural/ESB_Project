@@ -2,6 +2,7 @@
 #define UART_H
 
 #include <stdint.h>
+//#include "bootcamp/mock_avr.h"
 #include <avr/io.h>
 #include "bootcamp/circularBuffer.h"
 
@@ -31,7 +32,7 @@ void UART_init(unsigned int ubrr);
  * @param   data
  *  8 bit data which is to be transmitted
  */
-void UART_transmit(circularBuffer_t cbuf, void (*readBuffer)(circularBuffer_t, uint8_t*));
+void UART_transmit(circularBuffer_t cbuf, void (*readBuffer)(circularBuffer_t, uint8_t*), uint8_t*);
 
 /**
  * @brief   A data transmission is initiated by
