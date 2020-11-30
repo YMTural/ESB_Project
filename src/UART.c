@@ -14,10 +14,8 @@ void UART_init(unsigned int ubrr){
     
 }
 
-void UART_transmit(circularBuffer_t cbuf, void (*readBuffer)(circularBuffer_t, uint8_t*)){
-    uint8_t data;
-    //Read data from buffer
-    (*readBuffer)(cbuf, &data);
+void UART_transmit(uint8_t data){
+
 
     //Wait for empty transmit register
     while (!(UCSR0A & (1<<UDRE0)));
@@ -27,38 +25,20 @@ void UART_transmit(circularBuffer_t cbuf, void (*readBuffer)(circularBuffer_t, u
 
 }
 
-void UART_transmitN(circularBuffer_t cbuf,void (*readBuffer)(circularBuffer_t, uint8_t*), uint8_t count){
 
-    for(int i = 0; i < count; i++){
-
-        uint8_t data;
-        (*readBuffer)(cbuf, &data);
-
-        //Wait for empty transmit register
-        while (!(UCSR0A & (1<<UDRE0)));
-
-        //Put data into register, sends the data
-        UDR0 = data;
-    }
-
-
-}
-void UART_overwriteReceive(circularBuffer_t cbuf, void (*overwriteBuffer)(circularBuffer_t)){
-
-
-    //Wait for data to be received 
-    while (!(UCSR0A & (1<<RXC0)));
-    
-    //Get and return received data to buffer
-    (*overwriteBuffer)(cbuf);
-}
-
-short UART_Receive(circularBuffer_t cbuf, short (*pushBuffer)(circularBuffer_t)){
+uint8_t UART_receive(){
 
 
     //Wait for data to be received 
     while (!(UCSR0A & (1<<RXC0)));
     //Get and return received data to buffer
-    return (*pushBuffer)(cbuf);
+    return UDR0;
    
 }
+
+void UART_Flush(void){
+
+    unsigned char dummy;
+    while (UCSR0A & (1<<RXC0)) dummy = UDR0;
+   
+    }

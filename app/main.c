@@ -4,16 +4,22 @@
 #include <stdint.h>
 #include "bootcamp/circularBuffer.h"
 #include "bootcamp/UART.h"
+#include "bootcamp/UART_buffer.h"
 
-int
-main(void)
+uint8_t bufferSize = 4;
+
+int main(void)
 {
+  
   uint8_t data;
-  uint8_t* transBuffer = malloc(sizeof(uint8_t)*4);
-  uint8_t* recBuffer = malloc(sizeof(uint8_t)*4);
-  UART_init(MYUBRR);
-  circularBuffer_t cTbuf = circularBuffer_init(transBuffer, 4);
-  circularBuffer_t cRbuf = circularBuffer_init(recBuffer, 4);
+
+  uint8_t* transBuffer = malloc(sizeof(uint8_t)*bufferSize);
+  uint8_t* recBuffer = malloc(sizeof(uint8_t)*bufferSize);
+  
+  circularBuffer_t cTbuf = circularBuffer_init(transBuffer, bufferSize);
+  circularBuffer_t cRbuf = circularBuffer_init(recBuffer, bufferSize);
+  
+  UART_buffer_t uBuf = UART_buffer_init(cRbuf,cTbuf,circularBuffer_overwrite,circularBuffer_push,circularBuffer_read);
   //circularBuffer_push(cTbuf,255);
   //UART_transmit(cTbuf, *circularBuffer_read);
   _delay_ms(100);  
@@ -21,37 +27,16 @@ main(void)
   DDRB = _BV(5);
   while (true)
   {
-    /*
-    _delay_ms(100);
-    circularBuffer_push(cTbuf,0);
-    _delay_ms(100);
-    UART_transmit(cTbuf, *circularBuffer_read);
-    _delay_ms(100);
-    _delay_ms(200);
+    _delay_ms(500);
     PORTB ^= _BV(5);
-    _delay_ms(200);
-    PORTB ^= _BV(5);
-    _delay_ms(400);
-    //PORTB ^= _BV(5);
-    circularBuffer_push(cTbuf,128);
-    _delay_ms(100);
-    UART_transmit(cTbuf, *circularBuffer_read);
-  */
-    while (!(UCSR0A & (1<<UDRE0)));
-    UDR0 = 10;
-    _delay_ms(100);
-    _delay_ms(200);
-    PORTB ^= _BV(5);
-    _delay_ms(200);
-    PORTB ^= _BV(5);
-    _delay_ms(400);
-    while (!(UCSR0A & (1<<UDRE0)));
-    //UDR0 = 0;
-    _delay_ms(100);
-    _delay_ms(200);
-    PORTB ^= _BV(5);
-    _delay_ms(200);
-    PORTB ^= _BV(5);
-    _delay_ms(400);
+    for (size_t i = 0; i < 256; i++)
+    {
+      circularBuffer_push(cTbuf,i);
+      UART_buffer_transmitFromBuffer(uBuf);
+      _delay_ms(150);
+    }
+    
+
+
   }
 }
