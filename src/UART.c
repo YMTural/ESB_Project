@@ -14,10 +14,10 @@ void UART_init(unsigned int ubrr){
     
 }
 
-void UART_transmit(circularBuffer_t cbuf, void (*readBuffer)(circularBuffer_t, uint8_t*), uint8_t* data){
-    
+void UART_transmit(circularBuffer_t cbuf, void (*readBuffer)(circularBuffer_t, uint8_t*)){
+    uint8_t data;
     //Read data from buffer
-    (*readBuffer)(cbuf, data);
+    (*readBuffer)(cbuf, &data);
 
     //Wait for empty transmit register
     while (!(UCSR0A & (1<<UDRE0)));

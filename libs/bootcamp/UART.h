@@ -6,7 +6,7 @@
 #include <avr/io.h>
 #include "bootcamp/circularBuffer.h"
 
-#define FOSC 1843200 // Clock Speed
+#define FOSC 1600000 // Clock Speed
 #define BAUD 9600
 #define MYUBRR FOSC/16/BAUD-1
 
@@ -32,7 +32,7 @@ void UART_init(unsigned int ubrr);
  * @param   data
  *  8 bit data which is to be transmitted
  */
-void UART_transmit(circularBuffer_t cbuf, void (*readBuffer)(circularBuffer_t, uint8_t*), uint8_t*);
+void UART_transmit(circularBuffer_t cbuf, void (*readBuffer)(circularBuffer_t, uint8_t*));
 
 /**
  * @brief   A data transmission is initiated by

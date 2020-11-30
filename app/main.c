@@ -14,18 +14,44 @@ main(void)
   UART_init(MYUBRR);
   circularBuffer_t cTbuf = circularBuffer_init(transBuffer, 4);
   circularBuffer_t cRbuf = circularBuffer_init(recBuffer, 4);
-  circularBuffer_push(cTbuf,10);
-  UART_transmit(cTbuf, *circularBuffer_read,&data);
-    
+  //circularBuffer_push(cTbuf,255);
+  //UART_transmit(cTbuf, *circularBuffer_read);
+  _delay_ms(100);  
 
   DDRB = _BV(5);
   while (true)
   {
+    /*
+    _delay_ms(100);
+    circularBuffer_push(cTbuf,0);
+    _delay_ms(100);
+    UART_transmit(cTbuf, *circularBuffer_read);
+    _delay_ms(100);
     _delay_ms(200);
     PORTB ^= _BV(5);
     _delay_ms(200);
     PORTB ^= _BV(5);
-    _delay_ms(1000);
+    _delay_ms(400);
+    //PORTB ^= _BV(5);
+    circularBuffer_push(cTbuf,128);
+    _delay_ms(100);
+    UART_transmit(cTbuf, *circularBuffer_read);
+  */
+    while (!(UCSR0A & (1<<UDRE0)));
+    UDR0 = 10;
+    _delay_ms(100);
+    _delay_ms(200);
     PORTB ^= _BV(5);
+    _delay_ms(200);
+    PORTB ^= _BV(5);
+    _delay_ms(400);
+    while (!(UCSR0A & (1<<UDRE0)));
+    //UDR0 = 0;
+    _delay_ms(100);
+    _delay_ms(200);
+    PORTB ^= _BV(5);
+    _delay_ms(200);
+    PORTB ^= _BV(5);
+    _delay_ms(400);
   }
 }
