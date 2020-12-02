@@ -45,7 +45,7 @@ void UART_buffer_overwriteReceive(UART_buffer_t ubuf){
 }
 
 bool UART_buffer_receive(UART_buffer_t ubuf){
-
+    
     bool result = ubuf->push(ubuf -> receiveBuffer, UART_receive());
 
     return result;

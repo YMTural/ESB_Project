@@ -1,11 +1,16 @@
 #ifndef UART_H
 #define UART_H
+#define DEBUG 0
 
 
-//#include "bootcamp/mock_avr.h"
-#include <stdint.h>
+#if(DEBUG == 0)
 #include <avr/io.h>
+#endif
+#if(DEBUG == 1)
+
+#endif
 #include <stdlib.h>
+#include <stdint.h>
 
 
 #define FOSC 16000000 // Clock Speed

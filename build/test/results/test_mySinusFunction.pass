@@ -1,0 +1,50 @@
+---
+:source:
+  :path: test
+  :file: test_mySinusFunction.c
+:successes:
+- :test: test_zeroPower
+  :line: 12
+  :message: ''
+  :unity_test_time: 0
+- :test: test_negativeBase
+  :line: 20
+  :message: ''
+  :unity_test_time: 0
+- :test: test_positiveBase
+  :line: 28
+  :message: ''
+  :unity_test_time: 0
+- :test: test_floatBase
+  :line: 36
+  :message: ''
+  :unity_test_time: 0
+- :test: test_exponentAddition
+  :line: 44
+  :message: ''
+  :unity_test_time: 0
+- :test: test_exponentSubtraction
+  :line: 53
+  :message: ''
+  :unity_test_time: 0
+- :test: test_ZeroFactorial
+  :line: 62
+  :message: ''
+  :unity_test_time: 0
+- :test: test_positiveFactorial
+  :line: 68
+  :message: ''
+  :unity_test_time: 0
+- :test: test_sin
+  :line: 77
+  :message: ''
+  :unity_test_time: 0
+:failures: []
+:ignores: []
+:counts:
+  :total: 9
+  :passed: 9
+  :failed: 0
+  :ignored: 0
+:stdout: []
+:time: 0.01456367500009037

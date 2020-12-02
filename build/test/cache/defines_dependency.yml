@@ -1,0 +1,15 @@
+---
+src/circularBuffer.c:
+- TEST
+src/sinusFunctions/fixPointSinus.c:
+- TEST
+src/sinusFunctions/sinusFunction.c:
+- TEST
+src/primeFieldOrder5.c:
+- TEST
+src/UART.c:
+- TEST
+build/test/mocks/mock_io.c:
+- TEST
+src/timeBasedScheduler.c:
+- TEST
