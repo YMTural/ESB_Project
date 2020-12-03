@@ -21,7 +21,7 @@ struct  timeBasedScheduler
     priorityQueueHeap queue;
 };
 
-priorityQueueHeap priorityQueueHeap_init(uint8_t maxSize){
+static priorityQueueHeap priorityQueueHeap_init(uint8_t maxSize){
 
     priorityQueueHeap queue;
     task *array = malloc(sizeof(task)*maxSize);
@@ -52,7 +52,7 @@ static void priorityQueueHeap_swap(uint8_t a, uint8_t b, priorityQueueHeap_t pri
 
 }
 
-void priorityQueueHeap_heapify(priorityQueueHeap_t priorityQueueHeap, uint8_t startIndex){
+static void priorityQueueHeap_heapify(priorityQueueHeap_t priorityQueueHeap, uint8_t startIndex){
 
     uint8_t left = 2*startIndex+1;
     uint8_t right = 2*startIndex+2;
@@ -74,7 +74,7 @@ void priorityQueueHeap_heapify(priorityQueueHeap_t priorityQueueHeap, uint8_t st
 
 }
 
-int priorityQueueHeap_add(priorityQueueHeap_t priorityQueueHeap, task task){
+static int priorityQueueHeap_add(priorityQueueHeap_t priorityQueueHeap, task task){
 
     if(priorityQueueHeap -> size == priorityQueueHeap -> capacity){
 
@@ -94,7 +94,7 @@ int priorityQueueHeap_add(priorityQueueHeap_t priorityQueueHeap, task task){
     return 0;
 }
 
-task priorityQueueHeap_getNext(priorityQueueHeap_t priorityQueueHeap){
+static task priorityQueueHeap_getNext(priorityQueueHeap_t priorityQueueHeap){
 
 
     if(priorityQueueHeap->size <= 0){
@@ -142,3 +142,4 @@ bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function
 
 
 }
+

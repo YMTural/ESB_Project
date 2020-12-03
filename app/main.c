@@ -6,6 +6,10 @@
 #include "bootcamp/UART_buffer.h"
 #include "bootcamp/UART.h"
 
+#ifndef DEBUG
+#define DEBUG 0
+#endif
+
 uint8_t bufferSize = 4;
 
 int main(void)
@@ -34,36 +38,7 @@ int main(void)
     _delay_ms(500);
     //PORTB ^= _BV(5);
     
-   /*
-    UART_transmit(test2);
-    test2 = UART_receive();
-    _delay_ms(1100);
-    UART_transmit(test2);
-    _delay_ms(250);
-    UART_transmit(test2);
-    _delay_ms(250);
-    UART_transmit(test2);
-    */
-    for (size_t i = 0; i < test2; i++)
-    {
-      /*
-      _delay_ms(250);
-      PORTB ^= _BV(5);
-      _delay_ms(250);
-      PORTB ^= _BV(5);
-      _delay_ms(250);
-      */
-      circularBuffer_push(cTbuf, i);
-      //circularBuffer_read(cTbuf,&test);
-      //UART_transmit(test);
-      UART_buffer_transmitFromBuffer(uBuf);
-      /*
-      circularBuffer_push(cTbuf, circularBuffer_read(cRbuf,&test));
-      UART_buffer_transmitFromBuffer(uBuf);
-      circularBuffer_push(cTbuf,test2);
-      UART_buffer_transmitFromBuffer(uBuf);
-      _delay_ms(500);
-      */
+
 
     }
    

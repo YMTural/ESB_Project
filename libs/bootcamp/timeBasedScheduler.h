@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <malloc.h>
+#include <stdlib.h>
 /**
  * @typedef timeBasedScheduler
  * @brief   Opaque time based scheduler structure.

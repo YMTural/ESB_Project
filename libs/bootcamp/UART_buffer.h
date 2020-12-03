@@ -51,7 +51,7 @@ typedef UART_buffer* UART_buffer_t;
 UART_buffer_t UART_buffer_init(uint8_t* receiveBuffer, uint8_t* transmitBuffer,
                              void (*circularBuffer_overwrite)(uint8_t* cbuf, uint8_t data), 
                              bool (*circularBuffer_push)(uint8_t* cbuf, uint8_t data),
-                             void (*circularBuffer_read)(uint8_t* cbuf, uint8_t* data));
+                             int8_t (*circularBuffer_read)(uint8_t* cbuf, uint8_t* data));
 
 
 /**
@@ -79,21 +79,20 @@ bool UART_buffer_receive(UART_buffer_t ubuf);
  *          from the buffer. All data in the buffer will be transmitted
  *           
  */
-void UART_buffer_transmitFromBuffer(UART_buffer_t ubuf);
+int8_t UART_buffer_transmitFromBuffer(UART_buffer_t ubuf);
 
 /**
  * @brief   A data transmission is initiated by
  *          loading the transmit register with data
  *          from the buffer. N data in the buffer will be transmitted
- *           
+ * @return
+ *  -1 if failed, 0 on success
  */
-void UART_buffer_transmitMultipleFromBuffer(UART_buffer_t ubuf, uint8_t count);
+int8_t UART_buffer_transmitMultipleFromBuffer(UART_buffer_t ubuf, uint8_t count);
 
 /**
  * @brief   Frees a circular buffer structure.
  * 
- * This only frees the memory overhead that is necessary for managing the UART buffer.
- * It does not free the data buffer; the owner is responsible for that.
  * 
  * @param   UART_buffer
  *  Uart buffer to be freed

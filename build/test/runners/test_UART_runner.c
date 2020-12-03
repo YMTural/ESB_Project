@@ -2,8 +2,6 @@
 
 /*=======Automagically Detected Files To Include=====*/
 #include "unity.h"
-#include "cmock.h"
-#include "mock_io.h"
 
 int GlobalExpectCount;
 int GlobalVerifyOrder;
@@ -13,6 +11,9 @@ char* GlobalOrderError;
 extern void setUp(void);
 extern void tearDown(void);
 extern void test_UART_init(void);
+extern void test_UART_transmit(void);
+extern void test_UART_flush(void);
+extern void test_UART_receive(void);
 
 
 /*=======Mock Management=====*/
@@ -21,15 +22,12 @@ static void CMock_Init(void)
   GlobalExpectCount = 0;
   GlobalVerifyOrder = 0;
   GlobalOrderError = NULL;
-  mock_io_Init();
 }
 static void CMock_Verify(void)
 {
-  mock_io_Verify();
 }
 static void CMock_Destroy(void)
 {
-  mock_io_Destroy();
 }
 
 /*=======Setup (stub)=====*/
@@ -89,7 +87,9 @@ int main(void)
 {
   UnityBegin("test_UART.c");
   run_test(test_UART_init, "test_UART_init", 7);
+  run_test(test_UART_transmit, "test_UART_transmit", 16);
+  run_test(test_UART_flush, "test_UART_flush", 26);
+  run_test(test_UART_receive, "test_UART_receive", 34);
 
-  CMock_Guts_MemFreeFinal();
   return UnityEnd();
 }

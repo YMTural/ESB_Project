@@ -314,3 +314,16 @@ void test_circularBuffer_overwriteCheckTwice(void){
     free(test_buffer);
     circularBuffer_free(test_cBuffer);
 }
+void test_circularBuffer_sizeFullBuffer(void){
+
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, BUFFERSIZE);
+    uint8_t data;
+    for (size_t i = 0; i < BUFFERSIZE; i++)
+    {
+        circularBuffer_push(test_cBuffer,i);
+    }
+    TEST_ASSERT_EQUAL_UINT8(BUFFERSIZE, circularBuffer_size(test_cBuffer));
+
+
+}

@@ -36,7 +36,7 @@ uint8_t UART_receive(){
    
 }
 
-void UART_Flush(void){
+void UART_flush(void){
 
     unsigned char dummy;
     while (UCSR0A & (1<<RXC0)) dummy = UDR0;

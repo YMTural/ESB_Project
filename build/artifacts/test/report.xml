@@ -3,18 +3,21 @@
 	<FailedTests/>
 	<SuccessfulTests>
 		<Test id="1">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_init</Name>
+			<Name>test/test_UART.c::test_UART_init</Name>
 		</Test>
 		<Test id="2">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOneTask</Name>
+			<Name>test/test_UART.c::test_UART_transmit</Name>
 		</Test>
 		<Test id="3">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addMoreThanMaxSizeTasks</Name>
+			<Name>test/test_UART.c::test_UART_flush</Name>
+		</Test>
+		<Test id="4">
+			<Name>test/test_UART.c::test_UART_receive</Name>
 		</Test>
 	</SuccessfulTests>
 	<IgnoredTests/>
 	<Statistics>
-		<Tests>3</Tests>
+		<Tests>4</Tests>
 		<Ignores>0</Ignores>
 		<FailuresTotal>0</FailuresTotal>
 		<Errors>0</Errors>

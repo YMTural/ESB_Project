@@ -1,0 +1,30 @@
+---
+:source:
+  :path: test
+  :file: test_UART.c
+:successes:
+- :test: test_UART_init
+  :line: 7
+  :message: ''
+  :unity_test_time: 0
+- :test: test_UART_transmit
+  :line: 16
+  :message: ''
+  :unity_test_time: 0
+- :test: test_UART_flush
+  :line: 26
+  :message: ''
+  :unity_test_time: 0
+- :test: test_UART_receive
+  :line: 34
+  :message: ''
+  :unity_test_time: 0
+:failures: []
+:ignores: []
+:counts:
+  :total: 4
+  :passed: 4
+  :failed: 0
+  :ignored: 0
+:stdout: []
+:time: 0.0016727670008549467

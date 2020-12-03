@@ -9,13 +9,13 @@ struct UART_buffer {
     //function pointer
     void (*overwrite)(uint8_t* cbuf, uint8_t data);
     bool (*push)(uint8_t* cbuf, uint8_t data);
-    void (*read)(uint8_t* cbuf, uint8_t* data);
+    int8_t (*read)(uint8_t* cbuf, uint8_t* data);
 
 };
 
 UART_buffer_t UART_buffer_init(uint8_t* receiveBuffer, uint8_t* transmitBuffer,
     void(*circularBuffer_overwrite)(uint8_t* cbuf, uint8_t data), bool (*circularBuffer_push)(uint8_t* cbuf, uint8_t data),
-    void(*circularBuffer_read)(uint8_t* cbuf, uint8_t* data)){
+    int8_t(*circularBuffer_read)(uint8_t* cbuf, uint8_t* data)){
 
         UART_init(MYUBRR);
 
@@ -51,21 +51,27 @@ bool UART_buffer_receive(UART_buffer_t ubuf){
     return result;
 }
 
-void UART_buffer_transmitFromBuffer(UART_buffer_t ubuf){
+int8_t UART_buffer_transmitFromBuffer(UART_buffer_t ubuf){
     uint8_t data;
-    ubuf->read(ubuf -> transmitBuffer, &data);
+    if(ubuf->read(ubuf -> transmitBuffer, &data) == -1){
+            return -1;
+        }
     UART_transmit(data);
-
+    return 0;
 }
 
-void UART_buffer_transmitMultipleFromBuffer(UART_buffer_t ubuf, uint8_t count){
+int8_t UART_buffer_transmitMultipleFromBuffer(UART_buffer_t ubuf, uint8_t count){
+
+
 
     for(uint8_t i = 0; i < count; i++){
         uint8_t data;
-        ubuf->read(ubuf -> transmitBuffer, &data);
+        if(ubuf->read(ubuf -> transmitBuffer, &data) == -1){
+            return -1;
+        }
         UART_transmit(data);
     }
-
+    return 0;
 }
 
 

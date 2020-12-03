@@ -27,6 +27,7 @@ extern void test_circularBuffer_fullFull(void);
 extern void test_circularBuffer_empty(void);
 extern void test_circularBuffer_overWriteAll(void);
 extern void test_circularBuffer_overwriteCheckTwice(void);
+extern void test_circularBuffer_sizeFullBuffer(void);
 
 
 /*=======Mock Management=====*/
@@ -116,6 +117,7 @@ int main(void)
   run_test(test_circularBuffer_empty, "test_circularBuffer_empty", 263);
   run_test(test_circularBuffer_overWriteAll, "test_circularBuffer_overWriteAll", 274);
   run_test(test_circularBuffer_overwriteCheckTwice, "test_circularBuffer_overwriteCheckTwice", 293);
+  run_test(test_circularBuffer_sizeFullBuffer, "test_circularBuffer_sizeFullBuffer", 317);
 
   return UnityEnd();
 }

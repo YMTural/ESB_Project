@@ -13,3 +13,9 @@ build/test/mocks/mock_io.c:
 - TEST
 src/timeBasedScheduler.c:
 - TEST
+build/test/mocks/mock_header/io.c:
+- TEST
+src/io.c:
+- TEST
+src/UART_buffer.c:
+- TEST
