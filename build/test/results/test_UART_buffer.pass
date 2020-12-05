@@ -1,0 +1,50 @@
+---
+:source:
+  :path: test
+  :file: test_UART_buffer.c
+:successes:
+- :test: test_UART_buffer_init
+  :line: 10
+  :message: ''
+  :unity_test_time: 0
+- :test: test_UART_buffer_receiveOne
+  :line: 30
+  :message: ''
+  :unity_test_time: 0
+- :test: test_UART_buffer_receiveOneFF
+  :line: 56
+  :message: ''
+  :unity_test_time: 0
+- :test: test_UART_buffer_receiveMultiple
+  :line: 86
+  :message: ''
+  :unity_test_time: 0
+- :test: test_UART_buffer_overwrite
+  :line: 128
+  :message: ''
+  :unity_test_time: 0
+- :test: test_UART_buffer_transmitOne
+  :line: 164
+  :message: ''
+  :unity_test_time: 0
+- :test: test_UART_buffer_transmitMultiple
+  :line: 191
+  :message: ''
+  :unity_test_time: 0
+- :test: test_UART_buffer_transmitFromEmpty
+  :line: 218
+  :message: ''
+  :unity_test_time: 0
+- :test: test_UART_buffer_transmitMultipleFromEmpty
+  :line: 242
+  :message: ''
+  :unity_test_time: 0
+:failures: []
+:ignores: []
+:counts:
+  :total: 9
+  :passed: 9
+  :failed: 0
+  :ignored: 0
+:stdout: []
+:time: 0.001752176001900807

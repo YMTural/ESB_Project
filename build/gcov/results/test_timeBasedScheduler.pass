@@ -4,23 +4,35 @@
   :file: test_timeBasedScheduler.c
 :successes:
 - :test: test_timeBasedScheduler_init
-  :line: 7
+  :line: 8
   :message: ''
   :unity_test_time: 0
 - :test: test_timeBasedScheduler_addOneTask
-  :line: 19
+  :line: 20
   :message: ''
   :unity_test_time: 0
 - :test: test_timeBasedScheduler_addMoreThanMaxSizeTasks
-  :line: 27
+  :line: 28
+  :message: ''
+  :unity_test_time: 0
+- :test: test_timeBasedScheduler_addOnePeriodicTask
+  :line: 41
+  :message: ''
+  :unity_test_time: 0
+- :test: test_timeBasedScheduler_addOnePeriodicTaskToFull
+  :line: 57
+  :message: ''
+  :unity_test_time: 0
+- :test: test_timeBasedScheduler_markIfReady
+  :line: 78
   :message: ''
   :unity_test_time: 0
 :failures: []
 :ignores: []
 :counts:
-  :total: 3
-  :passed: 3
+  :total: 6
+  :passed: 6
   :failed: 0
   :ignored: 0
 :stdout: []
-:time: 0.0019239480006945087
+:time: 0.001228694000019459

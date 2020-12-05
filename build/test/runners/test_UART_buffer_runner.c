@@ -95,11 +95,11 @@ int main(void)
   run_test(test_UART_buffer_receiveOne, "test_UART_buffer_receiveOne", 30);
   run_test(test_UART_buffer_receiveOneFF, "test_UART_buffer_receiveOneFF", 56);
   run_test(test_UART_buffer_receiveMultiple, "test_UART_buffer_receiveMultiple", 85);
-  run_test(test_UART_buffer_overwrite, "test_UART_buffer_overwrite", 125);
-  run_test(test_UART_buffer_transmitOne, "test_UART_buffer_transmitOne", 159);
-  run_test(test_UART_buffer_transmitMultiple, "test_UART_buffer_transmitMultiple", 184);
-  run_test(test_UART_buffer_transmitFromEmpty, "test_UART_buffer_transmitFromEmpty", 209);
-  run_test(test_UART_buffer_transmitMultipleFromEmpty, "test_UART_buffer_transmitMultipleFromEmpty", 232);
+  run_test(test_UART_buffer_overwrite, "test_UART_buffer_overwrite", 127);
+  run_test(test_UART_buffer_transmitOne, "test_UART_buffer_transmitOne", 163);
+  run_test(test_UART_buffer_transmitMultiple, "test_UART_buffer_transmitMultiple", 189);
+  run_test(test_UART_buffer_transmitFromEmpty, "test_UART_buffer_transmitFromEmpty", 216);
+  run_test(test_UART_buffer_transmitMultipleFromEmpty, "test_UART_buffer_transmitMultipleFromEmpty", 240);
 
   return UnityEnd();
 }

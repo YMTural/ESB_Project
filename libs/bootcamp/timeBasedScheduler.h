@@ -1,9 +1,18 @@
 #ifndef TIMEBASEDSCHEDULER_H
 #define TIMEBASEDSCHEDULER_H
-
+#ifndef DEBUG
+#define DEBUG 0
+#endif
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include "bootcamp/task.h"
+#if(DEBUG == 0)
+#include <avr/interrupt.h>
+#endif
+#if(DEBUG == 1)
+#include "bootcamp/interrupt.h"
+#endif
 /**
  * @typedef timeBasedScheduler
  * @brief   Opaque time based scheduler structure.
@@ -56,12 +65,6 @@ typedef enum
     TIMER2,
 }e_timer;
 
-/**
- * @typedef task
- * @brief   Opaque task structure.
- * 
- */
-typedef struct task task;
 
 
 /**
@@ -87,17 +90,30 @@ timeBasedScheduler_t timeBasedScheduler_init(uint8_t maxSize);
  * 
  */
 
-bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function, uint8_t priority, bool periodic);
+bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function, uint8_t priority);
+
+/**
+ * @brief   Adds a new periodic task to the schedule
+ * @param   function
+ *  function which is to be executed
+ * @param priority
+ *  priority of the process
+ * @param periodic
+ *  sets the periodicity of a task
+ * 
+ */
+
+bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void* function, uint8_t priority, uint16_t period, uint16_t startTime);
 
 /**
  * @brief   Schedules all the tasks. Will run forever. Can return error code
  * @param
  *  time based Schedule which is to be scheduled
  */
-uint8_t timeBasedScheduler_schedule(timeBasedScheduler tBScheduler);
+void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler, uint16_t* currentTime);
 
 /**
- * @brief   Configures the selected timer to given intervall
+ * @brief   NOT FINISHED YET! ; Configures the selected timer to given intervall
  * 
  * @param timer
  *  Has either to be 1,2 or 3
@@ -111,6 +127,8 @@ void timeBasedScheduler_timer(uint8_t timer, uint16_t intervall);
  */
 void timeBasedScheduler_free(timeBasedScheduler_t tbScheduler);
 
+void priorityQueueHeap_free(priorityQueueHeap_t queue);
+
 /**
  * @brief   Creates priority Queue heap container.
  * 
@@ -121,7 +139,10 @@ void timeBasedScheduler_free(timeBasedScheduler_t tbScheduler);
  * @returns
  *  A priority queue heap handler
  */
-static priorityQueueHeap priorityQueueHeap_init(uint8_t maxSize);
+
+
+
+priorityQueueHeap_t priorityQueueHeap_init(uint8_t maxSize);
 
 /**
  * @brief   Adds a new task to the priority queue. Returns Error if queue full
@@ -132,7 +153,7 @@ static priorityQueueHeap priorityQueueHeap_init(uint8_t maxSize);
  * @param   array
  *  The queue where is the task is to be added
  */
-static int priorityQueueHeap_add(priorityQueueHeap_t priorityQueueHeap, task task);
+int priorityQueueHeap_add(priorityQueueHeap_t priorityQueueHeap, task task);
 
 /**
  * @brief   Returns the next task from the priority queue   
@@ -141,26 +162,33 @@ static int priorityQueueHeap_add(priorityQueueHeap_t priorityQueueHeap, task tas
  *  task
  * 
  */
-static task priorityQueueHeap_getNext(priorityQueueHeap_t priorityQueueHeap);
+task* priorityQueueHeap_getNext(priorityQueueHeap_t priorityQueueHeap);
 
+/**
+ * @brief   Returns the next ready task from the priority queue   
+ * 
+ * @return
+ *  A task which is ready
+ * 
+ */
+task* priorityQueueHeap_getNextReady(priorityQueueHeap_t priorityQueueHeap);
 
 /**
  * @brief   Maintains max heap structure
  * 
  * 
  */
-static void priorityQueueHeap_heapify(priorityQueueHeap_t priorityQueueHeap, uint8_t startIndex);
+void priorityQueueHeap_heapify(priorityQueueHeap_t priorityQueueHeap, uint8_t startIndex);
 
 /**
  * @brief   Swaps array elements
  * 
  * 
  */
-static void priorityQueueHeap_swap(uint8_t a, uint8_t b, priorityQueueHeap_t priorityQueueHeap);
+void priorityQueueHeap_swap(uint8_t a, uint8_t b, priorityQueueHeap_t priorityQueueHeap);
 
 
-
-
-
+task* priorityQueueHeap_peekAt(priorityQueueHeap_t queue,uint8_t n);
+void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler, uint16_t currentTime);
 
 #endif

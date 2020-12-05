@@ -1,3 +1,4 @@
+/*
 #include <math.h>
 #include "bootcamp/sinusFunctions/fixPointSinus.h"
 #define FRACLENGTH 0x001F
@@ -63,4 +64,4 @@ fix_point fixPointSinus_multiply(fix_point first, fix_point second){
 fix_point fixPointSinus_divide(fix_point first, fix_point second){
 
 
-}
+}*/

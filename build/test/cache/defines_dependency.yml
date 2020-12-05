@@ -19,3 +19,5 @@ src/io.c:
 - TEST
 src/UART_buffer.c:
 - TEST
+src/interrupt.c:
+- TEST
