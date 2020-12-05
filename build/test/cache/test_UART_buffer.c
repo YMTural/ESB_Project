@@ -506,20 +506,4 @@ void test_UART_buffer_transmitMultipleFromEmpty(void){
 
    ), (UNITY_UINT)(254), UNITY_DISPLAY_STYLE_INT8);
 
-
-
-
-
-    free(test_rBuffer);
-
-    free(test_tBuffer);
-
-    circularBuffer_free(test_cTBuffer);
-
-    circularBuffer_free(test_cRBuffer);
-
-    UART_buffer_free(uBuf);
-
-
-
 }

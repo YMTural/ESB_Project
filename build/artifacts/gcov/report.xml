@@ -171,7 +171,7 @@
 			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOnePeriodicTaskToFull</Name>
 		</Test>
 		<Test id="57">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_markIfReady</Name>
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_schedule</Name>
 		</Test>
 	</SuccessfulTests>
 	<IgnoredTests/>

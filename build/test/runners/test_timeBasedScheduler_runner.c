@@ -15,7 +15,7 @@ extern void test_timeBasedScheduler_addOneTask(void);
 extern void test_timeBasedScheduler_addMoreThanMaxSizeTasks(void);
 extern void test_timeBasedScheduler_addOnePeriodicTask(void);
 extern void test_timeBasedScheduler_addOnePeriodicTaskToFull(void);
-extern void test_timeBasedScheduler_markIfReady(void);
+extern void test_timeBasedScheduler_schedule(void);
 
 
 /*=======Mock Management=====*/
@@ -93,7 +93,7 @@ int main(void)
   run_test(test_timeBasedScheduler_addMoreThanMaxSizeTasks, "test_timeBasedScheduler_addMoreThanMaxSizeTasks", 28);
   run_test(test_timeBasedScheduler_addOnePeriodicTask, "test_timeBasedScheduler_addOnePeriodicTask", 41);
   run_test(test_timeBasedScheduler_addOnePeriodicTaskToFull, "test_timeBasedScheduler_addOnePeriodicTaskToFull", 57);
-  run_test(test_timeBasedScheduler_markIfReady, "test_timeBasedScheduler_markIfReady", 78);
+  run_test(test_timeBasedScheduler_schedule, "test_timeBasedScheduler_schedule", 79);
 
   return UnityEnd();
 }

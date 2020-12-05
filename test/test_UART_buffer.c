@@ -253,11 +253,11 @@ void test_UART_buffer_transmitMultipleFromEmpty(void){
     
     TEST_ASSERT_EQUAL_INT8(-1,UART_buffer_transmitMultipleFromBuffer(uBuf,10));
 
-    
+    /*
     free(test_rBuffer);
     free(test_tBuffer);
     circularBuffer_free(test_cTBuffer);
     circularBuffer_free(test_cRBuffer);
-    UART_buffer_free(uBuf);
+    UART_buffer_free(uBuf); */
 
 }

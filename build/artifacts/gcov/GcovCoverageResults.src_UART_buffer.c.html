@@ -275,7 +275,7 @@
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2020-12-05 20:08:38</td>
+            <td class="headerValue">2020-12-05 22:45:26</td>
             <td></td>
             <td class="headerName">Branches:</td>
             <td class="headerTableEntry">6</td>
@@ -407,7 +407,7 @@
     <tr>
     <td align="right" class="lineno"><pre>16</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>203</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>221</pre></td>
     <td align="left" class="src coveredLine"><pre>UART_buffer_t UART_buffer_init(uint8_t* receiveBuffer, uint8_t* transmitBuffer,</pre></td>
     </tr>
 
@@ -435,7 +435,7 @@
     <tr>
     <td align="right" class="lineno"><pre>20</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>203</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>221</pre></td>
     <td align="left" class="src coveredLine"><pre>        UART_init(MYUBRR);</pre></td>
     </tr>
 
@@ -449,7 +449,7 @@
     <tr>
     <td align="right" class="lineno"><pre>22</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>203</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>221</pre></td>
     <td align="left" class="src coveredLine"><pre>        UART_buffer_t u_buf = malloc(sizeof(UART_buffer_t));</pre></td>
     </tr>
 
@@ -463,14 +463,14 @@
     <tr>
     <td align="right" class="lineno"><pre>24</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>203</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>221</pre></td>
     <td align="left" class="src coveredLine"><pre>        u_buf -> receiveBuffer = receiveBuffer;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>25</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>203</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>221</pre></td>
     <td align="left" class="src coveredLine"><pre>        u_buf -> transmitBuffer = transmitBuffer;</pre></td>
     </tr>
 
@@ -484,7 +484,7 @@
     <tr>
     <td align="right" class="lineno"><pre>27</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>203</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>221</pre></td>
     <td align="left" class="src coveredLine"><pre>        u_buf -> overwrite = circularBuffer_overwrite;</pre></td>
     </tr>
 
@@ -498,7 +498,7 @@
     <tr>
     <td align="right" class="lineno"><pre>29</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>203</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>221</pre></td>
     <td align="left" class="src coveredLine"><pre>        u_buf -> push = circularBuffer_push;</pre></td>
     </tr>
 
@@ -512,7 +512,7 @@
     <tr>
     <td align="right" class="lineno"><pre>31</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>203</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>221</pre></td>
     <td align="left" class="src coveredLine"><pre>        u_buf -> read = circularBuffer_read;</pre></td>
     </tr>
 
@@ -526,7 +526,7 @@
     <tr>
     <td align="right" class="lineno"><pre>33</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>203</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>221</pre></td>
     <td align="left" class="src coveredLine"><pre>        return u_buf;</pre></td>
     </tr>
 
@@ -547,7 +547,7 @@
     <tr>
     <td align="right" class="lineno"><pre>36</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>48</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>52</pre></td>
     <td align="left" class="src coveredLine"><pre>void UART_buffer_free(UART_buffer_t ubuf){</pre></td>
     </tr>
 
@@ -561,14 +561,14 @@
     <tr>
     <td align="right" class="lineno"><pre>38</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>48</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>52</pre></td>
     <td align="left" class="src coveredLine"><pre>    free(ubuf);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>39</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>48</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>52</pre></td>
     <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
@@ -582,7 +582,7 @@
     <tr>
     <td align="right" class="lineno"><pre>41</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>480</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>520</pre></td>
     <td align="left" class="src coveredLine"><pre>void UART_buffer_overwriteReceive(UART_buffer_t ubuf){</pre></td>
     </tr>
 
@@ -596,7 +596,7 @@
     <tr>
     <td align="right" class="lineno"><pre>43</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>480</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>520</pre></td>
     <td align="left" class="src coveredLine"><pre>    ubuf->overwrite(ubuf -> receiveBuffer,UART_receive());</pre></td>
     </tr>
 
@@ -610,7 +610,7 @@
     <tr>
     <td align="right" class="lineno"><pre>45</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>480</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>520</pre></td>
     <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
@@ -624,7 +624,7 @@
     <tr>
     <td align="right" class="lineno"><pre>47</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>305</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>331</pre></td>
     <td align="left" class="src coveredLine"><pre>bool UART_buffer_receive(UART_buffer_t ubuf){</pre></td>
     </tr>
 
@@ -638,7 +638,7 @@
     <tr>
     <td align="right" class="lineno"><pre>49</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>305</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>331</pre></td>
     <td align="left" class="src coveredLine"><pre>    bool result = ubuf->push(ubuf -> receiveBuffer, UART_receive());</pre></td>
     </tr>
 
@@ -652,7 +652,7 @@
     <tr>
     <td align="right" class="lineno"><pre>51</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>305</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>331</pre></td>
     <td align="left" class="src coveredLine"><pre>    return result;</pre></td>
     </tr>
 
@@ -673,7 +673,7 @@
     <tr>
     <td align="right" class="lineno"><pre>54</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>46</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>50</pre></td>
     <td align="left" class="src coveredLine"><pre>int8_t UART_buffer_transmitFromBuffer(UART_buffer_t ubuf){</pre></td>
     </tr>
 
@@ -686,15 +686,15 @@
 
     <tr>
     <td align="right" class="lineno"><pre>56</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 22 times">&check;</span><span class="takenBranch" title="Branch 2 taken 24 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>46</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 24 times">&check;</span><span class="takenBranch" title="Branch 2 taken 26 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>50</pre></td>
     <td align="left" class="src coveredLine"><pre>    if(ubuf->read(ubuf -> transmitBuffer, &amp;data) == -1){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>57</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
     <td align="left" class="src coveredLine"><pre>            return -1;</pre></td>
     </tr>
 
@@ -708,14 +708,14 @@
     <tr>
     <td align="right" class="lineno"><pre>59</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>26</pre></td>
     <td align="left" class="src coveredLine"><pre>    UART_transmit(data);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>60</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>26</pre></td>
     <td align="left" class="src coveredLine"><pre>    return 0;</pre></td>
     </tr>
 
@@ -736,7 +736,7 @@
     <tr>
     <td align="right" class="lineno"><pre>63</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>44</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>48</pre></td>
     <td align="left" class="src coveredLine"><pre>int8_t UART_buffer_transmitMultipleFromBuffer(UART_buffer_t ubuf, uint8_t count){</pre></td>
     </tr>
 
@@ -763,8 +763,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>67</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 260 times">&check;</span><span class="takenBranch" title="Branch 1 taken 24 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>284</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 282 times">&check;</span><span class="takenBranch" title="Branch 1 taken 26 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>308</pre></td>
     <td align="left" class="src coveredLine"><pre>    for(uint8_t i = 0; i &lt; count; i++){</pre></td>
     </tr>
 
@@ -777,15 +777,15 @@
 
     <tr>
     <td align="right" class="lineno"><pre>69</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 20 times">&check;</span><span class="takenBranch" title="Branch 2 taken 240 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>260</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 22 times">&check;</span><span class="takenBranch" title="Branch 2 taken 260 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>282</pre></td>
     <td align="left" class="src coveredLine"><pre>        if(ubuf->read(ubuf -> transmitBuffer, &amp;data) == -1){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>70</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
     <td align="left" class="src coveredLine"><pre>            return -1;</pre></td>
     </tr>
 
@@ -799,7 +799,7 @@
     <tr>
     <td align="right" class="lineno"><pre>72</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>240</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>260</pre></td>
     <td align="left" class="src coveredLine"><pre>        UART_transmit(data);</pre></td>
     </tr>
 
@@ -813,7 +813,7 @@
     <tr>
     <td align="right" class="lineno"><pre>74</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>26</pre></td>
     <td align="left" class="src coveredLine"><pre>    return 0;</pre></td>
     </tr>
 

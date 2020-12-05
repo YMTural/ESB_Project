@@ -160,33 +160,13 @@ void test_timeBasedScheduler_addOnePeriodicTaskToFull(void){
 
 
 
-void test_timeBasedScheduler_markIfReady(void){
 
 
-
-    uint16_t currentTime = 100;
-
-
-
-    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15);
-
-
-
-    task task1;
-
-
-
-    timeBasedScheduler_addPeriodicTask(tBScheduler,test_timeBasedScheduler_addOneTask, 255,10,50);
-
-    timeBasedScheduler_addPeriodicTask(tBScheduler,test_timeBasedScheduler_addOneTask, 0,40,120);
-
-    timeBasedScheduler_markIfReady(tBScheduler, currentTime);
+void test_timeBasedScheduler_schedule(void){
 
 
 
 
-
-    do {if ((task1.function)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(91)));}} while(0);
 
 
 

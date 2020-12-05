@@ -1,7 +1,7 @@
 #ifndef TIMEBASEDSCHEDULER_H
 #define TIMEBASEDSCHEDULER_H
 #ifndef DEBUG
-#define DEBUG 0
+#define DEBUG 1
 #endif
 #include <stdint.h>
 #include <stdbool.h>
