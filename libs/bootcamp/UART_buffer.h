@@ -1,6 +1,7 @@
 #ifndef UART_BUFFER_H
 #define UART_BUFFER_H
 
+#include "bootcamp/debug.h"
 #include "bootcamp/UART.h"
 #include "bootcamp/circularBuffer.h"
 

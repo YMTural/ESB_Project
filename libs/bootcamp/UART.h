@@ -1,9 +1,6 @@
 #ifndef UART_H
 #define UART_H
-#ifndef DEBUG
-#define DEBUG 1
-#endif
-
+#include "bootcamp/debug.h"
 #if(DEBUG == 0)
 #include <avr/io.h>
 #endif

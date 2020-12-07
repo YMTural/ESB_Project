@@ -173,10 +173,19 @@
 		<Test id="57">
 			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_schedule</Name>
 		</Test>
+		<Test id="58">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_scheduleOnEmpty</Name>
+		</Test>
+		<Test id="59">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_scheduleNonPeriodicTask</Name>
+		</Test>
+		<Test id="60">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_markIfReady</Name>
+		</Test>
 	</SuccessfulTests>
 	<IgnoredTests/>
 	<Statistics>
-		<Tests>57</Tests>
+		<Tests>60</Tests>
 		<Ignores>0</Ignores>
 		<FailuresTotal>0</FailuresTotal>
 		<Errors>0</Errors>

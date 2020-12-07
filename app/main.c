@@ -2,9 +2,7 @@
 #include <util/delay.h>
 #include <stdbool.h>
 #include <stdint.h>
-#ifndef DEBUG
-#define DEBUG 0
-#endif
+#include "bootcamp/debug.h"
 #include "bootcamp/timeBasedScheduler.h"
 #include "bootcamp/circularBuffer.h"
 #include "bootcamp/UART_buffer.h"

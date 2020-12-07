@@ -102,8 +102,8 @@ int main(void)
   run_test(test_priorityQueueHeap_getFromNone, "test_priorityQueueHeap_getFromNone", 165);
   run_test(test_priorityQueue_peekAtNull, "test_priorityQueue_peekAtNull", 183);
   run_test(test_priorityQueue_getNextReady, "test_priorityQueue_getNextReady", 202);
-  run_test(test_priorityQueue_getNextReadyFromNull, "test_priorityQueue_getNextReadyFromNull", 233);
-  run_test(test_priorityQueue_getNextReadyFromOne, "test_priorityQueue_getNextReadyFromOne", 251);
+  run_test(test_priorityQueue_getNextReadyFromNull, "test_priorityQueue_getNextReadyFromNull", 234);
+  run_test(test_priorityQueue_getNextReadyFromOne, "test_priorityQueue_getNextReadyFromOne", 252);
 
   return UnityEnd();
 }

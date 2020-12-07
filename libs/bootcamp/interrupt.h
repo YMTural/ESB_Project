@@ -1,5 +1,6 @@
 #ifndef INTERRUPT_MOCK
 #define INTERRUPT_MOCK
+#include "bootcamp/debug.h"
 
 extern char EICRA;
 extern char EIMSK;

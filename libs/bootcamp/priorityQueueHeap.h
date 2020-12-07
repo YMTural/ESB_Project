@@ -1,7 +1,7 @@
 #ifndef PRIORITYQUEUEHEAP_H
 #define PRIORITYQUEUEHEAP_H
 #include <stdint.h>
-
+#include "bootcamp/debug.h"
 /**
  * @typedef priorityQueueHeap
  * @brief   Opaque heap structure.

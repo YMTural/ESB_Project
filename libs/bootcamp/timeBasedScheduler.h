@@ -1,8 +1,6 @@
 #ifndef TIMEBASEDSCHEDULER_H
 #define TIMEBASEDSCHEDULER_H
-#ifndef DEBUG
-#define DEBUG 1
-#endif
+#include "bootcamp/debug.h"
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -13,20 +11,6 @@
 #if(DEBUG == 1)
 #include "bootcamp/interrupt.h"
 #endif
-/**
- * @typedef timeBasedScheduler
- * @brief   Opaque time based scheduler structure.
- * 
- */
-typedef struct timeBasedScheduler timeBasedScheduler;
-
-/**
- * @typedef TimeBasedScheduler_t
- * @brief  TimeBasedScheduler abstract data type interface.
- * 
- */
-typedef timeBasedScheduler* timeBasedScheduler_t;
-
 
 /**
  * @typedef priorityQueueHeap
@@ -65,6 +49,32 @@ typedef enum
     TIMER2,
 }e_timer;
 
+#if DEBUG == 1
+typedef struct  timeBasedScheduler
+{
+    priorityQueueHeap_t queue;
+    uint16_t currentTime;
+
+} timeBasedScheduler;
+
+#endif
+
+#if DEBUG == 0
+/**
+ * @typedef timeBasedScheduler
+ * @brief   Opaque time based scheduler structure.
+ * 
+ */
+typedef struct timeBasedScheduler timeBasedScheduler;
+
+#endif
+
+/**
+ * @typedef TimeBasedScheduler_t
+ * @brief  TimeBasedScheduler abstract data type interface.
+ * 
+ */
+typedef timeBasedScheduler* timeBasedScheduler_t;
 
 
 /**

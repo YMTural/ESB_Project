@@ -42,15 +42,15 @@ void test_UART_buffer_init(void){
 
 
 
+    free(test_rBuffer);
 
+    free(test_tBuffer);
 
+    circularBuffer_free(test_cTBuffer);
 
+    circularBuffer_free(test_cRBuffer);
 
-
-
-
-
-
+    UART_buffer_free(uBuf);
 
 
 
@@ -62,19 +62,19 @@ void test_UART_buffer_receiveOne(void){
 
 
 
-    uint8_t* test_rBuffer = malloc(sizeof(uint8_t)*10);
+    volatile uint8_t* test_rBuffer = malloc(sizeof(uint8_t)*10);
 
-    uint8_t* test_tBuffer = malloc(sizeof(uint8_t)*10);
-
-
-
-    circularBuffer_t test_cRBuffer = circularBuffer_init(test_rBuffer, 10);
-
-    circularBuffer_t test_cTBuffer = circularBuffer_init(test_tBuffer, 10);
+    volatile uint8_t* test_tBuffer = malloc(sizeof(uint8_t)*10);
 
 
 
-    UART_buffer_t uBuf = UART_buffer_init(test_cRBuffer, test_cTBuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
+    volatile circularBuffer_t test_cRBuffer = circularBuffer_init(test_rBuffer, 10);
+
+    volatile circularBuffer_t test_cTBuffer = circularBuffer_init(test_tBuffer, 10);
+
+
+
+    volatile UART_buffer_t uBuf = UART_buffer_init(test_cRBuffer, test_cTBuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
 
 
 

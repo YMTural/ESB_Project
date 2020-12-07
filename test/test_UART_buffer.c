@@ -18,24 +18,24 @@ void test_UART_buffer_init(void){
     UART_buffer_t uBuf = UART_buffer_init(test_cRBuffer, test_cTBuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
 
     TEST_ASSERT_TRUE(uBuf);
-    /*
+    
     free(test_rBuffer);
     free(test_tBuffer);
     circularBuffer_free(test_cTBuffer);
     circularBuffer_free(test_cRBuffer);
-    UART_buffer_free(uBuf);*/
+    UART_buffer_free(uBuf);
 
 }
 //WTF is going on here?? 2 copies of the same function, but I cant free test_tBuffer in one of them
 void test_UART_buffer_receiveOne(void){
     
-    uint8_t* test_rBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
-    uint8_t* test_tBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
+    volatile uint8_t* test_rBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
+    volatile uint8_t* test_tBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
     
-    circularBuffer_t test_cRBuffer = circularBuffer_init(test_rBuffer, BUFFERSIZE);
-    circularBuffer_t test_cTBuffer = circularBuffer_init(test_tBuffer, BUFFERSIZE);
+    volatile circularBuffer_t test_cRBuffer = circularBuffer_init(test_rBuffer, BUFFERSIZE);
+    volatile circularBuffer_t test_cTBuffer = circularBuffer_init(test_tBuffer, BUFFERSIZE);
 
-    UART_buffer_t uBuf = UART_buffer_init(test_cRBuffer, test_cTBuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
+    volatile UART_buffer_t uBuf = UART_buffer_init(test_cRBuffer, test_cTBuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
     //Set register for receive
     UCSR0A = 128;
     UDR0 = 10;

@@ -4,6 +4,8 @@
 
 #define TASKQUEUELENGTH 15
 
+volatile uint8_t count = 0;
+
 
 void test_timeBasedScheduler_init(void){
 
@@ -75,18 +77,59 @@ void test_timeBasedScheduler_addOnePeriodicTaskToFull(void){
 
 }
 
+void help_timeBasedSchedule(){
+
+    count++;
+}
 
 void test_timeBasedScheduler_schedule(void){
 
+    uint16_t currentTime = 100;
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH);
 
 
-    
+    timeBasedScheduler_addPeriodicTask(tBScheduler,help_timeBasedSchedule, 255,10,150);
+    timeBasedScheduler_addPeriodicTask(tBScheduler,help_timeBasedSchedule, 254,10,50);
+    timeBasedScheduler_markIfReady(tBScheduler, currentTime);
+    timeBasedScheduler_schedule(tBScheduler,&currentTime);
+    TEST_ASSERT_EQUAL_UINT8(1,count);
+    TEST_ASSERT_EQUAL_UINT8(110,priorityQueueHeap_peekAt(tBScheduler->queue,1)->startTime);
+    count = 0;
+}
+void test_timeBasedScheduler_scheduleOnEmpty(void){
+
+    uint16_t currentTime = 100;
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH);
+
+
+
+    timeBasedScheduler_schedule(tBScheduler,&currentTime);
+    TEST_ASSERT_EQUAL_UINT8(NULL, priorityQueueHeap_peekAt(tBScheduler->queue,0));
+}
+
+
+void test_timeBasedScheduler_scheduleNonPeriodicTask(void){
+
+    uint16_t currentTime = 100;
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH);
+
+
+    timeBasedScheduler_addPeriodicTask(tBScheduler,help_timeBasedSchedule, 255,10,150);
+    timeBasedScheduler_addTask(tBScheduler,help_timeBasedSchedule, 254);
+    timeBasedScheduler_markIfReady(tBScheduler, currentTime);
+    timeBasedScheduler_schedule(tBScheduler,&currentTime);
+    TEST_ASSERT_EQUAL_UINT8(1,count);
+    TEST_ASSERT_EQUAL_UINT8(NULL,priorityQueueHeap_peekAt(tBScheduler->queue,1));
+    count = 0;
 }
 
 
 
 
-/*
+
 void test_timeBasedScheduler_markIfReady(void){
 
     uint16_t currentTime = 100;
@@ -99,8 +142,8 @@ void test_timeBasedScheduler_markIfReady(void){
     timeBasedScheduler_addPeriodicTask(tBScheduler,test_timeBasedScheduler_addOneTask, 0,40,120);
     timeBasedScheduler_markIfReady(tBScheduler, currentTime);
 
-    //task1 = *priorityQueueHeap_getNextReady(tBScheduler);
-    TEST_ASSERT_TRUE(task1.function);
+    task1 = *priorityQueueHeap_getNextReady(tBScheduler->queue);
+    TEST_ASSERT_EQUAL_UINT8(&test_timeBasedScheduler_addOneTask,task1.function);
 
 
-}*/
+}

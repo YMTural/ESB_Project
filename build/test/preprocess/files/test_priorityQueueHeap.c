@@ -496,6 +496,8 @@ void test_priorityQueue_getNextReady(void){
 
 
 
+
+
 void test_priorityQueue_getNextReadyFromNull(void){
 
 
@@ -524,7 +526,7 @@ void test_priorityQueue_getNextReadyFromNull(void){
 
     priorityQueueHeap_t queue = priorityQueueHeap_init(32);
 
-    do {if (!(priorityQueueHeap_getNextReady(queue))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(245)));}} while(0);
+    do {if (!(priorityQueueHeap_getNextReady(queue))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(246)));}} while(0);
 
 
 
@@ -568,7 +570,7 @@ void test_priorityQueue_getNextReadyFromOne(void){
 
     priorityQueueHeap_add(queue,task1);
 
-    do {if ((priorityQueueHeap_getNextReady(queue))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(265)));}} while(0);
+    do {if ((priorityQueueHeap_getNextReady(queue))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(266)));}} while(0);
 
 
 

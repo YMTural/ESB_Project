@@ -1,7 +1,7 @@
 #ifndef TASK
 #define TASK
 #include <stdint.h>
-
+#include "bootcamp/debug.h"
 /**
  * @typedef task
  * @brief   A task structure

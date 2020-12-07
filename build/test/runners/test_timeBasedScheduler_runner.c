@@ -16,6 +16,9 @@ extern void test_timeBasedScheduler_addMoreThanMaxSizeTasks(void);
 extern void test_timeBasedScheduler_addOnePeriodicTask(void);
 extern void test_timeBasedScheduler_addOnePeriodicTaskToFull(void);
 extern void test_timeBasedScheduler_schedule(void);
+extern void test_timeBasedScheduler_scheduleOnEmpty(void);
+extern void test_timeBasedScheduler_scheduleNonPeriodicTask(void);
+extern void test_timeBasedScheduler_markIfReady(void);
 
 
 /*=======Mock Management=====*/
@@ -88,12 +91,15 @@ static void run_test(UnityTestFunction func, const char* name, int line_num)
 int main(void)
 {
   UnityBegin("test_timeBasedScheduler.c");
-  run_test(test_timeBasedScheduler_init, "test_timeBasedScheduler_init", 8);
-  run_test(test_timeBasedScheduler_addOneTask, "test_timeBasedScheduler_addOneTask", 20);
-  run_test(test_timeBasedScheduler_addMoreThanMaxSizeTasks, "test_timeBasedScheduler_addMoreThanMaxSizeTasks", 28);
-  run_test(test_timeBasedScheduler_addOnePeriodicTask, "test_timeBasedScheduler_addOnePeriodicTask", 41);
-  run_test(test_timeBasedScheduler_addOnePeriodicTaskToFull, "test_timeBasedScheduler_addOnePeriodicTaskToFull", 57);
-  run_test(test_timeBasedScheduler_schedule, "test_timeBasedScheduler_schedule", 79);
+  run_test(test_timeBasedScheduler_init, "test_timeBasedScheduler_init", 10);
+  run_test(test_timeBasedScheduler_addOneTask, "test_timeBasedScheduler_addOneTask", 22);
+  run_test(test_timeBasedScheduler_addMoreThanMaxSizeTasks, "test_timeBasedScheduler_addMoreThanMaxSizeTasks", 30);
+  run_test(test_timeBasedScheduler_addOnePeriodicTask, "test_timeBasedScheduler_addOnePeriodicTask", 43);
+  run_test(test_timeBasedScheduler_addOnePeriodicTaskToFull, "test_timeBasedScheduler_addOnePeriodicTaskToFull", 59);
+  run_test(test_timeBasedScheduler_schedule, "test_timeBasedScheduler_schedule", 85);
+  run_test(test_timeBasedScheduler_scheduleOnEmpty, "test_timeBasedScheduler_scheduleOnEmpty", 100);
+  run_test(test_timeBasedScheduler_scheduleNonPeriodicTask, "test_timeBasedScheduler_scheduleNonPeriodicTask", 113);
+  run_test(test_timeBasedScheduler_markIfReady, "test_timeBasedScheduler_markIfReady", 133);
 
   return UnityEnd();
 }

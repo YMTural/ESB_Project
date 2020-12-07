@@ -1,6 +1,6 @@
 #ifndef IO
 #define IO
-
+#include "bootcamp/debug.h"
 
 
 extern char UBRR0H;

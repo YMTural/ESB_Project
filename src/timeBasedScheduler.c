@@ -1,6 +1,15 @@
 #include "bootcamp/timeBasedScheduler.h"
 #include <stdio.h>
 
+#if DEBUG == 0
+struct  timeBasedScheduler
+{
+    priorityQueueHeap_t queue;
+    uint16_t currentTime;
+};
+
+#endif
+
 
 
 struct priorityQueueHeap
@@ -11,11 +20,6 @@ struct priorityQueueHeap
     
 };
 
-struct  timeBasedScheduler
-{
-    priorityQueueHeap_t queue;
-    uint16_t currentTime;
-};
 
 priorityQueueHeap_t priorityQueueHeap_init(uint8_t maxSize){
 

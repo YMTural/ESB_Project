@@ -10,6 +10,10 @@
 
 
 
+volatile uint8_t count = 0;
+
+
+
 
 
 void test_timeBasedScheduler_init(void){
@@ -18,7 +22,7 @@ void test_timeBasedScheduler_init(void){
 
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15);
 
-    do {if ((tBScheduler)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(11)));}} while(0);
+    do {if ((tBScheduler)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(13)));}} while(0);
 
 
 
@@ -44,7 +48,7 @@ void test_timeBasedScheduler_addOneTask(void){
 
 
 
-    do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 1))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(24)));}} while(0);
+    do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 1))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(26)));}} while(0);
 
 
 
@@ -62,13 +66,13 @@ void test_timeBasedScheduler_addMoreThanMaxSizeTasks(void){
 
     {
 
-        do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, i))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(33)));}} while(0);
+        do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, i))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(35)));}} while(0);
 
     }
 
 
 
-    do {if (!(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 20))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(36)));}} while(0);
+    do {if (!(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 20))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(38)));}} while(0);
 
 }
 
@@ -108,7 +112,7 @@ void test_timeBasedScheduler_addOnePeriodicTask(void){
 
 
 
-    do {if ((timeBasedScheduler_addPeriodicTask(tBScheduler, test_timeBasedScheduler_addOneTask, 255,10,23))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(54)));}} while(0);
+    do {if ((timeBasedScheduler_addPeriodicTask(tBScheduler, test_timeBasedScheduler_addOneTask, 255,10,23))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(56)));}} while(0);
 
 
 
@@ -152,7 +156,7 @@ void test_timeBasedScheduler_addOnePeriodicTaskToFull(void){
 
     }
 
-    do {if (!(timeBasedScheduler_addPeriodicTask(tBScheduler, test_timeBasedScheduler_addOneTask, 255,10,23))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(74)));}} while(0);
+    do {if (!(timeBasedScheduler_addPeriodicTask(tBScheduler, test_timeBasedScheduler_addOneTask, 255,10,23))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(76)));}} while(0);
 
 
 
@@ -160,13 +164,171 @@ void test_timeBasedScheduler_addOnePeriodicTaskToFull(void){
 
 
 
+void help_timeBasedSchedule(){
+
+
+
+    count++;
+
+}
+
 
 
 void test_timeBasedScheduler_schedule(void){
 
 
 
+    uint16_t currentTime = 100;
 
+
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15);
+
+
+
+
+
+    timeBasedScheduler_addPeriodicTask(tBScheduler,help_timeBasedSchedule, 255,10,150);
+
+    timeBasedScheduler_addPeriodicTask(tBScheduler,help_timeBasedSchedule, 254,10,50);
+
+    timeBasedScheduler_markIfReady(tBScheduler, currentTime);
+
+    timeBasedScheduler_schedule(tBScheduler,&currentTime);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((1)), (UNITY_INT)(UNITY_UINT8 )((count)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(96), UNITY_DISPLAY_STYLE_UINT8);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((110)), (UNITY_INT)(UNITY_UINT8 )((priorityQueueHeap_peekAt(tBScheduler->queue,1)->startTime)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(97), UNITY_DISPLAY_STYLE_UINT8);
+
+    count = 0;
+
+}
+
+void test_timeBasedScheduler_scheduleOnEmpty(void){
+
+
+
+    uint16_t currentTime = 100;
+
+
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15);
+
+
+
+
+
+
+
+    timeBasedScheduler_schedule(tBScheduler,&currentTime);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((
+
+   ((void *)0)
+
+   )), (UNITY_INT)(UNITY_UINT8 )((priorityQueueHeap_peekAt(tBScheduler->queue,0))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(109), UNITY_DISPLAY_STYLE_UINT8);
+
+}
+
+
+
+
+
+void test_timeBasedScheduler_scheduleNonPeriodicTask(void){
+
+
+
+    uint16_t currentTime = 100;
+
+
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15);
+
+
+
+
+
+    timeBasedScheduler_addPeriodicTask(tBScheduler,help_timeBasedSchedule, 255,10,150);
+
+    timeBasedScheduler_addTask(tBScheduler,help_timeBasedSchedule, 254);
+
+    timeBasedScheduler_markIfReady(tBScheduler, currentTime);
+
+    timeBasedScheduler_schedule(tBScheduler,&currentTime);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((1)), (UNITY_INT)(UNITY_UINT8 )((count)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(124), UNITY_DISPLAY_STYLE_UINT8);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((
+
+   ((void *)0)
+
+   )), (UNITY_INT)(UNITY_UINT8 )((priorityQueueHeap_peekAt(tBScheduler->queue,1))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(125), UNITY_DISPLAY_STYLE_UINT8);
+
+    count = 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+void test_timeBasedScheduler_markIfReady(void){
+
+
+
+    uint16_t currentTime = 100;
+
+
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15);
+
+
+
+    task task1;
+
+
+
+    timeBasedScheduler_addPeriodicTask(tBScheduler,test_timeBasedScheduler_addOneTask, 255,10,50);
+
+    timeBasedScheduler_addPeriodicTask(tBScheduler,test_timeBasedScheduler_addOneTask, 0,40,120);
+
+    timeBasedScheduler_markIfReady(tBScheduler, currentTime);
+
+
+
+    task1 = *priorityQueueHeap_getNextReady(tBScheduler->queue);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((&test_timeBasedScheduler_addOneTask)), (UNITY_INT)(UNITY_UINT8 )((task1.function)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(146), UNITY_DISPLAY_STYLE_UINT8);
 
 
 
