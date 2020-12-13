@@ -36,15 +36,23 @@
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueue_getNextReady
-  :line: 200
+  :line: 202
+  :message: ''
+  :unity_test_time: 0
+- :test: test_priorityQueue_getNextReadyFromNull
+  :line: 234
+  :message: ''
+  :unity_test_time: 0
+- :test: test_priorityQueue_getNextReadyFromOne
+  :line: 252
   :message: ''
   :unity_test_time: 0
 :failures: []
 :ignores: []
 :counts:
-  :total: 9
-  :passed: 9
+  :total: 11
+  :passed: 11
   :failed: 0
   :ignored: 0
 :stdout: []
-:time: 0.0018861780008592177
+:time: 0.001949627000158216

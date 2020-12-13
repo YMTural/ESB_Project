@@ -18,3 +18,6 @@ char UDRE0 = 5;
 char UDR0 = 0;
 char TXC0 = 6;
 char RXC0 = 7;
+char TXCIE0 = 6;
+char RXCIE0 = 7;
+char UDRIE0 = 5;

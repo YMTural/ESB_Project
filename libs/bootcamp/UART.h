@@ -3,9 +3,11 @@
 #include "bootcamp/debug.h"
 #if(DEBUG == 0)
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #endif
 #if(DEBUG == 1)
 #include "bootcamp/io.h"
+#include "bootcamp/interrupt.h"
 #endif
 #include <stdlib.h>
 #include <stdint.h>
@@ -56,4 +58,17 @@ uint8_t UART_receive(void);
 void UART_flush(void);
 
 
+void UART_enableTransmitInterrupt(void);
+
+void UART_disableTransmitInterrupt(void);
+
+void UART_enableReceiveInterrupt(void);
+
+void UART_disableReceiveInterrupt(void);
+
+void UART_enableTransmitCompleteInterrupt(void);
+
+void UART_disableTransmitCompleteInterrupt(void);
+
+void UART_overwriteRegister(uint8_t data);
 #endif

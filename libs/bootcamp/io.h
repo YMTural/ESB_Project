@@ -16,5 +16,7 @@ extern char UDR0;
 extern char RXC0;
 extern char DDRB;
 extern char PORTB;
-
+extern char TXCIE0;
+extern char RXCIE0;
+extern char UDRIE0;
 #endif

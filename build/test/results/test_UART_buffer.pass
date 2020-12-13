@@ -16,27 +16,27 @@
   :message: ''
   :unity_test_time: 0
 - :test: test_UART_buffer_receiveMultiple
-  :line: 86
+  :line: 85
   :message: ''
   :unity_test_time: 0
 - :test: test_UART_buffer_overwrite
-  :line: 128
+  :line: 127
   :message: ''
   :unity_test_time: 0
 - :test: test_UART_buffer_transmitOne
-  :line: 164
+  :line: 163
   :message: ''
   :unity_test_time: 0
 - :test: test_UART_buffer_transmitMultiple
-  :line: 191
+  :line: 189
   :message: ''
   :unity_test_time: 0
 - :test: test_UART_buffer_transmitFromEmpty
-  :line: 218
+  :line: 216
   :message: ''
   :unity_test_time: 0
 - :test: test_UART_buffer_transmitMultipleFromEmpty
-  :line: 242
+  :line: 240
   :message: ''
   :unity_test_time: 0
 :failures: []
@@ -47,4 +47,4 @@
   :failed: 0
   :ignored: 0
 :stdout: []
-:time: 0.001752176001900807
+:time: 0.0020014339997942443

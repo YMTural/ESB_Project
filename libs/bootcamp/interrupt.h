@@ -14,10 +14,11 @@ extern char TCCR0B;
 extern char CS01;
 extern char CS00;
 
+
 void sei(void);
 
 
-
+void cli(void);
 
 
 #endif

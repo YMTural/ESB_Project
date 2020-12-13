@@ -150,18 +150,42 @@
 			<Name>test/test_priorityQueueHeap.c::test_priorityQueue_getNextReady</Name>
 		</Test>
 		<Test id="50">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_init</Name>
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueue_getNextReadyFromNull</Name>
 		</Test>
 		<Test id="51">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOneTask</Name>
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueue_getNextReadyFromOne</Name>
 		</Test>
 		<Test id="52">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_init</Name>
+		</Test>
+		<Test id="53">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOneTask</Name>
+		</Test>
+		<Test id="54">
 			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addMoreThanMaxSizeTasks</Name>
+		</Test>
+		<Test id="55">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOnePeriodicTask</Name>
+		</Test>
+		<Test id="56">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOnePeriodicTaskToFull</Name>
+		</Test>
+		<Test id="57">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_schedule</Name>
+		</Test>
+		<Test id="58">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_scheduleOnEmpty</Name>
+		</Test>
+		<Test id="59">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_scheduleNonPeriodicTask</Name>
+		</Test>
+		<Test id="60">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_markIfReady</Name>
 		</Test>
 	</SuccessfulTests>
 	<IgnoredTests/>
 	<Statistics>
-		<Tests>52</Tests>
+		<Tests>60</Tests>
 		<Ignores>0</Ignores>
 		<FailuresTotal>0</FailuresTotal>
 		<Errors>0</Errors>

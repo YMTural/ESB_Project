@@ -24,4 +24,14 @@ typedef struct task {
     uint16_t startTime;
 }task;
 
+/**
+ * @typedef e_periodicity
+ * @brief Enumeration for periodicity of a task
+ * 
+ */
+typedef enum
+{
+    PERIODIC,
+    NONPERIODIC,
+}e_periodicity;
 #endif

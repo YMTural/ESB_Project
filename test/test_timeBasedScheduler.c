@@ -1,6 +1,8 @@
 #include "bootcamp/timeBasedScheduler.h"
+#include "bootcamp/priorityQueueHeap.h"
 #include "bootcamp/interrupt.h"
 #include <unity.h>
+#include "bootcamp/arduinoArch.h"
 
 #define TASKQUEUELENGTH 15
 
@@ -23,7 +25,7 @@ void test_timeBasedScheduler_addOneTask(void){
 
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH);
 
-    TEST_ASSERT_TRUE(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 1));
+    TEST_ASSERT_TRUE(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 1,0));
 
 }
 
@@ -32,10 +34,10 @@ void test_timeBasedScheduler_addMoreThanMaxSizeTasks(void){
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH);
     for (int i = 0; i < TASKQUEUELENGTH; i++)
     {
-        TEST_ASSERT_TRUE(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, i));
+        TEST_ASSERT_TRUE(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, i,0));
     }
     
-    TEST_ASSERT_FALSE(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 20));
+    TEST_ASSERT_FALSE(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 20, 0));
 }
 
 
@@ -118,7 +120,7 @@ void test_timeBasedScheduler_scheduleNonPeriodicTask(void){
 
 
     timeBasedScheduler_addPeriodicTask(tBScheduler,help_timeBasedSchedule, 255,10,150);
-    timeBasedScheduler_addTask(tBScheduler,help_timeBasedSchedule, 254);
+    timeBasedScheduler_addTask(tBScheduler,help_timeBasedSchedule, 254,0);
     timeBasedScheduler_markIfReady(tBScheduler, currentTime);
     timeBasedScheduler_schedule(tBScheduler,&currentTime);
     TEST_ASSERT_EQUAL_UINT8(1,count);

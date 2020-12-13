@@ -1,7 +1,13 @@
 #include "build/temp/_test_timeBasedScheduler.c"
+#include "libs/bootcamp/arduinoArch.h"
 #include "/var/lib/gems/2.5.0/gems/ceedling-0.30.0/vendor/unity/src/unity.h"
 #include "libs/bootcamp/interrupt.h"
+#include "libs/bootcamp/priorityQueueHeap.h"
 #include "libs/bootcamp/timeBasedScheduler.h"
+
+
+
+
 
 
 
@@ -22,7 +28,7 @@ void test_timeBasedScheduler_init(void){
 
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15);
 
-    do {if ((tBScheduler)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(13)));}} while(0);
+    do {if ((tBScheduler)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(15)));}} while(0);
 
 
 
@@ -48,7 +54,7 @@ void test_timeBasedScheduler_addOneTask(void){
 
 
 
-    do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 1))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(26)));}} while(0);
+    do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 1))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(28)));}} while(0);
 
 
 
@@ -66,13 +72,13 @@ void test_timeBasedScheduler_addMoreThanMaxSizeTasks(void){
 
     {
 
-        do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, i))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(35)));}} while(0);
+        do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, i))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(37)));}} while(0);
 
     }
 
 
 
-    do {if (!(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 20))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(38)));}} while(0);
+    do {if (!(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 20))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(40)));}} while(0);
 
 }
 
@@ -112,7 +118,7 @@ void test_timeBasedScheduler_addOnePeriodicTask(void){
 
 
 
-    do {if ((timeBasedScheduler_addPeriodicTask(tBScheduler, test_timeBasedScheduler_addOneTask, 255,10,23))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(56)));}} while(0);
+    do {if ((timeBasedScheduler_addPeriodicTask(tBScheduler, test_timeBasedScheduler_addOneTask, 255,10,23))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(58)));}} while(0);
 
 
 
@@ -156,7 +162,7 @@ void test_timeBasedScheduler_addOnePeriodicTaskToFull(void){
 
     }
 
-    do {if (!(timeBasedScheduler_addPeriodicTask(tBScheduler, test_timeBasedScheduler_addOneTask, 255,10,23))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(76)));}} while(0);
+    do {if (!(timeBasedScheduler_addPeriodicTask(tBScheduler, test_timeBasedScheduler_addOneTask, 255,10,23))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(78)));}} while(0);
 
 
 
@@ -200,13 +206,13 @@ void test_timeBasedScheduler_schedule(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(96), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(98), UNITY_DISPLAY_STYLE_UINT8);
 
     UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((110)), (UNITY_INT)(UNITY_UINT8 )((priorityQueueHeap_peekAt(tBScheduler->queue,1)->startTime)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(97), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(99), UNITY_DISPLAY_STYLE_UINT8);
 
     count = 0;
 
@@ -238,7 +244,7 @@ void test_timeBasedScheduler_scheduleOnEmpty(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(109), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(111), UNITY_DISPLAY_STYLE_UINT8);
 
 }
 
@@ -272,7 +278,7 @@ void test_timeBasedScheduler_scheduleNonPeriodicTask(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(124), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(126), UNITY_DISPLAY_STYLE_UINT8);
 
     UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((
 
@@ -282,7 +288,7 @@ void test_timeBasedScheduler_scheduleNonPeriodicTask(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(125), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(127), UNITY_DISPLAY_STYLE_UINT8);
 
     count = 0;
 
@@ -328,7 +334,7 @@ void test_timeBasedScheduler_markIfReady(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(146), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(148), UNITY_DISPLAY_STYLE_UINT8);
 
 
 

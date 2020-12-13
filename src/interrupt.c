@@ -12,7 +12,13 @@ char TCCR0B = 0;
 char CS01 = 0;
 char CS00 = 0;
 
+
+
 void sei(void){
+
+    //no-op
+}
+void cli(void){
 
     //no-op
 }
