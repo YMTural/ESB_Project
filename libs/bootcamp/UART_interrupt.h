@@ -18,14 +18,14 @@
 #define BAUD 9600
 #define MYUBRR (FOSC/16/BAUD-1)
 
-volatile uint8_t UART_interrupt_tCounter;
-volatile uint8_t UART_interrupt_rCounter;
+extern volatile uint8_t UART_interrupt_tCounter;
+extern volatile uint8_t UART_interrupt_rCounter;
 
-volatile uint8_t UART_interrupt_data;
+extern volatile uint8_t UART_interrupt_data;
 
-volatile uint8_t* UART_interrupt_receiveBuffer;   
+extern volatile uint8_t* UART_interrupt_receiveBuffer;   
 
-volatile uint8_t* UART_interrupt_transmitBuffer;
+extern volatile uint8_t* UART_interrupt_transmitBuffer;
 /**
  * @brief   A data transmission is initiated by
  *          loading the transmit register with data from the buffer
@@ -35,7 +35,7 @@ volatile uint8_t* UART_interrupt_transmitBuffer;
  *  8 bit data which is to be transmitted
  */
 
-void UART_interrupt_transmitFromBuffer(circularBuffer_t transmitBuffer, uint8_t count);
+void UART_interrupt_transmitFromBuffer(uint8_t count);
 
 /**
  *          The receiver starts data reception when
@@ -43,7 +43,7 @@ void UART_interrupt_transmitFromBuffer(circularBuffer_t transmitBuffer, uint8_t 
  *          the first stop bit of a frame is received.
  *          The data will be shifted into the register and returned
 */
-uint8_t UART_interrupt_receiveToBuffer(circularBuffer_t transmitBuffer, uint8_t count);
+uint8_t UART_interrupt_receiveToBuffer(uint8_t count);
 
 void UART_interrupt_init(uint8_t* receiveBuffer, uint8_t* transmitBuffer);
 

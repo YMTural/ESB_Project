@@ -56,32 +56,32 @@ void UART_flush(void){
 
 void UART_enableTransmitInterrupt(void){
 
-    UCSR0B ^= (1 << UDRIE0);
+    UCSR0B = UCSR0B | (1 << UDRIE0);
 }
 
 void UART_disableTransmitInterrupt(void){
 
-    UCSR0B ^= (1 << UDRIE0);
+    UCSR0B &=  ~(1 << UDRIE0);
 }
 
 void UART_enableTransmitCompleteInterrupt(void){
 
-    UCSR0B ^= (1 << TXCIE0);
+    UCSR0B = UCSR0B | (1 << TXCIE0);
 }
 
 void UART_disableTransmitCompleteInterrupt(void){
 
-    UCSR0B ^= (1 << TXCIE0);
+    UCSR0B &= ~(1 << TXCIE0);
 }
 
 
 void UART_enableReceiveInterrupt(void){
 
-    UCSR0B ^= (1 << RXCIE0);
+    UCSR0B = UCSR0B | (1 << RXCIE0);
 
 }
 
 void UART_disableReceiveInterrupt(void){
 
-    UCSR0B ^= (1 << RXCIE0);
+    UCSR0B &= ~(1 << RXCIE0);
 }

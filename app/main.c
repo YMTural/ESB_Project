@@ -11,7 +11,7 @@
 #include "bootcamp/UART_interrupt.h"
 #include "bootcamp/adc_temperature.h"
 
-volatile uint8_t bufferSize = 4;
+volatile uint8_t bufferSize = 25;
 volatile uint16_t currentTime = 0;
 volatile uint8_t numberOfTransmits = 0;
 
@@ -62,9 +62,8 @@ int main(void)
   
   uBuf = UART_buffer_init(cRbuf, cTbuf, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
 
-  //UART_interrupt_transmitBuffer = cTbuf;
-  //UART_interrupt_receiveBuffer = cRbuf;
-  //tBScheduler = timeBasedScheduler_init(16);
+  tBScheduler = timeBasedScheduler_init(16);
+
   DDRB = _BV(5);
 
   //timeBasedScheduler_addPeriodicTask(tBScheduler, &test_blink, 255,500,currentTime);
@@ -72,26 +71,28 @@ int main(void)
   //timeBasedScheduler_addTask(tBScheduler, test_starv,0,1000);
   //_delay_ms(2000);
   sei();
-  //circularBuffer_push(cTbuf, 10);
-  //circularBuffer_push(cTbuf, 5);
-  //circularBuffer_push(cTbuf, 8);
-
-  //UART_interrupt_tCounter = 3;
-  //UART_interrupt_rCounter = 5;
-
-  //UART_enableTransmitCompleteInterrupt();
-  //UART_enableTransmitInterrupt();
-  //UART_enableReceiveInterrupt();
 
   adc_temperature_init();
+
+  UART_interrupt_init(cRbuf,cTbuf);
+
+     for (size_t i = 0; i < bufferSize; i++)
+  {
+    circularBuffer_push(UART_interrupt_transmitBuffer,i);
+  }
+
+ 
+
   while (true)
   {
-    
+ 
+
     //timeBasedScheduler_schedule(tBScheduler, &currentTime);
-    //UART_transmit(255);
     PORTB ^= _BV(5);
     _delay_ms(1000);
-    adc_temperature_getTemp();
+    //adc_temperature_getTemp();
+
+
   }
    
 

@@ -18,10 +18,11 @@ void adc_temperature_getTemp(void){
 
 ISR(ADC_vect){
 
+    cli();
     uint16_t wADC = ADCW;
-
+    //Temperature calculation according to https://playground.arduino.cc/Main/InternalTemperatureSensor/ :temperature = (ADCW - 324.31) / 1.22
     uint32_t t = 4*(wADC - 324) / 5;
 
     UART_transmit(t);
-
+    sei();
 }
