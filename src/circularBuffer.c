@@ -47,9 +47,10 @@ void circularBuffer_reset(circularBuffer_t cbuf){
         *(cbuf->startAddress + i) = 0;
     }
 }
-
-void circularBuffer_overwrite(circularBuffer_t cbuf, uint8_t data){
-   
+//Void pointer for dependency injection
+void circularBuffer_overwrite(void* v_cbuf, uint8_t data){
+    
+    circularBuffer_t cbuf = v_cbuf;
     if(circularBuffer_push(cbuf, data) == -1){
 
         *(cbuf->startIndex) = data;
@@ -58,8 +59,8 @@ void circularBuffer_overwrite(circularBuffer_t cbuf, uint8_t data){
 
 }
 
-int8_t circularBuffer_push(circularBuffer_t cbuf, uint8_t data){
-
+int8_t circularBuffer_push(void* v_cbuf, uint8_t data){
+    circularBuffer_t cbuf = v_cbuf;
     if(!cbuf->full){
 
         *(cbuf->endIndex) = data;
@@ -71,8 +72,8 @@ int8_t circularBuffer_push(circularBuffer_t cbuf, uint8_t data){
     return -1;
 }
 
-int8_t circularBuffer_read(circularBuffer_t cbuf, uint8_t* data){
-
+int8_t circularBuffer_read(void* v_cbuf, uint8_t* data){
+    circularBuffer_t cbuf = v_cbuf;
     if(!circularBuffer_empty(cbuf)){
         *data = *(cbuf->startIndex);
         //newEndpos = currentPos + 1 mod cap

@@ -7,22 +7,22 @@ struct UART_buffer {
     uint8_t* transmitBuffer;
     
     //function pointer
-    void (*overwrite)(uint8_t* cbuf, uint8_t data);
-    bool (*push)(uint8_t* cbuf, uint8_t data);
-    int8_t (*read)(uint8_t* cbuf, uint8_t* data);
+    void (*overwrite)(void* cbuf, uint8_t data);
+    int8_t (*push)(void* cbuf, uint8_t data);
+    int8_t (*read)(void* cbuf, uint8_t* data);
 
 };
 
-UART_buffer_t UART_buffer_init(uint8_t* receiveBuffer, uint8_t* transmitBuffer,
-    void(*circularBuffer_overwrite)(uint8_t* cbuf, uint8_t data), bool (*circularBuffer_push)(uint8_t* cbuf, uint8_t data),
-    int8_t(*circularBuffer_read)(uint8_t* cbuf, uint8_t* data)){
+UART_buffer_t UART_buffer_init(void* receiveBuffer, void* transmitBuffer,
+    void(*circularBuffer_overwrite)(void* cbuf, uint8_t data), int8_t (*circularBuffer_push)(void* cbuf, uint8_t data),
+    int8_t(*circularBuffer_read)(void* cbuf, uint8_t* data)){
 
         UART_init(MYUBRR);
 
         UART_buffer_t u_buf = malloc(sizeof(UART_buffer_t));
 
-        u_buf -> receiveBuffer = receiveBuffer;
-        u_buf -> transmitBuffer = transmitBuffer;
+        u_buf -> receiveBuffer = (uint8_t*) receiveBuffer;
+        u_buf -> transmitBuffer = (uint8_t*) transmitBuffer;
 
         u_buf -> overwrite = circularBuffer_overwrite;
         //Push data on receive Buffer
@@ -44,9 +44,9 @@ void UART_buffer_overwriteReceive(UART_buffer_t ubuf){
 
 }
 
-bool UART_buffer_receive(UART_buffer_t ubuf){
+int8_t UART_buffer_receive(UART_buffer_t ubuf){
     
-    bool result = ubuf->push(ubuf -> receiveBuffer, UART_receive());
+    int8_t result = ubuf->push(ubuf -> receiveBuffer, UART_receive());
 
     return result;
 }

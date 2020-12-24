@@ -1,0 +1,6 @@
+//ToDo-List
+-Fix Warnings (incompatible pointers)
+-Write more test for Timebased schedule and priorityQueue
+-Change uart_interrupt implementation
+-Adjust temperature calculation to be more like the datasheet
+-Refactor code

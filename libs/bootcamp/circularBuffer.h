@@ -69,7 +69,7 @@ void circularBuffer_reset(circularBuffer_t cbuf);
  * @param   data
  *  Data item to add
  */
-void circularBuffer_overwrite(circularBuffer_t cbuf, uint8_t data);
+void circularBuffer_overwrite(void* v_cbuf, uint8_t data);
 
 /**
  * @brief   Adds data to a circular buffer and will reject new data if the buffer is full.
@@ -81,7 +81,7 @@ void circularBuffer_overwrite(circularBuffer_t cbuf, uint8_t data);
  * @returns
  *  0 on success, -1 if buffer is full
  */
-int8_t circularBuffer_push(circularBuffer_t cbuf, uint8_t data);
+int8_t circularBuffer_push(void*  v_cbuf, uint8_t data);
 
 /**
  * @brief   Read a value from the buffer.
@@ -93,7 +93,7 @@ int8_t circularBuffer_push(circularBuffer_t cbuf, uint8_t data);
  * @returns
  *  0 on success, -1 if buffer is empty
  */
-int8_t circularBuffer_read(circularBuffer_t cbuf, uint8_t* data);
+int8_t circularBuffer_read(void* v_cbuf, uint8_t* data);
 
 /**
  * @brief   Checks whether the buffer is empty.

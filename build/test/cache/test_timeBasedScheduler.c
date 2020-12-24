@@ -54,7 +54,7 @@ void test_timeBasedScheduler_addOneTask(void){
 
 
 
-    do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 1))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(28)));}} while(0);
+    do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 1,0))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(28)));}} while(0);
 
 
 
@@ -72,13 +72,13 @@ void test_timeBasedScheduler_addMoreThanMaxSizeTasks(void){
 
     {
 
-        do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, i))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(37)));}} while(0);
+        do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, i,0))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(37)));}} while(0);
 
     }
 
 
 
-    do {if (!(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 20))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(40)));}} while(0);
+    do {if (!(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 20, 0))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(40)));}} while(0);
 
 }
 
@@ -268,7 +268,7 @@ void test_timeBasedScheduler_scheduleNonPeriodicTask(void){
 
     timeBasedScheduler_addPeriodicTask(tBScheduler,help_timeBasedSchedule, 255,10,150);
 
-    timeBasedScheduler_addTask(tBScheduler,help_timeBasedSchedule, 254);
+    timeBasedScheduler_addTask(tBScheduler,help_timeBasedSchedule, 254,0);
 
     timeBasedScheduler_markIfReady(tBScheduler, currentTime);
 

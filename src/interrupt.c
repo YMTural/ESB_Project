@@ -11,9 +11,19 @@ char OCIE0A = 0;
 char TCCR0B = 0;
 char CS01 = 0;
 char CS00 = 0;
-
-
-
+//temperature reading
+char ADCW = 0;
+char ADMUX = 0;
+char REFS1 = 0;
+char REFS0 = 0;
+char MUX3 = 0;
+char ADEN = 0;
+char ADIE = 0;
+char ADPS2 = 0;
+char ADPS1 = 0;
+char ADPS0 = 0;
+char ADCSRA = 0;
+char ADSC = 0;
 void sei(void){
 
     //no-op

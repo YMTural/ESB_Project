@@ -50,10 +50,10 @@ typedef UART_buffer* UART_buffer_t;
  * @returns
  *  A UART buffer handle
  */
-UART_buffer_t UART_buffer_init(uint8_t* receiveBuffer, uint8_t* transmitBuffer,
-                             void (*circularBuffer_overwrite)(uint8_t* cbuf, uint8_t data), 
-                             bool (*circularBuffer_push)(uint8_t* cbuf, uint8_t data),
-                             int8_t (*circularBuffer_read)(uint8_t* cbuf, uint8_t* data));
+UART_buffer_t UART_buffer_init(void* receiveBuffer, void* transmitBuffer,
+                             void (*circularBuffer_overwrite)(void* cbuf, uint8_t data), 
+                             int8_t (*circularBuffer_push)(void* cbuf, uint8_t data),
+                             int8_t (*circularBuffer_read)(void* cbuf, uint8_t* data));
 
 
 /**
@@ -73,7 +73,7 @@ void UART_buffer_overwriteReceive(UART_buffer_t ubuf);
  *          The data will be shifted from the register
  *          into the buffer. 0 on success, -1 if failed           
  */
-bool UART_buffer_receive(UART_buffer_t ubuf);
+int8_t UART_buffer_receive(UART_buffer_t ubuf);
 
 /**
  * @brief   A data transmission is initiated by
