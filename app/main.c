@@ -10,6 +10,7 @@
 #include "bootcamp/arduinoArch.h"
 #include "bootcamp/UART_interrupt.h"
 #include "bootcamp/adc_temperature.h"
+#include "bootcamp/priorityQueueHeap.h"
 
 volatile uint8_t bufferSize = 25;
 volatile uint16_t currentTime = 0;
@@ -20,6 +21,8 @@ volatile uint8_t* recBuffer;
 
 volatile circularBuffer_t cTbuf;
 volatile circularBuffer_t cRbuf;
+
+volatile priorityQueueHeap_t pQueue;
 
 volatile UART_buffer_t uBuf;
 
@@ -36,17 +39,18 @@ void test_blink(void){
 
 void test_transmit(void){
 
-  //UART_transmit(currentTime);
-  UART_transmit(0);
+  UART_transmit(currentTime/1000);
+  //UART_transmit(priorityQueueHeap_peekAt(pQueue,1) -> id);
+  //UART_transmit(priorityQueueHeap_size(pQueue));
+  //UART_transmit(0);
 
 }
 
 void test_starv(void){
 
-  for (size_t i = 0; i < 255; i++)
-  {
+  UART_transmit(255);
     //UART_receive();
-  }
+
   
 
 }
@@ -62,34 +66,37 @@ int main(void)
   
   uBuf = UART_buffer_init(cRbuf, cTbuf, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
 
-  tBScheduler = timeBasedScheduler_init(16);
+  pQueue = priorityQueueHeap_init(16);
+
+  tBScheduler = timeBasedScheduler_init(16, pQueue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
 
   DDRB = _BV(5);
 
-  //timeBasedScheduler_addPeriodicTask(tBScheduler, &test_blink, 255,500,currentTime);
-  //timeBasedScheduler_addPeriodicTask(tBScheduler, &test_transmit, 255,1000,currentTime);
-  //timeBasedScheduler_addTask(tBScheduler, test_starv,0,1000);
+  timeBasedScheduler_addPeriodicTask(tBScheduler, &test_blink, 255,500,currentTime,0);
+  timeBasedScheduler_addPeriodicTask(tBScheduler, &test_transmit, 255,1000,currentTime,0);
+  timeBasedScheduler_addTask(tBScheduler, test_starv,0,65000);
+  priorityQueueHeap_peekAt(pQueue,2) -> id = 5;
   //_delay_ms(2000);
   sei();
 
-  adc_temperature_init();
+  //adc_temperature_init();
 
-  UART_interrupt_init(cRbuf,cTbuf);
+  /*UART_interrupt_init(cRbuf,cTbuf);
 
      for (size_t i = 0; i < bufferSize; i++)
   {
     circularBuffer_push(UART_interrupt_transmitBuffer,i);
   }
-
+ */
  
 
   while (true)
   {
  
 
-    //timeBasedScheduler_schedule(tBScheduler, &currentTime);
-    PORTB ^= _BV(5);
-    _delay_ms(1000);
+    timeBasedScheduler_schedule(tBScheduler, &currentTime);
+    //PORTB ^= _BV(5);
+    //_delay_ms(1000);
     //adc_temperature_getTemp();
 
 
@@ -104,12 +111,14 @@ int main(void)
 ISR(TIMER0_COMPA_vect){
 
   cli();
+
   //keeps track of the number of ms passed
-  currentTime++;
-  //timeBasedScheduler_markIfReady(tBScheduler);
+  timeBasedScheduler_incrementTimer(tBScheduler, &currentTime);
+  //currentTime++;
   //iterates over tasks in queue and checks
   //if their starttime <= currentTime
   timeBasedScheduler_markIfReady(tBScheduler,currentTime);
+
   sei();
   }
 

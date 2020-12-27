@@ -14,7 +14,8 @@ struct UART_buffer {
 };
 
 UART_buffer_t UART_buffer_init(void* receiveBuffer, void* transmitBuffer,
-    void(*circularBuffer_overwrite)(void* cbuf, uint8_t data), int8_t (*circularBuffer_push)(void* cbuf, uint8_t data),
+    void(*circularBuffer_overwrite)(void* cbuf, uint8_t data),
+    int8_t (*circularBuffer_push)(void* cbuf, uint8_t data),
     int8_t(*circularBuffer_read)(void* cbuf, uint8_t* data)){
 
         UART_init(MYUBRR);

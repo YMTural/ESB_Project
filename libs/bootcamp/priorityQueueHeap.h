@@ -40,7 +40,7 @@ priorityQueueHeap_t priorityQueueHeap_init(uint8_t maxSize);
  *  Task which is to be added to the queue
  *  
  */
-int priorityQueueHeap_add(priorityQueueHeap_t priorityQueueHeap, task task);
+int8_t priorityQueueHeap_add(void* priorityQueueHeap, task task);
 
 /**
  * @brief   Returns the next task from the priority queue   
@@ -65,7 +65,7 @@ task* priorityQueueHeap_getNext(priorityQueueHeap_t priorityQueueHeap);
  *  A task which is ready
  * 
  */
-task* priorityQueueHeap_getNextReady(priorityQueueHeap_t priorityQueueHeap);
+task* priorityQueueHeap_getNextReady(void* priorityQueueHeap);
 
 /**
  * @brief   Restores heap structure if only 1 item is missplaced
@@ -101,7 +101,7 @@ void priorityQueueHeap_swap(uint8_t a, uint8_t b, priorityQueueHeap_t priorityQu
  *  The n'th task in the queue starting from 0
  */
 
-task* priorityQueueHeap_peekAt(priorityQueueHeap_t priorityQueueHeap,uint8_t n);
+task* priorityQueueHeap_peekAt(void* priorityQueueHeap,uint8_t n);
 
 /**
  *  @brief Returns the current number of task in the priority queue
@@ -112,7 +112,7 @@ task* priorityQueueHeap_peekAt(priorityQueueHeap_t priorityQueueHeap,uint8_t n);
  *   Current number of tasks in the Queue
  */ 
 
-uint8_t priorityQueueHeap_size(priorityQueueHeap_t priorityQueueHeap);
+uint8_t priorityQueueHeap_size(void* priorityQueueHeap);
 
 /**
  *  @brief Returns the capacity of the priority queue
@@ -122,7 +122,7 @@ uint8_t priorityQueueHeap_size(priorityQueueHeap_t priorityQueueHeap);
  *  @return
  *   The capacity of the queue
  */ 
-uint8_t priorityQueueHeap_capacity(priorityQueueHeap_t priorityQueueHeap);
+uint8_t priorityQueueHeap_capacity(void* priorityQueueHeap);
 
 /**
  *  @brief Frees the memory allocated for the priority queue and the container

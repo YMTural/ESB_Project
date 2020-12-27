@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "bootcamp/task.h"
-#include "bootcamp/priorityQueueHeap.h"
 #include "bootcamp/arduinoArch.h"
 #if(DEBUG == 0)
 #include <avr/interrupt.h>
@@ -16,23 +15,19 @@
 #endif
 
 
-/**
- * @typedef e_timer
- * @brief Enumeration to select the timer which shall be used
- * 
- */
-typedef enum
-{
-    TIMER0,
-    TIMER1,
-    TIMER2,
-}e_timer;
+
 
 #if DEBUG == 1
 typedef struct  timeBasedScheduler
 {
-    priorityQueueHeap_t queue;
-    uint16_t currentTime;
+    void* queue;
+    bool overflow;
+    //function pointer
+    uint8_t (*queueSize)(void* queue);
+    uint8_t (*queueCapacity)(void* queue);
+    int8_t (*queueAdd)(void* queue, task thisTask);
+    task* (*queuePeekAt)(void* queue, uint8_t n);
+    task* (*queueGetNextReady)(void* queue);
 
 } timeBasedScheduler;
 
@@ -65,11 +60,16 @@ typedef timeBasedScheduler* timeBasedScheduler_t;
  * @returns
  *  A time based scheduler handle
  */
-timeBasedScheduler_t timeBasedScheduler_init(uint8_t maxSize);
+timeBasedScheduler_t timeBasedScheduler_init(uint8_t maxSize, void* queue, uint8_t (*queueSize)(void* queue),
+    uint8_t (*queueCapacity)(void* queue),
+    int8_t (*queueAdd)(void* queue, task thisTask),
+    task* (*queuePeekAt)(void* queue, uint8_t n),
+    task* (*queueGetNextReady)(void* queue) );
 
 
 /**
  * @brief   Adds a new task to the schedule
+ * 
  * @param   function
  *  function which is to be executed
  * @param priority
@@ -92,7 +92,7 @@ bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function
  * 
  */
 
-bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void* function, uint8_t priority, uint16_t period, uint16_t startTime);
+bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void* function, uint8_t priority, uint16_t period, uint16_t startTime, bool overflow);
 
 /**
  * @brief   Schedules all the tasks. Will run forever. Can return error code
@@ -117,6 +117,26 @@ void timeBasedScheduler_timer(uint8_t timer, uint16_t intervall);
 void timeBasedScheduler_free(timeBasedScheduler_t tbScheduler);
 
 
+/**
+ *  @brief Iterates of the queue marking all Task ready if their start time is reached
+ * 
+ *  @param tBScheduler
+ *   Scheduler container
+ *   
+ * 
+ */
+
 void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler, uint16_t currentTime);
 
+/**
+ *  @brief Increments the Timer and checks for overflow
+ * 
+ * @param tBScheduler
+ *  Time based scheduler container
+ * @param currentTime
+ *  Timer which is to be incremented
+ * 
+ * 
+ */
+void timeBasedScheduler_incrementTimer(timeBasedScheduler_t tBScheduler, uint16_t* timer);
 #endif

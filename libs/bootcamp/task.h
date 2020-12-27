@@ -1,6 +1,7 @@
 #ifndef TASK
 #define TASK
 #include <stdint.h>
+#include <stdbool.h>
 #include "bootcamp/debug.h"
 /**
  * @typedef task
@@ -22,6 +23,8 @@ typedef struct task {
     bool isReady;
     //When to be executed
     uint16_t startTime;
+    //Overflow
+    bool overflow;
 }task;
 
 /**

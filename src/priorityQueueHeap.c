@@ -18,7 +18,9 @@ priorityQueueHeap_t priorityQueueHeap_init(uint8_t maxSize){
     return queue;
 }
 
-int priorityQueueHeap_add(priorityQueueHeap_t priorityQueueHeap, task task){
+int8_t priorityQueueHeap_add(void* v_priorityQueueHeap, task task){
+
+    priorityQueueHeap_t priorityQueueHeap = v_priorityQueueHeap;
 
     if(priorityQueueHeap -> size == priorityQueueHeap -> capacity){
 
@@ -58,8 +60,8 @@ task* priorityQueueHeap_getNext(priorityQueueHeap_t priorityQueueHeap){
     return &priorityQueueHeap -> prioQueue[priorityQueueHeap -> size];
 }
 
-task* priorityQueueHeap_getNextReady(priorityQueueHeap_t priorityQueueHeap){
-
+task* priorityQueueHeap_getNextReady(void* v_priorityQueueHeap){
+    priorityQueueHeap_t priorityQueueHeap = v_priorityQueueHeap;
     uint8_t index = 0;
     if(priorityQueueHeap->size <= 0){
          
@@ -117,8 +119,9 @@ void priorityQueueHeap_swap(uint8_t a, uint8_t b, priorityQueueHeap_t priorityQu
     priorityQueueHeap->prioQueue[b] = tmp;
 }
 
-task* priorityQueueHeap_peekAt(priorityQueueHeap_t queue, uint8_t n){
+task* priorityQueueHeap_peekAt(void* v_queue, uint8_t n){
 
+    priorityQueueHeap_t queue = v_queue;
     if (n >= queue->size)
     {
         return 0;
@@ -129,12 +132,16 @@ task* priorityQueueHeap_peekAt(priorityQueueHeap_t queue, uint8_t n){
 }
 
 
-uint8_t priorityQueueHeap_size(priorityQueueHeap_t priorityQueueHeap){
+uint8_t priorityQueueHeap_size(void* v_priorityQueueHeap){
+
+    priorityQueueHeap_t priorityQueueHeap = v_priorityQueueHeap; 
 
     return priorityQueueHeap -> size;
 }
 
-uint8_t priorityQueueHeap_capacity(priorityQueueHeap_t priorityQueueHeap){
+uint8_t priorityQueueHeap_capacity(void* v_priorityQueueHeap){
+
+    priorityQueueHeap_t priorityQueueHeap = v_priorityQueueHeap;
 
     return priorityQueueHeap -> capacity;
 }

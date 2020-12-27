@@ -1,6 +1,6 @@
 //ToDo-List
--Write more test for Timebased schedule
 -Change uart_interrupt implementation
 -Adjust temperature calculation to be more like the datasheet
 -add free functions
 -Refactor code
+-Add integration tests (main.c files)
