@@ -31,7 +31,7 @@ typedef priorityQueueHeap* priorityQueueHeap_t;
 priorityQueueHeap_t priorityQueueHeap_init(uint8_t maxSize);
 
 /**
- * @brief   Adds a new task to the priority queue. Returns Error if queue full
+ * @brief   Adds a new task to the priority queue. Returns -1 if queue full else 0
  * 
  * @param   priorityQueueHeap
  *  The queue container where is the task is to be added
@@ -47,7 +47,8 @@ int priorityQueueHeap_add(priorityQueueHeap_t priorityQueueHeap, task task);
  * 
  * @param   priorityQueueHeap
  *  The queue container where is the task is to be taken
- * 
+ * @param   task
+ *  The task which is to be added
  * @return
  *  A task
  * 
@@ -129,15 +130,15 @@ uint8_t priorityQueueHeap_capacity(priorityQueueHeap_t priorityQueueHeap);
  *  @param
  *   The queue container whose memory is to be freed
  */ 
-
 void priorityQueueHeap_free(priorityQueueHeap_t priorityQueueHeap);
 
 /**
- *  @brief Increments the priority of non periodic tasks to avoid starvation
+ *  @brief NOT FINISHED! -- Increments the priority of non periodic tasks to avoid starvation
  * 
  *  @param
  *   The queue container whose non periodic tasks are to be incremented
+ * 
  */ 
-void priorityQueueHeap_incrementPriorityOfNonPeriodic(priorityQueueHeap_t priorityQueueHeap);
+//void priorityQueueHeap_incrementPriorityOfNonPeriodic(priorityQueueHeap_t priorityQueueHeap);
 
 #endif

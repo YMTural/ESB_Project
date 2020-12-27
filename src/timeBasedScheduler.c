@@ -117,7 +117,7 @@ void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler, uint16_t* cur
                 startTime = *currentTime + nextTask ->period;
 
                 timeBasedScheduler_addPeriodicTask(tBScheduler, nextTask->function, nextTask->priority, nextTask ->period, startTime);
-                priorityQueueHeap_incrementPriorityOfNonPeriodic(tBScheduler->queue);
+                //priorityQueueHeap_incrementPriorityOfNonPeriodic(tBScheduler->queue);
             }
         }
     

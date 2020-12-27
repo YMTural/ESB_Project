@@ -108,13 +108,6 @@ void priorityQueueHeap_heapify(priorityQueueHeap_t priorityQueueHeap, uint8_t st
         priorityQueueHeap_heapify(priorityQueueHeap, max);
     }
 }
-
-void priorityQueueHeap_free(priorityQueueHeap_t queue){
-    //free(tBScheduler->queue.prioQueue);
-    free(queue->prioQueue);
-    free(queue);
-}
-
 void priorityQueueHeap_swap(uint8_t a, uint8_t b, priorityQueueHeap_t priorityQueueHeap){
 
     task tmp;
@@ -123,7 +116,6 @@ void priorityQueueHeap_swap(uint8_t a, uint8_t b, priorityQueueHeap_t priorityQu
     priorityQueueHeap->prioQueue[a] = priorityQueueHeap->prioQueue[b];
     priorityQueueHeap->prioQueue[b] = tmp;
 }
-
 
 task* priorityQueueHeap_peekAt(priorityQueueHeap_t queue, uint8_t n){
 
@@ -137,13 +129,6 @@ task* priorityQueueHeap_peekAt(priorityQueueHeap_t queue, uint8_t n){
 }
 
 
-
-
-
-
-
-
-
 uint8_t priorityQueueHeap_size(priorityQueueHeap_t priorityQueueHeap){
 
     return priorityQueueHeap -> size;
@@ -154,13 +139,20 @@ uint8_t priorityQueueHeap_capacity(priorityQueueHeap_t priorityQueueHeap){
     return priorityQueueHeap -> capacity;
 }
 
+void priorityQueueHeap_free(priorityQueueHeap_t queue){
+    //free(tBScheduler->queue.prioQueue);
+    free(queue->prioQueue);
+    free(queue);
+}
+/*
 void priorityQueueHeap_incrementPriorityOfNonPeriodic(priorityQueueHeap_t priorityQueueHeap){
 
     for(uint8_t i = 0; i < priorityQueueHeap->size; i++)
     {
-        if (!priorityQueueHeap -> prioQueue[i].isPeriodic)
+        if (!priorityQueueHeap -> prioQueue[i].isPeriodic && priorityQueueHeap -> prioQueue[i].priority != 255) 
         {
             priorityQueueHeap -> prioQueue[i].priority++;
         }
     }
 }
+*/

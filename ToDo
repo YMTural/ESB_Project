@@ -1,5 +1,5 @@
 //ToDo-List
--Write more test for Timebased schedule and priorityQueue
+-Write more test for Timebased schedule
 -Change uart_interrupt implementation
 -Adjust temperature calculation to be more like the datasheet
 -add free functions

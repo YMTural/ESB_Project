@@ -12,39 +12,39 @@
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueueHeap_getNextOnce
-  :line: 32
+  :line: 34
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueue_addMultiple
-  :line: 57
+  :line: 60
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueueHeap_swapOnce
-  :line: 84
+  :line: 88
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueueHeap_getMultiple
-  :line: 131
+  :line: 135
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueueHeap_getFromNone
-  :line: 165
+  :line: 169
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueue_peekAtNull
-  :line: 183
+  :line: 187
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueue_getNextReady
-  :line: 202
+  :line: 206
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueue_getNextReadyFromNull
-  :line: 234
+  :line: 238
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueue_getNextReadyFromOne
-  :line: 252
+  :line: 256
   :message: ''
   :unity_test_time: 0
 :failures: []
@@ -55,4 +55,4 @@
   :failed: 0
   :ignored: 0
 :stdout: []
-:time: 0.0018044640000880463
+:time: 0.0022448320000876265

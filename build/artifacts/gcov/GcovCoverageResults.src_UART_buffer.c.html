@@ -275,7 +275,7 @@
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2020-12-07 13:24:45</td>
+            <td class="headerValue">2020-12-27 16:39:53</td>
             <td></td>
             <td class="headerName">Branches:</td>
             <td class="headerTableEntry">6</td>
@@ -366,21 +366,21 @@
     <td align="right" class="lineno"><pre>10</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    void (*overwrite)(uint8_t* cbuf, uint8_t data);</pre></td>
+    <td align="left" class="src "><pre>    void (*overwrite)(void* cbuf, uint8_t data);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>11</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    bool (*push)(uint8_t* cbuf, uint8_t data);</pre></td>
+    <td align="left" class="src "><pre>    int8_t (*push)(void* cbuf, uint8_t data);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>12</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    int8_t (*read)(uint8_t* cbuf, uint8_t* data);</pre></td>
+    <td align="left" class="src "><pre>    int8_t (*read)(void* cbuf, uint8_t* data);</pre></td>
     </tr>
 
     <tr>
@@ -408,21 +408,21 @@
     <td align="right" class="lineno"><pre>16</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>392</pre></td>
-    <td align="left" class="src coveredLine"><pre>UART_buffer_t UART_buffer_init(uint8_t* receiveBuffer, uint8_t* transmitBuffer,</pre></td>
+    <td align="left" class="src coveredLine"><pre>UART_buffer_t UART_buffer_init(void* receiveBuffer, void* transmitBuffer,</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>17</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    void(*circularBuffer_overwrite)(uint8_t* cbuf, uint8_t data), bool (*circularBuffer_push)(uint8_t* cbuf, uint8_t data),</pre></td>
+    <td align="left" class="src "><pre>    void(*circularBuffer_overwrite)(void* cbuf, uint8_t data), int8_t (*circularBuffer_push)(void* cbuf, uint8_t data),</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>18</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    int8_t(*circularBuffer_read)(uint8_t* cbuf, uint8_t* data)){</pre></td>
+    <td align="left" class="src "><pre>    int8_t(*circularBuffer_read)(void* cbuf, uint8_t* data)){</pre></td>
     </tr>
 
     <tr>
@@ -464,14 +464,14 @@
     <td align="right" class="lineno"><pre>24</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>392</pre></td>
-    <td align="left" class="src coveredLine"><pre>        u_buf -> receiveBuffer = receiveBuffer;</pre></td>
+    <td align="left" class="src coveredLine"><pre>        u_buf -> receiveBuffer = (uint8_t*) receiveBuffer;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>25</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>392</pre></td>
-    <td align="left" class="src coveredLine"><pre>        u_buf -> transmitBuffer = transmitBuffer;</pre></td>
+    <td align="left" class="src coveredLine"><pre>        u_buf -> transmitBuffer = (uint8_t*) transmitBuffer;</pre></td>
     </tr>
 
     <tr>
@@ -625,7 +625,7 @@
     <td align="right" class="lineno"><pre>47</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>578</pre></td>
-    <td align="left" class="src coveredLine"><pre>bool UART_buffer_receive(UART_buffer_t ubuf){</pre></td>
+    <td align="left" class="src coveredLine"><pre>int8_t UART_buffer_receive(UART_buffer_t ubuf){</pre></td>
     </tr>
 
     <tr>
@@ -639,7 +639,7 @@
     <td align="right" class="lineno"><pre>49</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>578</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bool result = ubuf->push(ubuf -> receiveBuffer, UART_receive());</pre></td>
+    <td align="left" class="src coveredLine"><pre>    int8_t result = ubuf->push(ubuf -> receiveBuffer, UART_receive());</pre></td>
     </tr>
 
     <tr>
