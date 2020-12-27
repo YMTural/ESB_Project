@@ -5,7 +5,6 @@ struct priorityQueueHeap
     task* prioQueue;
     uint8_t capacity;
     uint8_t size;
-    
 };
 
 
@@ -17,69 +16,6 @@ priorityQueueHeap_t priorityQueueHeap_init(uint8_t maxSize){
     queue -> capacity = maxSize;
     queue -> size = 0;
     return queue;
-}
-
-void priorityQueueHeap_free(priorityQueueHeap_t queue){
-    //free(tBScheduler->queue.prioQueue);
-    free(queue->prioQueue);
-    free(queue);
-}
-void priorityQueueHeap_swap(uint8_t a, uint8_t b, priorityQueueHeap_t priorityQueueHeap){
-
-    task tmp;
-
-    tmp = priorityQueueHeap->prioQueue[a];
-
-    priorityQueueHeap->prioQueue[a] = priorityQueueHeap->prioQueue[b];
-
-    priorityQueueHeap->prioQueue[b] = tmp;
-
-
-
-}
-
-
-task* priorityQueueHeap_peekAt(priorityQueueHeap_t queue, uint8_t n){
-
-    if (n >= queue->size)
-    {
-        return 0;
-    }else{
-
-        return &queue -> prioQueue[n];
-
-
-    }
-    
-
-
-}
-
-
-void priorityQueueHeap_heapify(priorityQueueHeap_t priorityQueueHeap, uint8_t startIndex){
-
-
-
-
-    uint8_t left = 2*startIndex+1;
-    uint8_t right = 2*startIndex+2;
-    uint8_t max = startIndex;
-
-    if( (left < priorityQueueHeap -> size) && (priorityQueueHeap->prioQueue[max].priority <= priorityQueueHeap->prioQueue[left].priority)){
-
-        max = (uint8_t) left;
-    }
-    if( (right < priorityQueueHeap -> size) && (priorityQueueHeap->prioQueue[max].priority <= priorityQueueHeap->prioQueue[right].priority)){
-
-        max = (uint8_t) right;
-    }
-
-    if(max != startIndex){
-        
-        priorityQueueHeap_swap(startIndex,max, priorityQueueHeap);
-        priorityQueueHeap_heapify(priorityQueueHeap, max);
-    }
-
 }
 
 int priorityQueueHeap_add(priorityQueueHeap_t priorityQueueHeap, task task){
@@ -103,7 +39,6 @@ int priorityQueueHeap_add(priorityQueueHeap_t priorityQueueHeap, task task){
 }
 
 task* priorityQueueHeap_getNext(priorityQueueHeap_t priorityQueueHeap){
-
 
     if(priorityQueueHeap->size <= 0){
 
@@ -152,18 +87,71 @@ task* priorityQueueHeap_getNextReady(priorityQueueHeap_t priorityQueueHeap){
     return &priorityQueueHeap -> prioQueue[priorityQueueHeap -> size];
 }
 
+void priorityQueueHeap_heapify(priorityQueueHeap_t priorityQueueHeap, uint8_t startIndex){
+
+    uint8_t left = 2*startIndex+1;
+    uint8_t right = 2*startIndex+2;
+    uint8_t max = startIndex;
+
+    if( (left < priorityQueueHeap -> size) && (priorityQueueHeap->prioQueue[max].priority <= priorityQueueHeap->prioQueue[left].priority)){
+
+        max = (uint8_t) left;
+    }
+    if( (right < priorityQueueHeap -> size) && (priorityQueueHeap->prioQueue[max].priority <= priorityQueueHeap->prioQueue[right].priority)){
+
+        max = (uint8_t) right;
+    }
+
+    if(max != startIndex){
+        
+        priorityQueueHeap_swap(startIndex,max, priorityQueueHeap);
+        priorityQueueHeap_heapify(priorityQueueHeap, max);
+    }
+}
+
+void priorityQueueHeap_free(priorityQueueHeap_t queue){
+    //free(tBScheduler->queue.prioQueue);
+    free(queue->prioQueue);
+    free(queue);
+}
+
+void priorityQueueHeap_swap(uint8_t a, uint8_t b, priorityQueueHeap_t priorityQueueHeap){
+
+    task tmp;
+
+    tmp = priorityQueueHeap->prioQueue[a];
+    priorityQueueHeap->prioQueue[a] = priorityQueueHeap->prioQueue[b];
+    priorityQueueHeap->prioQueue[b] = tmp;
+}
+
+
+task* priorityQueueHeap_peekAt(priorityQueueHeap_t queue, uint8_t n){
+
+    if (n >= queue->size)
+    {
+        return 0;
+    }else{
+
+        return &queue -> prioQueue[n];
+    }
+}
+
+
+
+
+
+
+
+
+
 uint8_t priorityQueueHeap_size(priorityQueueHeap_t priorityQueueHeap){
 
     return priorityQueueHeap -> size;
-
-
 }
 
 uint8_t priorityQueueHeap_capacity(priorityQueueHeap_t priorityQueueHeap){
 
     return priorityQueueHeap -> capacity;
-
-
 }
 
 void priorityQueueHeap_incrementPriorityOfNonPeriodic(priorityQueueHeap_t priorityQueueHeap){
@@ -174,7 +162,5 @@ void priorityQueueHeap_incrementPriorityOfNonPeriodic(priorityQueueHeap_t priori
         {
             priorityQueueHeap -> prioQueue[i].priority++;
         }
-        
     }
-    
 }

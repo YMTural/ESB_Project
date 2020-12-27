@@ -124,7 +124,7 @@ void test_timeBasedScheduler_scheduleNonPeriodicTask(void){
     timeBasedScheduler_markIfReady(tBScheduler, currentTime);
     timeBasedScheduler_schedule(tBScheduler,&currentTime);
     TEST_ASSERT_EQUAL_UINT8(1,count);
-    TEST_ASSERT_EQUAL_UINT8(NULL,priorityQueueHeap_peekAt(tBScheduler->queue,1));
+    TEST_ASSERT_EQUAL_UINT8(NULL, priorityQueueHeap_peekAt(tBScheduler->queue,1));
     count = 0;
 }
 
