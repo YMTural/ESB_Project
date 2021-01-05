@@ -11,7 +11,8 @@
 #endif
 void adc_temperature_init(void);
 
+uint8_t adc_temperature_getTemperature(void);
 
-void adc_temperature_getTemp(void);
+void adc_temperature_fetchTemperature(void);
 
 #endif

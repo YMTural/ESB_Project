@@ -74,7 +74,6 @@ void UART_disableTransmitCompleteInterrupt(void){
     UCSR0B &= ~(1 << TXCIE0);
 }
 
-
 void UART_enableReceiveInterrupt(void){
 
     UCSR0B = UCSR0B | (1 << RXCIE0);

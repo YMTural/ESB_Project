@@ -19,6 +19,7 @@ extern void test_timeBasedScheduler_schedule(void);
 extern void test_timeBasedScheduler_scheduleOnEmpty(void);
 extern void test_timeBasedScheduler_scheduleNonPeriodicTask(void);
 extern void test_timeBasedScheduler_markIfReady(void);
+extern void test_timeBasedScheduler_incrementTimer(void);
 
 
 /*=======Mock Management=====*/
@@ -92,14 +93,15 @@ int main(void)
 {
   UnityBegin("test_timeBasedScheduler.c");
   run_test(test_timeBasedScheduler_init, "test_timeBasedScheduler_init", 12);
-  run_test(test_timeBasedScheduler_addOneTask, "test_timeBasedScheduler_addOneTask", 24);
-  run_test(test_timeBasedScheduler_addMoreThanMaxSizeTasks, "test_timeBasedScheduler_addMoreThanMaxSizeTasks", 32);
-  run_test(test_timeBasedScheduler_addOnePeriodicTask, "test_timeBasedScheduler_addOnePeriodicTask", 45);
-  run_test(test_timeBasedScheduler_addOnePeriodicTaskToFull, "test_timeBasedScheduler_addOnePeriodicTaskToFull", 61);
-  run_test(test_timeBasedScheduler_schedule, "test_timeBasedScheduler_schedule", 87);
-  run_test(test_timeBasedScheduler_scheduleOnEmpty, "test_timeBasedScheduler_scheduleOnEmpty", 102);
-  run_test(test_timeBasedScheduler_scheduleNonPeriodicTask, "test_timeBasedScheduler_scheduleNonPeriodicTask", 115);
-  run_test(test_timeBasedScheduler_markIfReady, "test_timeBasedScheduler_markIfReady", 135);
+  run_test(test_timeBasedScheduler_addOneTask, "test_timeBasedScheduler_addOneTask", 27);
+  run_test(test_timeBasedScheduler_addMoreThanMaxSizeTasks, "test_timeBasedScheduler_addMoreThanMaxSizeTasks", 38);
+  run_test(test_timeBasedScheduler_addOnePeriodicTask, "test_timeBasedScheduler_addOnePeriodicTask", 51);
+  run_test(test_timeBasedScheduler_addOnePeriodicTaskToFull, "test_timeBasedScheduler_addOnePeriodicTaskToFull", 60);
+  run_test(test_timeBasedScheduler_schedule, "test_timeBasedScheduler_schedule", 79);
+  run_test(test_timeBasedScheduler_scheduleOnEmpty, "test_timeBasedScheduler_scheduleOnEmpty", 97);
+  run_test(test_timeBasedScheduler_scheduleNonPeriodicTask, "test_timeBasedScheduler_scheduleNonPeriodicTask", 109);
+  run_test(test_timeBasedScheduler_markIfReady, "test_timeBasedScheduler_markIfReady", 126);
+  run_test(test_timeBasedScheduler_incrementTimer, "test_timeBasedScheduler_incrementTimer", 145);
 
   return UnityEnd();
 }

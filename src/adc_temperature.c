@@ -1,6 +1,7 @@
 #include "bootcamp/adc_temperature.h"
 #include "bootcamp/UART.h"
 
+uint8_t adc_temperature;
 
 void adc_temperature_init(void){
 
@@ -9,11 +10,14 @@ void adc_temperature_init(void){
 
 }
 
-void adc_temperature_getTemp(void){
+void adc_temperature_fetchTemperature(void){
 
     ADCSRA |= (1 << ADSC);
+}
 
+uint8_t adc_temperature_getTemperature(void){
 
+    return adc_temperature;
 }
 
 ISR(ADC_vect){
@@ -22,7 +26,7 @@ ISR(ADC_vect){
     uint16_t wADC = ADCW;
     //Temperature calculation according to https://playground.arduino.cc/Main/InternalTemperatureSensor/ :temperature = (ADCW - 324.31) / 1.22
     uint32_t t = 4*(wADC - 324) / 5;
-
-    UART_transmit(t);
+    adc_temperature = t;
+    //UART_transmit(t);
     sei();
 }

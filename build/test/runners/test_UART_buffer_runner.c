@@ -12,7 +12,6 @@ extern void setUp(void);
 extern void tearDown(void);
 extern void test_UART_buffer_init(void);
 extern void test_UART_buffer_receiveOne(void);
-extern void test_UART_buffer_receiveOneFF(void);
 extern void test_UART_buffer_receiveMultiple(void);
 extern void test_UART_buffer_overwrite(void);
 extern void test_UART_buffer_transmitOne(void);
@@ -92,14 +91,13 @@ int main(void)
 {
   UnityBegin("test_UART_buffer.c");
   run_test(test_UART_buffer_init, "test_UART_buffer_init", 10);
-  run_test(test_UART_buffer_receiveOne, "test_UART_buffer_receiveOne", 30);
-  run_test(test_UART_buffer_receiveOneFF, "test_UART_buffer_receiveOneFF", 56);
-  run_test(test_UART_buffer_receiveMultiple, "test_UART_buffer_receiveMultiple", 85);
-  run_test(test_UART_buffer_overwrite, "test_UART_buffer_overwrite", 127);
-  run_test(test_UART_buffer_transmitOne, "test_UART_buffer_transmitOne", 163);
-  run_test(test_UART_buffer_transmitMultiple, "test_UART_buffer_transmitMultiple", 189);
-  run_test(test_UART_buffer_transmitFromEmpty, "test_UART_buffer_transmitFromEmpty", 216);
-  run_test(test_UART_buffer_transmitMultipleFromEmpty, "test_UART_buffer_transmitMultipleFromEmpty", 240);
+  run_test(test_UART_buffer_receiveOne, "test_UART_buffer_receiveOne", 35);
+  run_test(test_UART_buffer_receiveMultiple, "test_UART_buffer_receiveMultiple", 94);
+  run_test(test_UART_buffer_overwrite, "test_UART_buffer_overwrite", 138);
+  run_test(test_UART_buffer_transmitOne, "test_UART_buffer_transmitOne", 175);
+  run_test(test_UART_buffer_transmitMultiple, "test_UART_buffer_transmitMultiple", 201);
+  run_test(test_UART_buffer_transmitFromEmpty, "test_UART_buffer_transmitFromEmpty", 228);
+  run_test(test_UART_buffer_transmitMultipleFromEmpty, "test_UART_buffer_transmitMultipleFromEmpty", 252);
 
   return UnityEnd();
 }

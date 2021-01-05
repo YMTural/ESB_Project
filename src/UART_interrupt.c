@@ -1,69 +1,137 @@
 #include "bootcamp/UART_interrupt.h"
 
-//global variables
-
-volatile uint8_t UART_interrupt_tCounter = 0;
-volatile uint8_t UART_interrupt_rCounter = 0;
-
-volatile uint8_t UART_interrupt_data;
-
-volatile uint8_t* UART_interrupt_receiveBuffer;   
-
-volatile uint8_t* UART_interrupt_transmitBuffer;
-
-struct UART_interrupt_buffer {
+struct UART_interrupt {
 
     //Circularbuffer pointer
     uint8_t* receiveBuffer;   
     uint8_t* transmitBuffer;
     
     //function pointer
-    void (*overwrite)(uint8_t* cbuf, uint8_t data);
-    bool (*push)(uint8_t* cbuf, uint8_t data);
-    int8_t (*read)(uint8_t* cbuf, uint8_t* data);
+    void (*overwrite)(void* cbuf, uint8_t data);
+    int8_t (*push)(void* cbuf, uint8_t data);
+    int8_t (*read)(void* cbuf, uint8_t* data);
 
+    uint8_t transmitCounter;
+
+    uint8_t receiveCounter;
+
+    bool dataIsPresent;
+
+    bool readyForTransmit;
 };
 
-void UART_interrupt_init(uint8_t* receiveBuffer, uint8_t* transmitBuffer){
+UART_interrupt_t UART_interrupt_init(void* receiveBuffer, void* transmitBuffer,
+                            void (*circularBuffer_overwrite)(void* cbuf, uint8_t data), 
+                            int8_t (*circularBuffer_push)(void* cbuf, uint8_t data),
+                            int8_t (*circularBuffer_read)(void* cbuf, uint8_t* data) ){
 
-    UART_interrupt_receiveBuffer = receiveBuffer;
-    UART_interrupt_transmitBuffer = transmitBuffer;
-    UART_interrupt_tCounter = 0;
-    UART_interrupt_rCounter = 0;
+    UART_init(MYUBRR);                        
+
+    UART_interrupt_t u_buf = malloc(sizeof(UART_interrupt_t));
+
+    u_buf -> receiveBuffer = (uint8_t*) receiveBuffer;
+    u_buf -> transmitBuffer = (uint8_t*) transmitBuffer;
+
+    //Overwrite data on the receive Buffer
+    u_buf -> overwrite = circularBuffer_overwrite;
+    //Push data on receive Buffer
+    u_buf -> push = circularBuffer_push;
+    //Read data from transmitbuffer
+    u_buf -> read = circularBuffer_read;
+
+    u_buf -> transmitCounter = 0;
+    u_buf -> receiveCounter = 0;
+
+    u_buf -> dataIsPresent = false;
+    u_buf -> readyForTransmit = false;
+
+    return u_buf;
+}
+
+void UART_interrupt_setTransmitFlag(UART_interrupt_t ubuf, bool status){
+
+   ubuf -> readyForTransmit = status;
 
 }
 
 
+bool UART_interrupt_isTransmitComplete(UART_interrupt_t ubuf){
 
-void UART_interrupt_transmitFromBuffer(uint8_t count){
+    return (ubuf -> transmitCounter) == 0;
+
+}
+
+bool UART_interrupt_isReceiveComplete(UART_interrupt_t ubuf){
+
+    return (ubuf -> receiveCounter) == 0;
+
+}
+
+void UART_interrupt_setReceiveFlag(UART_interrupt_t ubuf, bool status){
+
+    ubuf -> dataIsPresent = status;
+
+}
+
+void UART_interrupt_transmitFromBufferInit(UART_interrupt_t ubuf, uint8_t count){
     UART_flush();
-    UART_interrupt_tCounter = count;
+    ubuf -> transmitCounter = count;
     UART_enableTransmitInterrupt();
 }
 
+void UART_interrupt_transmitFromBuffer(UART_interrupt_t ubuf){
+    uint8_t data;
+    if(ubuf -> readyForTransmit){
+      UART_flush();
+      UART_enableTransmitCompleteInterrupt();
 
-uint8_t UART_interrupt_receiveToBuffer(uint8_t count){
-    UART_flush();
-    UART_interrupt_rCounter = count;
-    UART_enableReceiveInterrupt();
-
+      if(!ubuf -> read(ubuf -> transmitBuffer, &data)){
+        UART_overwriteRegister(data);
+        ubuf -> transmitCounter--;
+        ubuf -> readyForTransmit = false;
+    }
+  }
 }
-#if INCLUDEISR == 1
+
+void UART_interrupt_receiveToBufferInit(UART_interrupt_t ubuf, uint8_t count){
+    UART_flush();
+    ubuf -> receiveCounter = count;
+    UART_enableReceiveInterrupt();
+}
+
+void UART_interrupt_receiveToBuffer(UART_interrupt_t ubuf, bool mode){
+    if(ubuf -> dataIsPresent){
+      uint8_t data = UDR0;
+      UART_transmit(data);
+      if(mode){
+       ubuf -> overwrite(ubuf -> receiveBuffer, data);
+        ubuf -> receiveCounter--;
+      }  
+      else{
+       ubuf -> push(ubuf -> receiveBuffer, data);
+       ubuf -> receiveCounter--;
+      }
+      ubuf -> dataIsPresent = false;
+      UART_enableReceiveInterrupt();
+    }
+}
+
+
+//Zugehörige ISR
+
+/*
 ISR(USART_UDRE_vect){
 
-    cli();
-    UART_enableTransmitCompleteInterrupt();
-    if(!circularBuffer_read(UART_interrupt_transmitBuffer, &UART_interrupt_data)){
-      UART_overwriteRegister(UART_interrupt_data);
-      UART_interrupt_tCounter--;
-    }
-    UART_disableTransmitInterrupt();
-    sei();
+  cli();
+  UART_interrupt_setTransmitFlag(uBuf, true);
+  UART_disableTransmitInterrupt();
+  sei();
 }
 
 ISR(USART_TX_vect){
+
   cli();
-  if(!UART_interrupt_tCounter){
+  if(UART_interrupt_isTransmitComplete(uBuf)){
     UART_disableTransmitCompleteInterrupt();
   }else{
     UART_enableTransmitInterrupt();
@@ -74,13 +142,18 @@ ISR(USART_TX_vect){
 ISR(USART_RX_vect){
   
   cli();
-  if(UART_interrupt_rCounter){
-    UART_interrupt_data = UDR0;  
-    circularBuffer_overwrite(UART_interrupt_receiveBuffer, UART_interrupt_data);
-    UART_interrupt_rCounter--;
-  }else{
+  if(UART){
+
+}
+ISR(USART_RX_vect){
+
+  cli();
+  if(UART_interrupt_isReceiveComplete(uBuf)){
     UART_disableReceiveInterrupt();
   }
+  else{
+    UART_disableReceiveInterrupt();
+    UART_interrupt_setReceiveFlag(uBuf, true); 
+  }
   sei();
-}
-#endif
+*/

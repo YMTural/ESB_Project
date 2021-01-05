@@ -40,83 +40,33 @@ void test_UART_buffer_init(void){
 
 
 
-    free(test_rBuffer);
+    UART_buffer_free(uBuf);
 
-    free(test_tBuffer);
+
 
     circularBuffer_free(test_cTBuffer);
 
     circularBuffer_free(test_cRBuffer);
 
-    UART_buffer_free(uBuf);
+
+
+    free(test_rBuffer);
+
+    free(test_tBuffer);
+
+
+
+
 
 
 
 }
+
+
 
 
 
 void test_UART_buffer_receiveOne(void){
-
-
-
-    volatile uint8_t* test_rBuffer = malloc(sizeof(uint8_t)*10);
-
-    volatile uint8_t* test_tBuffer = malloc(sizeof(uint8_t)*10);
-
-
-
-    volatile circularBuffer_t test_cRBuffer = circularBuffer_init(test_rBuffer, 10);
-
-    volatile circularBuffer_t test_cTBuffer = circularBuffer_init(test_tBuffer, 10);
-
-
-
-    volatile UART_buffer_t uBuf = UART_buffer_init(test_cRBuffer, test_cTBuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
-
-
-
-    UCSR0A = 128;
-
-    UDR0 = 10;
-
-    int8_t data;
-
-    int8_t code = UART_buffer_receive(uBuf);
-
-    UnityAssertEqualNumber((UNITY_INT)(UNITY_INT8 )((0)), (UNITY_INT)(UNITY_INT8 )((code)), (
-
-   ((void *)0)
-
-   ), (UNITY_UINT)(44), UNITY_DISPLAY_STYLE_INT8);
-
-    circularBuffer_read(test_cRBuffer,&data);
-
-    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((10)), (UNITY_INT)(UNITY_UINT8 )((data)), (
-
-   ((void *)0)
-
-   ), (UNITY_UINT)(46), UNITY_DISPLAY_STYLE_UINT8);
-
-
-
-
-
-    free(test_rBuffer);
-
-
-
-    circularBuffer_free(test_cTBuffer);
-
-    circularBuffer_free(test_cRBuffer);
-
-    UART_buffer_free(uBuf);
-
-
-
-}
-
-void test_UART_buffer_receiveOneFF(void){
 
 
 
@@ -140,7 +90,7 @@ void test_UART_buffer_receiveOneFF(void){
 
     UDR0 = 10;
 
-    int8_t data;
+    uint8_t data;
 
     int8_t code = UART_buffer_receive(uBuf);
 
@@ -148,7 +98,7 @@ void test_UART_buffer_receiveOneFF(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(70), UNITY_DISPLAY_STYLE_INT8);
+   ), (UNITY_UINT)(49), UNITY_DISPLAY_STYLE_INT8);
 
     circularBuffer_read(test_cRBuffer,&data);
 
@@ -156,7 +106,17 @@ void test_UART_buffer_receiveOneFF(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(72), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(51), UNITY_DISPLAY_STYLE_UINT8);
+
+
+
+    UART_buffer_free(uBuf);
+
+
+
+    circularBuffer_free(test_cTBuffer);
+
+    circularBuffer_free(test_cRBuffer);
 
 
 
@@ -164,23 +124,15 @@ void test_UART_buffer_receiveOneFF(void){
 
     free(test_tBuffer);
 
-    circularBuffer_free(test_cTBuffer);
 
-    circularBuffer_free(test_cRBuffer);
 
-    UART_buffer_free(uBuf);
+
 
 
 
 
 
 }
-
-
-
-
-
-
 
 void test_UART_buffer_receiveMultiple(void){
 
@@ -202,11 +154,15 @@ void test_UART_buffer_receiveMultiple(void){
 
 
 
+
+
     UCSR0A = 128;
 
     uint8_t data;
 
     int8_t code;
+
+
 
     for (size_t i = 0; i < 10; i++)
 
@@ -220,7 +176,7 @@ void test_UART_buffer_receiveMultiple(void){
 
        ((void *)0)
 
-       ), (UNITY_UINT)(102), UNITY_DISPLAY_STYLE_INT8);
+       ), (UNITY_UINT)(113), UNITY_DISPLAY_STYLE_INT8);
 
     }
 
@@ -232,7 +188,7 @@ void test_UART_buffer_receiveMultiple(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(106), UNITY_DISPLAY_STYLE_INT8);
+   ), (UNITY_UINT)(117), UNITY_DISPLAY_STYLE_INT8);
 
 
 
@@ -246,9 +202,31 @@ void test_UART_buffer_receiveMultiple(void){
 
        ((void *)0)
 
-       ), (UNITY_UINT)(111), UNITY_DISPLAY_STYLE_UINT8);
+       ), (UNITY_UINT)(122), UNITY_DISPLAY_STYLE_UINT8);
 
     }
+
+
+
+
+
+    free(test_rBuffer);
+
+    free(test_tBuffer);
+
+    circularBuffer_free(test_cTBuffer);
+
+    circularBuffer_free(test_cRBuffer);
+
+    UART_buffer_free(uBuf);
+
+
+
+
+
+
+
+
 
 }
 
@@ -282,8 +260,6 @@ void test_UART_buffer_overwrite(void){
 
     uint8_t data;
 
-    int8_t code;
-
 
 
  for (size_t i = 0; i < 10 +10; i++)
@@ -308,9 +284,29 @@ void test_UART_buffer_overwrite(void){
 
        ((void *)0)
 
-       ), (UNITY_UINT)(151), UNITY_DISPLAY_STYLE_UINT8);
+       ), (UNITY_UINT)(161), UNITY_DISPLAY_STYLE_UINT8);
 
     }
+
+
+
+
+
+    free(test_rBuffer);
+
+
+
+
+
+    circularBuffer_free(test_cTBuffer);
+
+    circularBuffer_free(test_cRBuffer);
+
+
+
+    UART_buffer_free(uBuf);
+
+
 
 }
 
@@ -348,7 +344,7 @@ void test_UART_buffer_transmitOne(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(177), UNITY_DISPLAY_STYLE_INT8);
+   ), (UNITY_UINT)(189), UNITY_DISPLAY_STYLE_INT8);
 
     UART_buffer_transmitFromBuffer(uBuf);
 
@@ -356,21 +352,21 @@ void test_UART_buffer_transmitOne(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(179), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(191), UNITY_DISPLAY_STYLE_UINT8);
 
 
 
 
 
+    free(test_rBuffer);
 
+    free(test_tBuffer);
 
+    circularBuffer_free(test_cTBuffer);
 
+    circularBuffer_free(test_cRBuffer);
 
-
-
-
-
-
+    UART_buffer_free(uBuf);
 
 }
 
@@ -414,7 +410,23 @@ void test_UART_buffer_transmitMultiple(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(206), UNITY_DISPLAY_STYLE_INT8);
+   ), (UNITY_UINT)(218), UNITY_DISPLAY_STYLE_INT8);
+
+
+
+
+
+    free(test_rBuffer);
+
+    free(test_tBuffer);
+
+    circularBuffer_free(test_cTBuffer);
+
+    circularBuffer_free(test_cRBuffer);
+
+    UART_buffer_free(uBuf);
+
+
 
 }
 
@@ -440,7 +452,7 @@ void test_UART_buffer_transmitFromEmpty(void){
 
     UCSR0A = 32;
 
-    int8_t code;
+
 
 
 
@@ -450,19 +462,19 @@ void test_UART_buffer_transmitFromEmpty(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(230), UNITY_DISPLAY_STYLE_INT8);
+   ), (UNITY_UINT)(242), UNITY_DISPLAY_STYLE_INT8);
 
 
 
+    free(test_rBuffer);
 
+    free(test_tBuffer);
 
+    circularBuffer_free(test_cTBuffer);
 
+    circularBuffer_free(test_cRBuffer);
 
-
-
-
-
-
+    UART_buffer_free(uBuf);
 
 
 
@@ -492,7 +504,7 @@ void test_UART_buffer_transmitMultipleFromEmpty(void){
 
     UCSR0A = 32;
 
-    int8_t code;
+
 
 
 
@@ -502,6 +514,22 @@ void test_UART_buffer_transmitMultipleFromEmpty(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(254), UNITY_DISPLAY_STYLE_INT8);
+   ), (UNITY_UINT)(266), UNITY_DISPLAY_STYLE_INT8);
+
+
+
+
+
+    free(test_rBuffer);
+
+    free(test_tBuffer);
+
+    circularBuffer_free(test_cTBuffer);
+
+    circularBuffer_free(test_cRBuffer);
+
+    UART_buffer_free(uBuf);
+
+
 
 }
