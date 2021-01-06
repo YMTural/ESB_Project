@@ -61,6 +61,30 @@ void UART_interrupt_receiveToBufferInit(UART_interrupt_t ubuf, uint8_t count);
 
 void UART_interrupt_receiveToBuffer(UART_interrupt_t ubuf, bool mode);
 
+/**
+ * @brief   Creates UART_interrupt container.
+ * 
+ *  Read, push functions and buffers are contained here.
+ * 
+ * 
+ * @param   receiveBuffer
+ *  Storage buffer for the elements to be received, must be created independently
+ * 
+ * @param   transmitBuffer
+ *  Storage buffer for the elements to be transmitted, must be created independently
+ * 
+ * @param   circularBuffer_overwrite
+ *  Pointer to a buffer overwrite function
+ * 
+ * @param   circularBuffer_push
+ *  Pointer to buffer push function
+ * 
+ * @param circularBuffer_read
+ *  Pointer to buffer read function
+ * 
+ * @returns
+ *  A UART buffer handle
+ */
 UART_interrupt_t UART_interrupt_init(void* receiveBuffer, void* transmitBuffer,
                             void (*circularBuffer_overwrite)(void* cbuf, uint8_t data), 
                             int8_t (*circularBuffer_push)(void* cbuf, uint8_t data),
@@ -78,5 +102,5 @@ bool UART_interrupt_isReceiveComplete(UART_interrupt_t ubuf);
 
 void UART_interrupt_setReceiveFlag(UART_interrupt_t ubuf, bool status);
 
-
+void UART_interrupt_free(UART_interrupt_t ubuf);
 #endif

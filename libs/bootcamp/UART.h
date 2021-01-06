@@ -71,4 +71,6 @@ void UART_enableTransmitCompleteInterrupt(void);
 void UART_disableTransmitCompleteInterrupt(void);
 
 void UART_overwriteRegister(uint8_t data);
+
+uint8_t UART_forceReadData(void);
 #endif

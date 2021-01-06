@@ -48,6 +48,8 @@ int main(void)
     //UART_lib_transmit(uBuf, BUFFERSIZE);
     //UART_lib_receive(uBuf, BUFFERSIZE, PUSH);
     PORTB ^= _BV(5);
+    x++;
+    circularBuffer_push(cTbuf, x);
 
     UART_lib_receive(uBuf, 25, OVERWRITE);
 

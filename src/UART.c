@@ -40,6 +40,11 @@ void UART_overwriteRegister(uint8_t data){
     UDR0 = data;
 }
 
+uint8_t UART_forceReadData(void){
+
+    return UDR0;
+}
+
 uint8_t UART_receive(){
 
     //Wait for data to be received 

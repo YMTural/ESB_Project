@@ -48,29 +48,29 @@ UART_interrupt_t UART_interrupt_init(void* receiveBuffer, void* transmitBuffer,
     return u_buf;
 }
 
+void UART_interrupt_free(UART_interrupt_t ubuf){
+
+    free(ubuf);
+}
+
 void UART_interrupt_setTransmitFlag(UART_interrupt_t ubuf, bool status){
 
    ubuf -> readyForTransmit = status;
-
 }
-
 
 bool UART_interrupt_isTransmitComplete(UART_interrupt_t ubuf){
 
     return (ubuf -> transmitCounter) == 0;
-
 }
 
 bool UART_interrupt_isReceiveComplete(UART_interrupt_t ubuf){
 
     return (ubuf -> receiveCounter) == 0;
-
 }
 
 void UART_interrupt_setReceiveFlag(UART_interrupt_t ubuf, bool status){
 
     ubuf -> dataIsPresent = status;
-
 }
 
 void UART_interrupt_transmitFromBufferInit(UART_interrupt_t ubuf, uint8_t count){
@@ -101,7 +101,7 @@ void UART_interrupt_receiveToBufferInit(UART_interrupt_t ubuf, uint8_t count){
 
 void UART_interrupt_receiveToBuffer(UART_interrupt_t ubuf, bool mode){
     if(ubuf -> dataIsPresent){
-      uint8_t data = UDR0;
+      uint8_t data = UART_forceReadData();
       UART_transmit(data);
       if(mode){
        ubuf -> overwrite(ubuf -> receiveBuffer, data);
