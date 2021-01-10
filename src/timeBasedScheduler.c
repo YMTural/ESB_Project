@@ -62,6 +62,7 @@ bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function
     task.period = 0;
     task.isReady = false;
     task.startTime = start_time;
+    task.overflow = tBScheduler->overflow;
     tBScheduler -> queueAdd((tBScheduler->queue), task);
     
     return true;
@@ -144,6 +145,8 @@ void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler, uint16_t* cur
 
 
 }
+
+
 
 void timeBasedScheduler_incrementTimer(timeBasedScheduler_t tBScheduler, uint16_t* timer){
 

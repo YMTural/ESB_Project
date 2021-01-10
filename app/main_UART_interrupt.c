@@ -46,6 +46,7 @@ int main(void)
   //Initializing receive of 25 Data units from the UART connection 
   UART_interrupt_receiveToBufferInit(uBuf, 25);
 
+
  
   while (true)
   {
@@ -80,7 +81,7 @@ ISR(USART_TX_vect){
     UART_disableTransmitCompleteInterrupt();
   }
   else{
-
+    UART_disableTransmitCompleteInterrupt();
     UART_enableTransmitInterrupt();
   }
   sei();

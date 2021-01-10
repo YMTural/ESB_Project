@@ -11,6 +11,8 @@ struct priorityQueueHeap
 priorityQueueHeap_t priorityQueueHeap_init(uint8_t maxSize){
 
     priorityQueueHeap_t queue = malloc(sizeof(priorityQueueHeap));
+    
+    //task array[maxSize]; 
     task *array = malloc(sizeof(task)*maxSize);
     queue -> prioQueue = array;
     queue -> capacity = maxSize;
@@ -147,8 +149,8 @@ uint8_t priorityQueueHeap_capacity(void* v_priorityQueueHeap){
 }
 
 void priorityQueueHeap_free(priorityQueueHeap_t queue){
-    //free(tBScheduler->queue.prioQueue);
-    free(queue->prioQueue);
+
+    //free(queue->prioQueue);
     free(queue);
 }
 /*

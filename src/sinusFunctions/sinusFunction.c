@@ -1,13 +1,14 @@
 #include "bootcamp/sinusFunctions/sinusFunction.h"
-#include <math.h>
+
 #define PI 3.141592
 
 
 float mySinusFunction(float deg)
 {
+
     uint8_t accuracy = 15;
     //Calculating deg % 2*PI since sin x is periodic
-    float input = remainder(deg * (PI/180),2*PI);
+    float input = fmod(deg * (PI/180),2*PI);
     float result = 0;
 
     for(uint8_t i = 1; i < accuracy; i++){
@@ -17,6 +18,7 @@ float mySinusFunction(float deg)
 
      }
     return result;
+
 
 }
 

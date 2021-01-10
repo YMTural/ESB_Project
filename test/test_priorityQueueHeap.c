@@ -4,7 +4,6 @@
 #define BUFFERSIZE 32
 
 
-
 void test_priorityQueueHeap_init(void){
 
     priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);

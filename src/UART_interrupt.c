@@ -79,6 +79,12 @@ void UART_interrupt_transmitFromBufferInit(UART_interrupt_t ubuf, uint8_t count)
     UART_enableTransmitInterrupt();
 }
 
+uint8_t getCountRec(UART_interrupt_t ubuf){
+
+
+  return ubuf->receiveCounter;
+}
+
 void UART_interrupt_transmitFromBuffer(UART_interrupt_t ubuf){
     uint8_t data;
     if(ubuf -> readyForTransmit){
@@ -100,9 +106,10 @@ void UART_interrupt_receiveToBufferInit(UART_interrupt_t ubuf, uint8_t count){
 }
 
 void UART_interrupt_receiveToBuffer(UART_interrupt_t ubuf, bool mode){
+
     if(ubuf -> dataIsPresent){
       uint8_t data = UART_forceReadData();
-      UART_transmit(data);
+      //UART_transmit(data);
       if(mode){
        ubuf -> overwrite(ubuf -> receiveBuffer, data);
         ubuf -> receiveCounter--;
@@ -112,7 +119,11 @@ void UART_interrupt_receiveToBuffer(UART_interrupt_t ubuf, bool mode){
        ubuf -> receiveCounter--;
       }
       ubuf -> dataIsPresent = false;
-      UART_enableReceiveInterrupt();
+      if(UART_interrupt_isReceiveComplete(ubuf)){
+        UART_disableReceiveInterrupt();
+        }else{
+          UART_enableReceiveInterrupt();
+        }
     }
 }
 
@@ -132,28 +143,21 @@ ISR(USART_TX_vect){
 
   cli();
   if(UART_interrupt_isTransmitComplete(uBuf)){
+
     UART_disableTransmitCompleteInterrupt();
-  }else{
+  }
+  else{
+    UART_disableTransmitCompleteInterrupt();
     UART_enableTransmitInterrupt();
   }
   sei();
 }
 
 ISR(USART_RX_vect){
-  
-  cli();
-  if(UART){
-
-}
-ISR(USART_RX_vect){
 
   cli();
-  if(UART_interrupt_isReceiveComplete(uBuf)){
-    UART_disableReceiveInterrupt();
-  }
-  else{
     UART_disableReceiveInterrupt();
     UART_interrupt_setReceiveFlag(uBuf, true); 
-  }
   sei();
+}
 */

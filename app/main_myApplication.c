@@ -101,8 +101,9 @@ void greetingMessage(void){
 void awaitInput(void){
 
   UART_interrupt_receiveToBufferInit(uBuf, 8);
+  UART_transmit(255);
 }
-
+/*
 void calculateSinus(void){
   if(!circularBuffer_empty(cReceivebuffer)){
 
@@ -110,7 +111,7 @@ void calculateSinus(void){
 
 
 
-    char message_1[] = " SIN(";
+    char message_1[] = "SIN(";
 
     char message_2[] = ") = ";
 
@@ -123,7 +124,7 @@ void calculateSinus(void){
       circularBuffer_read(cReceivebuffer, &input);
       x[i] = input;
     }
-  
+
     //Send Error if Input is unexpected
     if(x[6] != 0x0D || x[7] != 0x0A || x[3] != 0x2E){
 
@@ -133,8 +134,6 @@ void calculateSinus(void){
         circularBuffer_overwrite(cTransmitbuffer, response[i]);
       }
       UART_interrupt_transmitFromBufferInit(uBuf, strlen(response));
-
-
     }else{
 
     for (uint8_t i = 0; i < 6; i++)
@@ -147,13 +146,7 @@ void calculateSinus(void){
 
     //z = ceilf(z * 100) / 100;
 
-    float z = 323.32;
-
-    char tx[80];
-
-    sprintf(tx, "Value of Pi = %f", M_PI);
-
-    //sprintf(tx, "%f", z);
+    //sprintf(s_res, "%d", z);
 
     for (uint8_t i = 0; i < strlen(message_1); i++)
     {
@@ -170,15 +163,16 @@ void calculateSinus(void){
       circularBuffer_overwrite(cTransmitbuffer, message_2[i]);  
     }
 
-    for (uint8_t i = 0; i < strlen(tx); i++)
+    for (uint8_t i = 0; i < 6; i++)
     {
-      circularBuffer_overwrite(cTransmitbuffer, tx[i]);
+      circularBuffer_overwrite(cTransmitbuffer, s_res[i]);
     }
+    
 
-  UART_interrupt_transmitFromBufferInit(uBuf, strlen(message_1) + strlen(tx) + strlen(message_2) + 6);
+  UART_interrupt_transmitFromBufferInit(uBuf, strlen(message_1) + 6 + strlen(message_2) + 6);
     }
   }
-}
+}*/
 
 void transmit(void){
 
@@ -188,18 +182,30 @@ void transmit(void){
 void receive(void){
 
   UART_interrupt_receiveToBuffer(uBuf, OVERWRITE);
-}
-
-void scheduleCalc(void){
-
-
   uint8_t data;
-  if(circularBuffer_size(cReceivebuffer) >= 8){
-    timeBasedScheduler_addTask(tBScheduler, &awaitInput, 20, currentTime+100);
-    timeBasedScheduler_addTask(tBScheduler, &calculateSinus, 50, currentTime);
-    timeBasedScheduler_addPeriodicTask(tBScheduler, &scheduleCalc, 243, 600, currentTime, 0);
-  }
+  if(circularBuffer_size(cReceivebuffer) == 8){
 
+    UART_transmit(circularBuffer_size(cReceivebuffer));
+    for (uint8_t i = 0; i < 8; i++)
+    {
+      circularBuffer_read(cReceivebuffer, &data);
+    }
+    
+    UART_transmit(0xAF);
+    UART_disableReceiveInterrupt();
+    UART_interrupt_setReceiveFlag(uBuf, true); 
+    timeBasedScheduler_addTask(tBScheduler, &awaitInput, 254, currentTime);
+  }
+/*
+  if(UART_interrupt_isReceiveComplete(uBuf)){
+    //Add sinusCalc task when all Input has been received and prepare for next
+    timeBasedScheduler_addTask(tBScheduler, &calculateSinus, 255, currentTime);
+    UART_transmit(0xBB);
+    timeBasedScheduler_addTask(tBScheduler, &awaitInput, 254, currentTime);
+    //UART_disableReceiveInterrupt();
+    //UART_interrupt_setReceiveFlag(uBuf, true); 
+  }*/
+  
 }
 
 int main(void){
@@ -209,7 +215,7 @@ int main(void){
   
   DDRB = _BV(5);
 
-  pQueue = priorityQueueHeap_init(15);
+  pQueue = priorityQueueHeap_init(10);
 
   transBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
   recBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
@@ -227,7 +233,7 @@ int main(void){
 
   timeBasedScheduler_addTask(tBScheduler, &init_temp, 255, currentTime);
 
-  timeBasedScheduler_addTask(tBScheduler, &greetingMessage, 255, currentTime);
+  //timeBasedScheduler_addTask(tBScheduler, &greetingMessage, 255, currentTime);
 
   timeBasedScheduler_addTask(tBScheduler, &awaitInput, 255, currentTime);
 
@@ -247,9 +253,6 @@ int main(void){
 
   //Temperature reading message
   //timeBasedScheduler_addPeriodicTask(tBScheduler, &temperatureMessage, 20, 10000, currentTime+5500, 0);
-
-  //Prepare sinusCalc
-  timeBasedScheduler_addPeriodicTask(tBScheduler, &scheduleCalc, 243, 600, currentTime, 0);
 
   //End tasks
 
@@ -288,8 +291,13 @@ ISR(USART_TX_vect){
 ISR(USART_RX_vect){
 
   cli();
+  if(UART_interrupt_isReceiveComplete(uBuf)){
+    UART_disableReceiveInterrupt();
+  }
+  else{
     UART_disableReceiveInterrupt();
     UART_interrupt_setReceiveFlag(uBuf, true); 
+  }
   sei();
 }
 

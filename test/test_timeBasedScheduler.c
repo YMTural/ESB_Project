@@ -7,7 +7,7 @@
 #define TASKQUEUELENGTH 15
 
 volatile uint8_t count = 0;
-
+timeBasedScheduler_t specialTBScheduler;
 
 void test_timeBasedScheduler_init(void){
 
@@ -161,4 +161,27 @@ void test_timeBasedScheduler_incrementTimer(void){
 
     timeBasedScheduler_free(tBScheduler);
     priorityQueueHeap_free(queue);
+}
+
+void addTask(void){
+
+    timeBasedScheduler_addTask(specialTBScheduler, &addTask, 44,44);
+
+}
+
+
+void timeBasedScheduler_addTaskWithTask(void){
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+    uint16_t currentTime = 65530;
+
+    specialTBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+
+    timeBasedScheduler_addPeriodicTask(specialTBScheduler,addTask, 255,10,150,0);
+    TEST_ASSERT_EQUAL_UINT8(1, priorityQueueHeap_size(queue));
+    timeBasedScheduler_markIfReady(specialTBScheduler, currentTime);
+    timeBasedScheduler_schedule(specialTBScheduler,&currentTime);
+    TEST_ASSERT_EQUAL_UINT8(2, priorityQueueHeap_size(queue));
+
+    
 }

@@ -103,4 +103,7 @@ bool UART_interrupt_isReceiveComplete(UART_interrupt_t ubuf);
 void UART_interrupt_setReceiveFlag(UART_interrupt_t ubuf, bool status);
 
 void UART_interrupt_free(UART_interrupt_t ubuf);
+
+uint8_t getCountRec(UART_interrupt_t ubuf);
+
 #endif

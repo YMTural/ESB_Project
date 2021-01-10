@@ -78,6 +78,7 @@ void test_sin(void){
 
     for(int i = 0; i < 7200;i++){
         //sin form math.h expects value as RAD
+        
         TEST_ASSERT_FLOAT_WITHIN(DELTA, sin(i*0.1*CONVERTDEG), mySinusFunction(0.1*i));
 
     }
