@@ -6,7 +6,7 @@
 float mySinusFunction(float deg)
 {
 
-    uint8_t accuracy = 15;
+    uint8_t accuracy = 20;
     //Calculating deg % 2*PI since sin x is periodic
     float input = fmod(deg * (PI/180),2*PI);
     float result = 0;

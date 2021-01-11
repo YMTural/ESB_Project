@@ -114,6 +114,8 @@ void calculateSinus(void){
 
     char message_2[] = ") = ";
 
+    char dot = '.'; 
+
     char x[8] = {0, 0, 0, 0, 0, 0};
 
     char s_res[6] = {0,0,0,0,0,0};
@@ -121,6 +123,7 @@ void calculateSinus(void){
     for (uint8_t i = 0; i < 8; i++)
     {
       circularBuffer_read(cReceivebuffer, &input);
+      UART_transmit(input);
       x[i] = input;
     }
   
@@ -141,19 +144,24 @@ void calculateSinus(void){
     {
       s_res[i] = x[i];
     }
-    //float z = strtod(s_res, NULL);
+    float z = strtod(s_res, NULL);
     
-    //z = mySinusFunction(z);
+    z = mySinusFunction(z);
+    z = ceilf(z * 1000) / 1000; 
+    uint16_t a = (int) z;
 
-    //z = ceilf(z * 100) / 100;
+    uint16_t f = (z - a) * 1000;
+ 
+    char sd[1];
 
-    float z = 323.32;
+    sprintf(sd, "%i", a);
 
-    char tx[80];
+    char sf[4];
 
-    sprintf(tx, "Value of Pi = %f", M_PI);
+    sprintf(sf, "%i", f);
 
-    //sprintf(tx, "%f", z);
+    //Apparently avr-gcc does not directly support sprintf for float. Linking before compiling is necessary
+    //sprintf(s_res, "%f", z);
 
     for (uint8_t i = 0; i < strlen(message_1); i++)
     {
@@ -170,12 +178,19 @@ void calculateSinus(void){
       circularBuffer_overwrite(cTransmitbuffer, message_2[i]);  
     }
 
-    for (uint8_t i = 0; i < strlen(tx); i++)
+    for (uint8_t i = 0; i < strlen(sd); i++)
     {
-      circularBuffer_overwrite(cTransmitbuffer, tx[i]);
+      circularBuffer_overwrite(cTransmitbuffer, sd[i]);
     }
 
-  UART_interrupt_transmitFromBufferInit(uBuf, strlen(message_1) + strlen(tx) + strlen(message_2) + 6);
+    circularBuffer_overwrite(cTransmitbuffer, dot);
+
+    for (uint8_t i = 0; i < strlen(sf); i++)
+    {
+      circularBuffer_overwrite(cTransmitbuffer, sf[i]);
+    }
+
+  UART_interrupt_transmitFromBufferInit(uBuf, strlen(message_1)  + strlen(message_2) + 6 + 5);
     }
   }
 }
