@@ -1,0 +1,3 @@
+Jedes main_ ist ein Integration test, wobei ich die Ausgabe mit "moserial" überprüft habe.
+
+UART_interrupt hat keine Unit test, da die einzelnen Funktion nur set methoden sind und der wichtige Part im Integrationtest getestet wird.

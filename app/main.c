@@ -148,9 +148,9 @@ void calculateSinus(void){
     
     z = mySinusFunction(z);
     z = ceilf(z * 1000) / 1000; 
-    uint16_t a = (int) z;
+    int16_t a = (int) z;
 
-    uint16_t f = (z - a) * 1000;
+    int16_t f = (z - a) * 1000;
  
     char sd[1];
 
