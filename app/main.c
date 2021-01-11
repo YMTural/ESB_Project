@@ -261,7 +261,7 @@ int main(void){
   timeBasedScheduler_addPeriodicTask(tBScheduler, &update_temp, 50, 5000, currentTime, 0);
 
   //Temperature reading message
-  //timeBasedScheduler_addPeriodicTask(tBScheduler, &temperatureMessage, 20, 10000, currentTime+5500, 0);
+  timeBasedScheduler_addPeriodicTask(tBScheduler, &temperatureMessage, 20, 10000, currentTime+5500, 0);
 
   //Prepare sinusCalc
   timeBasedScheduler_addPeriodicTask(tBScheduler, &scheduleCalc, 243, 600, currentTime, 0);

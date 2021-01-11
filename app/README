@@ -1,3 +1,5 @@
 Jedes main_ ist ein Integration test, wobei ich die Ausgabe mit "moserial" überprüft habe.
 
 UART_interrupt hat keine Unit test, da die einzelnen Funktion nur set methoden sind und der wichtige Part im Integrationtest getestet wird.
+
+Die Main Application sendet alle paar Sekunden die aktuelle Chip Temperatur und berechnet den Sinus der eingeben Zahl (z.B 090.00 oder 123.12)
