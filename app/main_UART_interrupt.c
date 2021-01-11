@@ -90,12 +90,7 @@ ISR(USART_TX_vect){
 ISR(USART_RX_vect){
 
   cli();
-  if(UART_interrupt_isReceiveComplete(uBuf)){
-    UART_disableReceiveInterrupt();
-  }
-  else{
     UART_disableReceiveInterrupt();
     UART_interrupt_setReceiveFlag(uBuf, true); 
-  }
   sei();
 }

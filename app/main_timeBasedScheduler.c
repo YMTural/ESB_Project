@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdlib.h>
 #include <util/delay.h>
 
 #include "bootcamp/debug.h"
@@ -61,18 +62,17 @@ void test_message(void){
   {
    circularBuffer_push(cTransmitbuffer, message[i]);
   }
-
-/*
   char num[4];
   uint8_t time = currentTime/1000;
-  sprintf(num, "%d", time);  
-  num[3] = 155;
-  num[4] = 32;
+  sprintf(num, "%i", time);  
+  num[2] = 115;
+  num[3] = 32;
+  
   for (uint8_t i = 0; i < 4; i++)
   {
     circularBuffer_push(cTransmitbuffer, num[i]);
-  }*/
-  UART_interrupt_transmitFromBufferInit(uBuf, 38);
+  }
+  UART_interrupt_transmitFromBufferInit(uBuf, 42);
   sei();
 }
 
@@ -90,7 +90,7 @@ int main(void){
   
   DDRB = _BV(5);
 
-  pQueue = priorityQueueHeap_init(4);
+  pQueue = priorityQueueHeap_init(8);
 
   transBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
   recBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
@@ -120,13 +120,10 @@ int main(void){
   
   //End Periodic tasks
 
-  test_message();
   //Main Loop
   while (true)
   {
     timeBasedScheduler_schedule(tBScheduler, &currentTime);
-    UART_interrupt_transmitFromBuffer(uBuf);
-    
   }
   //Main Loop end
 
@@ -162,15 +159,11 @@ ISR(USART_TX_vect){
 ISR(USART_RX_vect){
 
   cli();
-  if(UART_interrupt_isReceiveComplete(uBuf)){
-    UART_disableReceiveInterrupt();
-  }
-  else{
     UART_disableReceiveInterrupt();
     UART_interrupt_setReceiveFlag(uBuf, true); 
-  }
   sei();
 }
+
 
 ISR(TIMER0_COMPA_vect){
 

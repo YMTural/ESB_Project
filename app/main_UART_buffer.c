@@ -18,7 +18,7 @@
 #include "bootcamp/UART_buffer.h"
 
 
-#define BUFFERSIZE 5
+#define BUFFERSIZE 15
 
 
 volatile uint8_t* transBuffer;
@@ -42,16 +42,16 @@ int main(void)
   sei();
   DDRB = _BV(5);
 
-  //Pushing number 0 to 24 in Buffer
+  //Pushing number 0 to BUFFERSIZE in Buffer
   for(uint8_t i = 0; i < BUFFERSIZE; i++){
 
     circularBuffer_push(cTbuf,i);
   }
 
-  //Initializing transmit of 25 Data units from Buffer 
+  //Initializing transmit of BUFFERSIZE Data units from Buffer 
   UART_buffer_transmitMultipleFromBuffer(uBuf, BUFFERSIZE);
 
-  //Initializing receive of 25 Data units from the UART connection 
+  //Initializing receive of BUFFERSIZE Data units (hex) from the UART connection 
   for(uint8_t i = 0; i < BUFFERSIZE; i++){
 
     UART_buffer_receive(uBuf);
