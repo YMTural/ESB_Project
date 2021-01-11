@@ -182,6 +182,22 @@ void timeBasedScheduler_addTaskWithTask(void){
     timeBasedScheduler_markIfReady(specialTBScheduler, currentTime);
     timeBasedScheduler_schedule(specialTBScheduler,&currentTime);
     TEST_ASSERT_EQUAL_UINT8(2, priorityQueueHeap_size(queue));
-
+    specialTBScheduler = NULL;
     
+}
+
+void timeBasedScheduler_addTaskWithTimeOverflow(void){
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+    uint16_t currentTime = 65430;
+
+    specialTBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+
+    timeBasedScheduler_addPeriodicTask(specialTBScheduler,addTask, 255,10000,0,0);
+    TEST_ASSERT_EQUAL_UINT8(1, priorityQueueHeap_size(queue));
+    timeBasedScheduler_markIfReady(specialTBScheduler, currentTime);
+    timeBasedScheduler_schedule(specialTBScheduler, &currentTime);
+    TEST_ASSERT_EQUAL_UINT8(2, priorityQueueHeap_size(queue));   
+
+
 }

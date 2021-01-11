@@ -38,22 +38,6 @@ void test_UART_buffer_init(void){
 
     do {if ((uBuf)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(20)));}} while(0);
 
-
-
-    UART_buffer_free(uBuf);
-
-
-
-    circularBuffer_free(test_cTBuffer);
-
-    circularBuffer_free(test_cRBuffer);
-
-
-
-    free(test_rBuffer);
-
-    free(test_tBuffer);
-
 }
 
 
@@ -90,7 +74,7 @@ void test_UART_buffer_receiveOne(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(45), UNITY_DISPLAY_STYLE_INT8);
+   ), (UNITY_UINT)(48), UNITY_DISPLAY_STYLE_INT8);
 
     circularBuffer_read(test_cRBuffer,&data);
 
@@ -98,27 +82,7 @@ void test_UART_buffer_receiveOne(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(47), UNITY_DISPLAY_STYLE_UINT8);
-
-
-
-    UART_buffer_free(uBuf);
-
-
-
-    circularBuffer_free(test_cTBuffer);
-
-    circularBuffer_free(test_cRBuffer);
-
-
-
-    free(test_rBuffer);
-
-    free(test_tBuffer);
-
-
-
-
+   ), (UNITY_UINT)(50), UNITY_DISPLAY_STYLE_UINT8);
 
 }
 
@@ -166,7 +130,7 @@ void test_UART_buffer_receiveMultiple(void){
 
        ((void *)0)
 
-       ), (UNITY_UINT)(79), UNITY_DISPLAY_STYLE_INT8);
+       ), (UNITY_UINT)(84), UNITY_DISPLAY_STYLE_INT8);
 
     }
 
@@ -178,7 +142,7 @@ void test_UART_buffer_receiveMultiple(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(83), UNITY_DISPLAY_STYLE_INT8);
+   ), (UNITY_UINT)(88), UNITY_DISPLAY_STYLE_INT8);
 
 
 
@@ -192,23 +156,9 @@ void test_UART_buffer_receiveMultiple(void){
 
        ((void *)0)
 
-       ), (UNITY_UINT)(88), UNITY_DISPLAY_STYLE_UINT8);
+       ), (UNITY_UINT)(93), UNITY_DISPLAY_STYLE_UINT8);
 
     }
-
-
-
-
-
-    free(test_rBuffer);
-
-    free(test_tBuffer);
-
-    circularBuffer_free(test_cTBuffer);
-
-    circularBuffer_free(test_cRBuffer);
-
-    UART_buffer_free(uBuf);
 
 }
 
@@ -266,29 +216,9 @@ void test_UART_buffer_overwrite(void){
 
        ((void *)0)
 
-       ), (UNITY_UINT)(123), UNITY_DISPLAY_STYLE_UINT8);
+       ), (UNITY_UINT)(132), UNITY_DISPLAY_STYLE_UINT8);
 
     }
-
-
-
-    UART_buffer_free(uBuf);
-
-
-
-
-
-    circularBuffer_free(test_cTBuffer);
-
-    circularBuffer_free(test_cRBuffer);
-
-
-
-    free(test_rBuffer);
-
-
-
-
 
 }
 
@@ -326,7 +256,7 @@ void test_UART_buffer_transmitOne(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(151), UNITY_DISPLAY_STYLE_INT8);
+   ), (UNITY_UINT)(160), UNITY_DISPLAY_STYLE_INT8);
 
     UART_buffer_transmitFromBuffer(uBuf);
 
@@ -334,19 +264,7 @@ void test_UART_buffer_transmitOne(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(153), UNITY_DISPLAY_STYLE_UINT8);
-
-
-
-    free(test_rBuffer);
-
-    free(test_tBuffer);
-
-    circularBuffer_free(test_cTBuffer);
-
-    circularBuffer_free(test_cRBuffer);
-
-    UART_buffer_free(uBuf);
+   ), (UNITY_UINT)(162), UNITY_DISPLAY_STYLE_UINT8);
 
 }
 
@@ -390,23 +308,7 @@ void test_UART_buffer_transmitMultiple(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(179), UNITY_DISPLAY_STYLE_INT8);
-
-
-
-
-
-    free(test_rBuffer);
-
-    free(test_tBuffer);
-
-    circularBuffer_free(test_cTBuffer);
-
-    circularBuffer_free(test_cRBuffer);
-
-    UART_buffer_free(uBuf);
-
-
+   ), (UNITY_UINT)(192), UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -442,19 +344,7 @@ void test_UART_buffer_transmitFromEmpty(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(203), UNITY_DISPLAY_STYLE_INT8);
-
-
-
-    free(test_rBuffer);
-
-    free(test_tBuffer);
-
-    circularBuffer_free(test_cTBuffer);
-
-    circularBuffer_free(test_cRBuffer);
-
-    UART_buffer_free(uBuf);
+   ), (UNITY_UINT)(220), UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -492,9 +382,21 @@ void test_UART_buffer_transmitMultipleFromEmpty(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(226), UNITY_DISPLAY_STYLE_INT8);
+   ), (UNITY_UINT)(247), UNITY_DISPLAY_STYLE_INT8);
 
 
+
+
+
+
+
+    UART_buffer_free(uBuf);
+
+
+
+    circularBuffer_free(test_cTBuffer);
+
+    circularBuffer_free(test_cRBuffer);
 
 
 
@@ -502,10 +404,10 @@ void test_UART_buffer_transmitMultipleFromEmpty(void){
 
     free(test_tBuffer);
 
-    circularBuffer_free(test_cTBuffer);
 
-    circularBuffer_free(test_cRBuffer);
 
-    UART_buffer_free(uBuf);
+
+
+
 
 }

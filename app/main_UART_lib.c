@@ -45,8 +45,9 @@ int main(void)
 */
   while (true)
   {
-    //UART_lib_transmit(uBuf, BUFFERSIZE);
-    //UART_lib_receive(uBuf, BUFFERSIZE, PUSH);
+    //transmit data from the buffer
+    UART_lib_transmit(uBuf, BUFFERSIZE);
+    UART_lib_receive(uBuf, BUFFERSIZE, PUSH);
     PORTB ^= _BV(5);
 
     UART_lib_receive(uBuf, 25, OVERWRITE);

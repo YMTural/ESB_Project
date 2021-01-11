@@ -123,7 +123,7 @@ void calculateSinus(void){
     for (uint8_t i = 0; i < 8; i++)
     {
       circularBuffer_read(cReceivebuffer, &input);
-      UART_transmit(input);
+      //UART_transmit(input);
       x[i] = input;
     }
   
@@ -152,15 +152,15 @@ void calculateSinus(void){
 
     int16_t f = (z - a) * 1000;
  
-    char sd[1];
+    char sd[1] = {0x30};
 
     sprintf(sd, "%i", a);
 
-    char sf[4];
+    char sf[5] = {0x30,0x30,0x30,0x30,0x30};
 
     sprintf(sf, "%i", f);
 
-    //Apparently avr-gcc does not directly support sprintf for float. Linking before compiling is necessary
+    //Apparently avr-gcc does not directly support sprintf with the float flag %f. Linking before compiling is necessary
     //sprintf(s_res, "%f", z);
 
     for (uint8_t i = 0; i < strlen(message_1); i++)
@@ -185,12 +185,14 @@ void calculateSinus(void){
 
     circularBuffer_overwrite(cTransmitbuffer, dot);
 
+    
+    //Hier müsste noch eine if abfrage rein um das Minus Zeichen nach vorne zu ziehen.
     for (uint8_t i = 0; i < strlen(sf); i++)
     {
       circularBuffer_overwrite(cTransmitbuffer, sf[i]);
     }
-
-  UART_interrupt_transmitFromBufferInit(uBuf, strlen(message_1)  + strlen(message_2) + 6 + 5);
+                                                                                //...+ UserInput + Result
+  UART_interrupt_transmitFromBufferInit(uBuf, strlen(message_1)  + strlen(message_2) + 6 + 6);
     }
   }
 }
@@ -252,7 +254,7 @@ int main(void){
   timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 15, 250, currentTime, 0);
 
   //Transmit next item on Buffer 2ms
-  timeBasedScheduler_addPeriodicTask(tBScheduler, &transmit,25 ,2 , currentTime + 50, 0);
+  timeBasedScheduler_addPeriodicTask(tBScheduler, &transmit,25 ,1 , currentTime + 50, 0);
   
   //Receive next item 1ms
   timeBasedScheduler_addPeriodicTask(tBScheduler, &receive, 245, 1, currentTime, 0);
@@ -264,7 +266,7 @@ int main(void){
   timeBasedScheduler_addPeriodicTask(tBScheduler, &temperatureMessage, 20, 10000, currentTime+5500, 0);
 
   //Prepare sinusCalc
-  timeBasedScheduler_addPeriodicTask(tBScheduler, &scheduleCalc, 243, 600, currentTime, 0);
+  timeBasedScheduler_addPeriodicTask(tBScheduler, &scheduleCalc, 243, 125, currentTime, 0);
 
   //End tasks
 

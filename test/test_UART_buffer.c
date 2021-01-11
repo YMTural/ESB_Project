@@ -18,7 +18,9 @@ void test_UART_buffer_init(void){
     UART_buffer_t uBuf = UART_buffer_init(test_cRBuffer, test_cTBuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
 
     TEST_ASSERT_TRUE(uBuf);
-    
+
+
+    /*
     UART_buffer_free(uBuf);
 
     circularBuffer_free(test_cTBuffer);
@@ -26,6 +28,7 @@ void test_UART_buffer_init(void){
 
     free(test_rBuffer);
     free(test_tBuffer);
+    */
 }
 
 void test_UART_buffer_receiveOne(void){
@@ -46,13 +49,15 @@ void test_UART_buffer_receiveOne(void){
     circularBuffer_read(test_cRBuffer,&data);
     TEST_ASSERT_EQUAL_UINT8(10, data); 
 
+    /*
     UART_buffer_free(uBuf);
 
     circularBuffer_free(test_cTBuffer);
     circularBuffer_free(test_cRBuffer);
-    
+
     free(test_rBuffer);
     free(test_tBuffer);
+    */
 
 
 }
@@ -89,11 +94,15 @@ void test_UART_buffer_receiveMultiple(void){
     }
  
     
-    free(test_rBuffer);
-    free(test_tBuffer);
+    /*
+    UART_buffer_free(uBuf);
+
     circularBuffer_free(test_cTBuffer);
     circularBuffer_free(test_cRBuffer);
-    UART_buffer_free(uBuf);
+
+    free(test_rBuffer);
+    free(test_tBuffer);
+    */
 }
 
 
@@ -123,15 +132,15 @@ void test_UART_buffer_overwrite(void){
         TEST_ASSERT_EQUAL_UINT8(i, data); 
     }
 
+    /*
     UART_buffer_free(uBuf);
-
 
     circularBuffer_free(test_cTBuffer);
     circularBuffer_free(test_cRBuffer);
-    
-    free(test_rBuffer);
 
-    //free(test_tBuffer);
+    free(test_rBuffer);
+    free(test_tBuffer);
+    */
 }
 
 void test_UART_buffer_transmitOne(void){
@@ -152,11 +161,15 @@ void test_UART_buffer_transmitOne(void){
     UART_buffer_transmitFromBuffer(uBuf);
     TEST_ASSERT_EQUAL_UINT8(10,UDR0);
 
-    free(test_rBuffer);
-    free(test_tBuffer);
+    /*
+    UART_buffer_free(uBuf);
+
     circularBuffer_free(test_cTBuffer);
     circularBuffer_free(test_cRBuffer);
-    UART_buffer_free(uBuf);
+
+    free(test_rBuffer);
+    free(test_tBuffer);
+    */
 }
 
 void test_UART_buffer_transmitMultiple(void){
@@ -179,11 +192,15 @@ void test_UART_buffer_transmitMultiple(void){
     TEST_ASSERT_EQUAL_INT8(0,UART_buffer_transmitMultipleFromBuffer(uBuf,BUFFERSIZE));
 
     
-    free(test_rBuffer);
-    free(test_tBuffer);
+    /*
+    UART_buffer_free(uBuf);
+
     circularBuffer_free(test_cTBuffer);
     circularBuffer_free(test_cRBuffer);
-    UART_buffer_free(uBuf);
+
+    free(test_rBuffer);
+    free(test_tBuffer);
+    */
 
 }
 void test_UART_buffer_transmitFromEmpty(void){
@@ -202,11 +219,15 @@ void test_UART_buffer_transmitFromEmpty(void){
     
     TEST_ASSERT_EQUAL_INT8(-1,UART_buffer_transmitFromBuffer(uBuf));
     
-    free(test_rBuffer);
-    free(test_tBuffer);
+    /*
+    UART_buffer_free(uBuf);
+
     circularBuffer_free(test_cTBuffer);
     circularBuffer_free(test_cRBuffer);
-    UART_buffer_free(uBuf);
+
+    free(test_rBuffer);
+    free(test_tBuffer);
+    */
 }
 
 void test_UART_buffer_transmitMultipleFromEmpty(void){
@@ -226,9 +247,15 @@ void test_UART_buffer_transmitMultipleFromEmpty(void){
     TEST_ASSERT_EQUAL_INT8(-1,UART_buffer_transmitMultipleFromBuffer(uBuf,10));
 
     
-    free(test_rBuffer);
-    free(test_tBuffer);
+    
+    UART_buffer_free(uBuf);
+
     circularBuffer_free(test_cTBuffer);
     circularBuffer_free(test_cRBuffer);
-    UART_buffer_free(uBuf); 
+
+    free(test_rBuffer);
+    free(test_tBuffer);
+    
+
+
 }

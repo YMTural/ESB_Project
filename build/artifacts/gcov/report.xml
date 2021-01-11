@@ -3,51 +3,198 @@
 	<FailedTests/>
 	<SuccessfulTests>
 		<Test id="1">
-			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_init</Name>
+			<Name>test/test_UART.c::test_UART_init</Name>
 		</Test>
 		<Test id="2">
-			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_addOne</Name>
+			<Name>test/test_UART.c::test_UART_transmit</Name>
 		</Test>
 		<Test id="3">
-			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_getNextOnce</Name>
+			<Name>test/test_UART.c::test_UART_flush</Name>
 		</Test>
 		<Test id="4">
-			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_addMultiple</Name>
+			<Name>test/test_UART.c::test_UART_receive</Name>
 		</Test>
 		<Test id="5">
-			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_swapOnce</Name>
+			<Name>test/test_UART_buffer.c::test_UART_buffer_init</Name>
 		</Test>
 		<Test id="6">
-			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_heapify</Name>
+			<Name>test/test_UART_buffer.c::test_UART_buffer_receiveOne</Name>
 		</Test>
 		<Test id="7">
-			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_getMultiple</Name>
+			<Name>test/test_UART_buffer.c::test_UART_buffer_receiveMultiple</Name>
 		</Test>
 		<Test id="8">
-			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_getFromNone</Name>
+			<Name>test/test_UART_buffer.c::test_UART_buffer_overwrite</Name>
 		</Test>
 		<Test id="9">
-			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_peekAtNull</Name>
+			<Name>test/test_UART_buffer.c::test_UART_buffer_transmitOne</Name>
 		</Test>
 		<Test id="10">
-			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_getNextReady</Name>
+			<Name>test/test_UART_buffer.c::test_UART_buffer_transmitMultiple</Name>
 		</Test>
 		<Test id="11">
-			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_size</Name>
+			<Name>test/test_UART_buffer.c::test_UART_buffer_transmitFromEmpty</Name>
 		</Test>
 		<Test id="12">
-			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_capacity</Name>
+			<Name>test/test_UART_buffer.c::test_UART_buffer_transmitMultipleFromEmpty</Name>
 		</Test>
 		<Test id="13">
-			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_getNextReadyFromNull</Name>
+			<Name>test/test_circularBuffer.c::test_circularBuffer_init</Name>
 		</Test>
 		<Test id="14">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_free</Name>
+		</Test>
+		<Test id="15">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_reset</Name>
+		</Test>
+		<Test id="16">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_capacity</Name>
+		</Test>
+		<Test id="17">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_pushFull</Name>
+		</Test>
+		<Test id="18">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_pushOver</Name>
+		</Test>
+		<Test id="19">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_pushCheck</Name>
+		</Test>
+		<Test id="20">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_readAll</Name>
+		</Test>
+		<Test id="21">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_readCheck</Name>
+		</Test>
+		<Test id="22">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_readEmpty</Name>
+		</Test>
+		<Test id="23">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_sizeFillingUp</Name>
+		</Test>
+		<Test id="24">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_sizeLooping</Name>
+		</Test>
+		<Test id="25">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_fullEmpty</Name>
+		</Test>
+		<Test id="26">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_fullFull</Name>
+		</Test>
+		<Test id="27">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_empty</Name>
+		</Test>
+		<Test id="28">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_overWriteAll</Name>
+		</Test>
+		<Test id="29">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_overwriteCheckTwice</Name>
+		</Test>
+		<Test id="30">
+			<Name>test/test_circularBuffer.c::test_circularBuffer_sizeFullBuffer</Name>
+		</Test>
+		<Test id="31">
+			<Name>test/test_mySinusFunction.c::test_zeroPower</Name>
+		</Test>
+		<Test id="32">
+			<Name>test/test_mySinusFunction.c::test_negativeBase</Name>
+		</Test>
+		<Test id="33">
+			<Name>test/test_mySinusFunction.c::test_positiveBase</Name>
+		</Test>
+		<Test id="34">
+			<Name>test/test_mySinusFunction.c::test_floatBase</Name>
+		</Test>
+		<Test id="35">
+			<Name>test/test_mySinusFunction.c::test_exponentAddition</Name>
+		</Test>
+		<Test id="36">
+			<Name>test/test_mySinusFunction.c::test_exponentSubtraction</Name>
+		</Test>
+		<Test id="37">
+			<Name>test/test_mySinusFunction.c::test_ZeroFactorial</Name>
+		</Test>
+		<Test id="38">
+			<Name>test/test_mySinusFunction.c::test_positiveFactorial</Name>
+		</Test>
+		<Test id="39">
+			<Name>test/test_mySinusFunction.c::test_sin</Name>
+		</Test>
+		<Test id="40">
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_init</Name>
+		</Test>
+		<Test id="41">
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_addOne</Name>
+		</Test>
+		<Test id="42">
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_getNextOnce</Name>
+		</Test>
+		<Test id="43">
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_addMultiple</Name>
+		</Test>
+		<Test id="44">
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_swapOnce</Name>
+		</Test>
+		<Test id="45">
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_heapify</Name>
+		</Test>
+		<Test id="46">
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_getMultiple</Name>
+		</Test>
+		<Test id="47">
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_getFromNone</Name>
+		</Test>
+		<Test id="48">
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_peekAtNull</Name>
+		</Test>
+		<Test id="49">
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_getNextReady</Name>
+		</Test>
+		<Test id="50">
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_size</Name>
+		</Test>
+		<Test id="51">
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_capacity</Name>
+		</Test>
+		<Test id="52">
+			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_getNextReadyFromNull</Name>
+		</Test>
+		<Test id="53">
 			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_getNextReadyFromOne</Name>
+		</Test>
+		<Test id="54">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_init</Name>
+		</Test>
+		<Test id="55">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOneTask</Name>
+		</Test>
+		<Test id="56">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addMoreThanMaxSizeTasks</Name>
+		</Test>
+		<Test id="57">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOnePeriodicTask</Name>
+		</Test>
+		<Test id="58">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOnePeriodicTaskToFull</Name>
+		</Test>
+		<Test id="59">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_schedule</Name>
+		</Test>
+		<Test id="60">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_scheduleOnEmpty</Name>
+		</Test>
+		<Test id="61">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_scheduleNonPeriodicTask</Name>
+		</Test>
+		<Test id="62">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_markIfReady</Name>
+		</Test>
+		<Test id="63">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_incrementTimer</Name>
 		</Test>
 	</SuccessfulTests>
 	<IgnoredTests/>
 	<Statistics>
-		<Tests>14</Tests>
+		<Tests>63</Tests>
 		<Ignores>0</Ignores>
 		<FailuresTotal>0</FailuresTotal>
 		<Errors>0</Errors>

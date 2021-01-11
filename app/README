@@ -1,7 +1,24 @@
-Jedes main_ ist ein Integration test, wobei ich die Ausgabe mit "moserial" überprüft habe.
 
-UART_interrupt hat keine Unit test, da die einzelnen Funktion nur set methoden sind und der wichtige Part im Integrationtest getestet wird.
 
-Die Main Application sendet alle paar Sekunden die aktuelle Chip Temperatur und berechnet den Sinus der eingeben Zahl (z.B 090.00 oder 123.12) als ASCII übertragen mit carriage return und  new line.
+
+Jedes main_* ist ein Integration Test, wobei ich die Ausgabe mit dem Programm "moserial" überprüft habe.
+Port-Settings:
+                - Gerät: /dev/ttyACM0 
+                - Baudrate: 9600
+                - Datenbits: 8
+                - Stopbits: 1
+                - Parität: Nichts
+
+In den Main files steht in den Kommentaren die erwartete Ausgabe. 
 
 DEBUG in Debug.h muss auf 1 gesetzt werden um Bazel oder Ceedling auszuführen und auf 0 um die main hochzuladen.
+Ich habe mit "Bazel test test:all" getestet und es laufen alle Tests durch.
+
+UART_interrupt, UART_lib und adc_temperature haben keine Unit test, da die einzelnen Funktion nur set/get Methoden sind, bzw. der wichtige Part im zugehörigen Integration Test getestet wird.
+Gleiches gilt für arduinoArch welches die Register für den Arduino setzt. 
+
+
+
+Die Main Application sendet alle paar Sekunden die aktuelle Chip Temperatur und berechnet den Sinus der eingeben Zahl (als ASCII z.B 090.00 oder 123.12). Übertragen muss mit carriage return und new line am Ende.
+Dies geschieht mit moserial, insofern der ASCII Modus ausgewählt wurde, automatisch.
+Vor jeder neuen Eingabe sollte ca. 1s gewartet werden

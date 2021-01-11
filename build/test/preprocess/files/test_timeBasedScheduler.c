@@ -414,6 +414,50 @@ void timeBasedScheduler_addTaskWithTask(void){
 
    ), (UNITY_UINT)(184), UNITY_DISPLAY_STYLE_UINT8);
 
+    specialTBScheduler = 
+
+                        ((void *)0)
+
+                            ;
+
+
+
+}
+
+
+
+void timeBasedScheduler_addTaskWithTimeOverflow(void){
+
+
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+
+    uint16_t currentTime = 65430;
+
+
+
+    specialTBScheduler = timeBasedScheduler_init(15, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+
+
+
+    timeBasedScheduler_addPeriodicTask(specialTBScheduler,addTask, 255,10000,0,0);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((1)), (UNITY_INT)(UNITY_UINT8 )((priorityQueueHeap_size(queue))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(197), UNITY_DISPLAY_STYLE_UINT8);
+
+    timeBasedScheduler_markIfReady(specialTBScheduler, currentTime);
+
+    timeBasedScheduler_schedule(specialTBScheduler, &currentTime);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((2)), (UNITY_INT)(UNITY_UINT8 )((priorityQueueHeap_size(queue))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(200), UNITY_DISPLAY_STYLE_UINT8);
+
 
 
 
