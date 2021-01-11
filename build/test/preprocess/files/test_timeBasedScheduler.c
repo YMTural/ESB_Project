@@ -16,7 +16,7 @@
 
 volatile uint8_t count = 0;
 
-
+timeBasedScheduler_t specialTBScheduler;
 
 
 
@@ -363,5 +363,59 @@ void test_timeBasedScheduler_incrementTimer(void){
     timeBasedScheduler_free(tBScheduler);
 
     priorityQueueHeap_free(queue);
+
+}
+
+
+
+void addTask(void){
+
+
+
+    timeBasedScheduler_addTask(specialTBScheduler, &addTask, 44,44);
+
+
+
+}
+
+
+
+
+
+void timeBasedScheduler_addTaskWithTask(void){
+
+
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+
+    uint16_t currentTime = 65530;
+
+
+
+    specialTBScheduler = timeBasedScheduler_init(15, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+
+
+
+    timeBasedScheduler_addPeriodicTask(specialTBScheduler,addTask, 255,10,150,0);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((1)), (UNITY_INT)(UNITY_UINT8 )((priorityQueueHeap_size(queue))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(181), UNITY_DISPLAY_STYLE_UINT8);
+
+    timeBasedScheduler_markIfReady(specialTBScheduler, currentTime);
+
+    timeBasedScheduler_schedule(specialTBScheduler,&currentTime);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((2)), (UNITY_INT)(UNITY_UINT8 )((priorityQueueHeap_size(queue))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(184), UNITY_DISPLAY_STYLE_UINT8);
+
+
+
+
 
 }

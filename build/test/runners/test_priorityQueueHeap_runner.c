@@ -96,20 +96,20 @@ static void run_test(UnityTestFunction func, const char* name, int line_num)
 int main(void)
 {
   UnityBegin("test_priorityQueueHeap.c");
-  run_test(test_priorityQueueHeap_init, "test_priorityQueueHeap_init", 8);
-  run_test(test_priorityQueueHeap_addOne, "test_priorityQueueHeap_addOne", 17);
-  run_test(test_priorityQueueHeap_getNextOnce, "test_priorityQueueHeap_getNextOnce", 33);
-  run_test(test_priorityQueueHeap_addMultiple, "test_priorityQueueHeap_addMultiple", 60);
-  run_test(test_priorityQueueHeap_swapOnce, "test_priorityQueueHeap_swapOnce", 87);
-  run_test(test_priorityQueueHeap_heapify, "test_priorityQueueHeap_heapify", 108);
-  run_test(test_priorityQueueHeap_getMultiple, "test_priorityQueueHeap_getMultiple", 137);
-  run_test(test_priorityQueueHeap_getFromNone, "test_priorityQueueHeap_getFromNone", 169);
-  run_test(test_priorityQueueHeap_peekAtNull, "test_priorityQueueHeap_peekAtNull", 179);
-  run_test(test_priorityQueueHeap_getNextReady, "test_priorityQueueHeap_getNextReady", 189);
-  run_test(test_priorityQueueHeap_size, "test_priorityQueueHeap_size", 218);
-  run_test(test_priorityQueueHeap_capacity, "test_priorityQueueHeap_capacity", 239);
-  run_test(test_priorityQueueHeap_getNextReadyFromNull, "test_priorityQueueHeap_getNextReadyFromNull", 252);
-  run_test(test_priorityQueueHeap_getNextReadyFromOne, "test_priorityQueueHeap_getNextReadyFromOne", 261);
+  run_test(test_priorityQueueHeap_init, "test_priorityQueueHeap_init", 7);
+  run_test(test_priorityQueueHeap_addOne, "test_priorityQueueHeap_addOne", 16);
+  run_test(test_priorityQueueHeap_getNextOnce, "test_priorityQueueHeap_getNextOnce", 32);
+  run_test(test_priorityQueueHeap_addMultiple, "test_priorityQueueHeap_addMultiple", 59);
+  run_test(test_priorityQueueHeap_swapOnce, "test_priorityQueueHeap_swapOnce", 86);
+  run_test(test_priorityQueueHeap_heapify, "test_priorityQueueHeap_heapify", 107);
+  run_test(test_priorityQueueHeap_getMultiple, "test_priorityQueueHeap_getMultiple", 136);
+  run_test(test_priorityQueueHeap_getFromNone, "test_priorityQueueHeap_getFromNone", 168);
+  run_test(test_priorityQueueHeap_peekAtNull, "test_priorityQueueHeap_peekAtNull", 178);
+  run_test(test_priorityQueueHeap_getNextReady, "test_priorityQueueHeap_getNextReady", 188);
+  run_test(test_priorityQueueHeap_size, "test_priorityQueueHeap_size", 217);
+  run_test(test_priorityQueueHeap_capacity, "test_priorityQueueHeap_capacity", 238);
+  run_test(test_priorityQueueHeap_getNextReadyFromNull, "test_priorityQueueHeap_getNextReadyFromNull", 251);
+  run_test(test_priorityQueueHeap_getNextReadyFromOne, "test_priorityQueueHeap_getNextReadyFromOne", 260);
 
   return UnityEnd();
 }

@@ -187,11 +187,13 @@ void test_sin(void){
 
 
 
+
+
         UnityAssertFloatsWithin((UNITY_FLOAT)((0.01f)), (UNITY_FLOAT)((sin(i*0.1*(3.141592/180)))), (UNITY_FLOAT)((mySinusFunction(0.1*i))), (
 
        ((void *)0)
 
-       ), (UNITY_UINT)(81));
+       ), (UNITY_UINT)(82));
 
 
 

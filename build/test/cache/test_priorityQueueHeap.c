@@ -8,8 +8,6 @@
 
 
 
-
-
 void test_priorityQueueHeap_init(void){
 
 
@@ -18,7 +16,7 @@ void test_priorityQueueHeap_init(void){
 
 
 
-    do {if ((queue)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(12)));}} while(0);
+    do {if ((queue)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(11)));}} while(0);
 
 
 
@@ -58,7 +56,7 @@ void test_priorityQueueHeap_addOne(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(28), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(27), UNITY_DISPLAY_STYLE_UINT8);
 
     priorityQueueHeap_free(queue);
 
@@ -100,7 +98,7 @@ void test_priorityQueueHeap_getNextOnce(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(45), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(44), UNITY_DISPLAY_STYLE_UINT8);
 
 
 
@@ -112,33 +110,33 @@ void test_priorityQueueHeap_getNextOnce(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(49), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(48), UNITY_DISPLAY_STYLE_UINT8);
 
     UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((NONPERIODIC)), (UNITY_INT)(UNITY_UINT8 )((taskE.isPeriodic)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(50), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(49), UNITY_DISPLAY_STYLE_UINT8);
 
     UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((0)), (UNITY_INT)(UNITY_UINT8 )((taskE.period)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(51), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(50), UNITY_DISPLAY_STYLE_UINT8);
 
-    do {if ((taskE.isReady)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(52)));}} while(0);
+    do {if ((taskE.isReady)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(51)));}} while(0);
 
     UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((23)), (UNITY_INT)(UNITY_UINT8 )((taskE.startTime)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(53), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(52), UNITY_DISPLAY_STYLE_UINT8);
 
     UnityAssertEqualNumber((UNITY_INT64)((test_priorityQueueHeap_addOne)), (UNITY_INT64)((taskE.function)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(54), UNITY_DISPLAY_STYLE_HEX64);
+   ), (UNITY_UINT)(53), UNITY_DISPLAY_STYLE_HEX64);
 
 
 
@@ -186,7 +184,7 @@ void test_priorityQueueHeap_addMultiple(void){
 
        ((void *)0)
 
-       ), (UNITY_UINT)(74), UNITY_DISPLAY_STYLE_UINT8);
+       ), (UNITY_UINT)(73), UNITY_DISPLAY_STYLE_UINT8);
 
     }
 
@@ -194,7 +192,7 @@ void test_priorityQueueHeap_addMultiple(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(76), UNITY_DISPLAY_STYLE_INT8);
+   ), (UNITY_UINT)(75), UNITY_DISPLAY_STYLE_INT8);
 
 
 
@@ -204,9 +202,9 @@ void test_priorityQueueHeap_addMultiple(void){
 
 
 
-        do {if ((priorityQueueHeap_peekAt(queue,i)->priority > priorityQueueHeap_peekAt(queue,2*i+1)->priority)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(81)));}} while(0);
+        do {if ((priorityQueueHeap_peekAt(queue,i)->priority > priorityQueueHeap_peekAt(queue,2*i+1)->priority)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(80)));}} while(0);
 
-        do {if ((priorityQueueHeap_peekAt(queue,i)->priority > priorityQueueHeap_peekAt(queue,2*i+2)->priority)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(82)));}} while(0);
+        do {if ((priorityQueueHeap_peekAt(queue,i)->priority > priorityQueueHeap_peekAt(queue,2*i+2)->priority)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(81)));}} while(0);
 
     }
 
@@ -302,7 +300,7 @@ void test_priorityQueueHeap_heapify(void){
 
        ((void *)0)
 
-       ), (UNITY_UINT)(124), UNITY_DISPLAY_STYLE_UINT8);
+       ), (UNITY_UINT)(123), UNITY_DISPLAY_STYLE_UINT8);
 
     }
 
@@ -316,9 +314,9 @@ void test_priorityQueueHeap_heapify(void){
 
     {
 
-        do {if ((priorityQueueHeap_peekAt(queue,i)->priority > priorityQueueHeap_peekAt(queue,2*i+1)->priority)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(131)));}} while(0);
+        do {if ((priorityQueueHeap_peekAt(queue,i)->priority > priorityQueueHeap_peekAt(queue,2*i+1)->priority)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(130)));}} while(0);
 
-        do {if ((priorityQueueHeap_peekAt(queue,i)->priority > priorityQueueHeap_peekAt(queue,2*i+2)->priority)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(132)));}} while(0);
+        do {if ((priorityQueueHeap_peekAt(queue,i)->priority > priorityQueueHeap_peekAt(queue,2*i+2)->priority)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(131)));}} while(0);
 
     }
 
@@ -370,7 +368,7 @@ void test_priorityQueueHeap_getMultiple(void){
 
        ((void *)0)
 
-       ), (UNITY_UINT)(154), UNITY_DISPLAY_STYLE_UINT8);
+       ), (UNITY_UINT)(153), UNITY_DISPLAY_STYLE_UINT8);
 
     }
 
@@ -380,7 +378,7 @@ void test_priorityQueueHeap_getMultiple(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(157), UNITY_DISPLAY_STYLE_INT8);
+   ), (UNITY_UINT)(156), UNITY_DISPLAY_STYLE_INT8);
 
 
 
@@ -398,7 +396,7 @@ void test_priorityQueueHeap_getMultiple(void){
 
        ((void *)0)
 
-       ), (UNITY_UINT)(164), UNITY_DISPLAY_STYLE_UINT8);
+       ), (UNITY_UINT)(163), UNITY_DISPLAY_STYLE_UINT8);
 
     }
 
@@ -418,7 +416,7 @@ void test_priorityQueueHeap_getFromNone(void){
 
 
 
-    do {if (!(priorityQueueHeap_getNext(queue))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(174)));}} while(0);
+    do {if (!(priorityQueueHeap_getNext(queue))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(173)));}} while(0);
 
 
 
@@ -436,7 +434,7 @@ void test_priorityQueueHeap_peekAtNull(void){
 
 
 
-    do {if (!(priorityQueueHeap_peekAt(queue,1))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(183)));}} while(0);
+    do {if (!(priorityQueueHeap_peekAt(queue,1))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(182)));}} while(0);
 
     priorityQueueHeap_free(queue);
 
@@ -512,7 +510,7 @@ void test_priorityQueueHeap_getNextReady(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(215), UNITY_DISPLAY_STYLE_INT8);
+   ), (UNITY_UINT)(214), UNITY_DISPLAY_STYLE_INT8);
 
     priorityQueueHeap_free(queue);
 
@@ -554,7 +552,7 @@ void test_priorityQueueHeap_size(void){
 
        ((void *)0)
 
-       ), (UNITY_UINT)(232), UNITY_DISPLAY_STYLE_UINT8);
+       ), (UNITY_UINT)(231), UNITY_DISPLAY_STYLE_UINT8);
 
         priorityQueueHeap_add(queue, task1);
 
@@ -584,7 +582,7 @@ void test_priorityQueueHeap_capacity(void){
 
        ((void *)0)
 
-       ), (UNITY_UINT)(245), UNITY_DISPLAY_STYLE_UINT8);
+       ), (UNITY_UINT)(244), UNITY_DISPLAY_STYLE_UINT8);
 
         priorityQueueHeap_free(queue);
 
@@ -606,7 +604,7 @@ void test_priorityQueueHeap_getNextReadyFromNull(void){
 
 
 
-    do {if (!(priorityQueueHeap_getNextReady(queue))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(256)));}} while(0);
+    do {if (!(priorityQueueHeap_getNextReady(queue))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(255)));}} while(0);
 
 
 
@@ -648,7 +646,7 @@ void test_priorityQueueHeap_getNextReadyFromOne(void){
 
 
 
-    do {if ((priorityQueueHeap_getNextReady(queue))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(275)));}} while(0);
+    do {if ((priorityQueueHeap_getNextReady(queue))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(274)));}} while(0);
 
 
 
