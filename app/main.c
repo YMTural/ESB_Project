@@ -123,7 +123,7 @@ void calculateSinus(void){
     for (uint8_t i = 0; i < 8; i++)
     {
       circularBuffer_read(cReceivebuffer, &input);
-      UART_transmit(input);
+      //UART_transmit(input);
       x[i] = input;
     }
   
