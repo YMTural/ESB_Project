@@ -29,9 +29,8 @@ int8_t priorityQueueHeap_add(void* v_priorityQueueHeap, task task){
         return -1;
     }
 
+    uint8_t index = priorityQueueHeap -> size;
     priorityQueueHeap -> size++;
-
-    uint8_t index = priorityQueueHeap -> size -1;
     priorityQueueHeap -> prioQueue[index] = task;
     while (index != 0 &&  priorityQueueHeap -> prioQueue[index].priority >  priorityQueueHeap -> prioQueue[(index-1)/2].priority ){
         
@@ -165,3 +164,19 @@ void priorityQueueHeap_incrementPriorityOfNonPeriodic(priorityQueueHeap_t priori
     }
 }
 */
+
+void priorityQueueHeap_deleteItem(void* v_priorityQueueHeap, uint8_t n){
+
+    priorityQueueHeap_t queue = v_priorityQueueHeap;
+
+    if (queue -> size <= n){
+
+        return;
+    }
+    else{
+
+        priorityQueueHeap_swap(n, (queue -> size) - 1, queue);
+        queue -> size--;
+        priorityQueueHeap_heapify(queue, n);
+    }
+}

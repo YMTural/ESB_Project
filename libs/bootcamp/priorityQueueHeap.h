@@ -108,8 +108,10 @@ task* priorityQueueHeap_peekAt(void* priorityQueueHeap,uint8_t n);
  * 
  *  @param
  *   The queue container whose size is to be determined
+ *  @param
+ *   The place of the task in the heap
  *  @return
- *   Current number of tasks in the Queue
+ *   Pointer to the n'th task
  */ 
 
 uint8_t priorityQueueHeap_size(void* priorityQueueHeap);
@@ -140,5 +142,20 @@ void priorityQueueHeap_free(priorityQueueHeap_t priorityQueueHeap);
  * 
  */ 
 //void priorityQueueHeap_incrementPriorityOfNonPeriodic(priorityQueueHeap_t priorityQueueHeap);
+
+/**
+ * @brief Deletes the item in the n'th place of the heap
+ * 
+ * 
+ * @param
+ *  The queue container
+ * @param
+ *  The place of the item to be deleted
+ * 
+ */ 
+
+
+void priorityQueueHeap_deleteItem(void* priorityQueueHeap, uint8_t n);
+
 
 #endif

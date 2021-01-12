@@ -276,6 +276,52 @@ void test_priorityQueueHeap_getNextReadyFromOne(void){
     priorityQueueHeap_free(queue);
 }
 
+void test_priorityQueueHeap_deleteOneItem(void){
+
+    task task1;
+    task1.id = 0;
+    task1.function = test_priorityQueueHeap_addOne;
+    task1.priority = 255;
+    task1.isPeriodic = NONPERIODIC;
+    task1.period = 0;
+    task1.isReady = true;
+    task1.startTime = 23;
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    priorityQueueHeap_add(queue,task1);
+    TEST_ASSERT_EQUAL_UINT8(1,priorityQueueHeap_size(queue));
+    priorityQueueHeap_deleteItem(queue,0);
+    TEST_ASSERT_EQUAL_UINT8(0,priorityQueueHeap_size(queue));
+    free(queue);
+}
+
+void test_priorityQueueHeap_deleteFromMiddle(void){
+
+    task task1;
+    task1.id = 0;
+    task1.function = test_priorityQueueHeap_addOne;
+    task1.priority = 255;
+    task1.isPeriodic = NONPERIODIC;
+    task1.period = 0;
+    task1.isReady = true;
+    task1.startTime = 23;
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    priorityQueueHeap_add(queue,task1);
+    task1.id = 1;
+    task1.priority = 254;
+    priorityQueueHeap_add(queue,task1);
+    task1.id = 2;
+    task1.priority = 253;
+    priorityQueueHeap_add(queue,task1);
+
+    TEST_ASSERT_EQUAL_UINT8(3,priorityQueueHeap_size(queue));
+    priorityQueueHeap_deleteItem(queue, 1);
+    TEST_ASSERT_EQUAL_UINT8(2,priorityQueueHeap_size(queue));
+    TEST_ASSERT_EQUAL_UINT8(2,priorityQueueHeap_peekAt(queue,1) -> id);
+
+}
+
 /*
 void test_priorityQueueHeap_incPrio(void){
 
