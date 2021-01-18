@@ -10,7 +10,7 @@
 #include "bootcamp/UART_interrupt.h"
 
 
-#define BUFFERSIZE 25
+#define BUFFERSIZE 255
 
 
 volatile uint8_t* transBuffer;
@@ -34,27 +34,32 @@ int main(void)
   sei();
   DDRB = _BV(5);
 
-  //Pushing number 0 to BUFFERSIZE in Buffer
+  //Pushing number 0 to 24 in Buffer
   for(uint8_t i = 0; i < BUFFERSIZE; i++){
 
-    circularBuffer_push(cTbuf,i);
+    //circularBuffer_push(cTbuf,i);
   }
 
-  //Initializing transmit of BUFFERSIZE Data units from Buffer 
-  UART_interrupt_transmitFromBufferInit(uBuf, BUFFERSIZE);
+  //Initializing transmit of 25 Data units from Buffer 
+  UART_interrupt_transmitFromBufferInit(uBuf, 255);
 
-  //Initializing receive of BUFFERSIZE Data units from the UART connection 
-  UART_interrupt_receiveToBufferInit(uBuf, BUFFERSIZE);
+  //Initializing receive of 25 Data units from the UART connection 
+  UART_interrupt_receiveToBufferInit(uBuf, 255);
 
-
-  //Simultaneous send and receive
+  uint8_t data;
+ 
   while (true)
   {
     //Sending Data whenever the transmit register is ready
     UART_interrupt_transmitFromBuffer(uBuf);
     PORTB ^= _BV(5);
+    //_delay_ms(250);
     UART_interrupt_receiveToBuffer(uBuf, OVERWRITE);
-    _delay_ms(250);
+    if(!circularBuffer_read(cRbuf, &data)){
+      circularBuffer_push(cTbuf, data);
+    }
+
+
     //Send 0xFF when all the expected data has been received
     if(circularBuffer_full(cRbuf)){
 
@@ -89,12 +94,7 @@ ISR(USART_TX_vect){
 ISR(USART_RX_vect){
 
   cli();
-  if(UART_interrupt_isReceiveComplete(uBuf)){
     UART_disableReceiveInterrupt();
-  }
-  else{
-    UART_disableReceiveInterrupt();
-    UART_interrupt_setReceiveFlag(uBuf, true); 
-  }
+    UART_interrupt_setReceiveFlag(uBuf, true);
   sei();
 }

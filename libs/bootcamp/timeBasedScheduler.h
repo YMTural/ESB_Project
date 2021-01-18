@@ -64,7 +64,8 @@ timeBasedScheduler_t timeBasedScheduler_init(uint8_t maxSize, void* queue, uint8
     uint8_t (*queueCapacity)(void* queue),
     int8_t (*queueAdd)(void* queue, task thisTask),
     task* (*queuePeekAt)(void* queue, uint8_t n),
-    task* (*queueGetNextReady)(void* queue) );
+    task* (*queueGetNextReady)(void* queue),
+    void (*queueDelete)(void* queue, uint8_t n) );
 
 
 /**

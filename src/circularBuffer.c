@@ -21,7 +21,8 @@ circularBuffer_t circularBuffer_init(uint8_t* buffer, size_t size){
     circularBuffer_t cbuf = malloc(sizeof(circularBuffer));
 
     cbuf->startAddress = buffer;
-    cbuf->endAddress = buffer + size;
+    //Since the startAddress contains data aswell 
+    cbuf->endAddress = buffer + size - 1;
     
     cbuf->startIndex = cbuf->startAddress;
     cbuf->endIndex = cbuf->startAddress;
@@ -76,6 +77,8 @@ int8_t circularBuffer_read(void* v_cbuf, uint8_t* data){
     circularBuffer_t cbuf = v_cbuf;
     if(!circularBuffer_empty(cbuf)){
         *data = *(cbuf->startIndex);
+        //Deleting data
+        *(cbuf->startIndex) = 0;
         //newEndpos = currentPos + 1 mod cap
         cbuf->startIndex = cbuf->startAddress + ((cbuf->startIndex - cbuf->startAddress) + 1) % cbuf->capacity;
         cbuf->full = 0;
@@ -122,3 +125,12 @@ size_t circularBuffer_size(circularBuffer_t cbuf){
     return size;
 }
 
+uint8_t circularBuffer_mostRecentElement(circularBuffer_t cbuf){
+    //End Index is pushed to the next free space after the last insertion. Therefore endindex -1 contains the most recent element
+    if(cbuf -> endIndex == cbuf -> startAddress){
+        return *cbuf -> endAddress ;
+    }else
+    {
+        return *(cbuf -> startAddress + (cbuf -> endIndex - 1 - cbuf -> startAddress) % cbuf -> capacity );
+    }
+}

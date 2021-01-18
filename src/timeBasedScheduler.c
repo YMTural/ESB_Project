@@ -28,7 +28,8 @@ timeBasedScheduler_t timeBasedScheduler_init(uint8_t maxSize, void* queue, uint8
     uint8_t (*queueCapacity)(void* queue),
     int8_t (*queueAdd)(void* queue, task thisTask),
     task* (*queuePeekAt)(void* queue, uint8_t n),
-    task* (*queueGetNextReady)(void* queue) ){
+    task* (*queueGetNextReady)(void* queue),
+    void (*queueDelete)(void* queue, uint8_t n) ){
 
     timeBasedScheduler_t tBScheduler = malloc(sizeof(timeBasedScheduler));
     tBScheduler -> overflow = false;
@@ -100,13 +101,11 @@ void timeBasedScheduler_timer(uint8_t timer, uint16_t intervall){
 
 void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler, uint16_t currentTime){
 
-
     for (uint8_t i = 0; i < tBScheduler->queueSize(tBScheduler->queue); i++)
     {   
         
         if (tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->startTime <= currentTime && (tBScheduler -> overflow == tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->overflow) )
         {
-
             tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->isReady = true;
         }
         
@@ -125,17 +124,17 @@ void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler, uint16_t* cur
             nextTask->function();
             
             if(nextTask -> isPeriodic){
-               
                 //Use pointer to get most accurate currentTime
                 startTime = *currentTime + nextTask ->period;
                 //If overflow occured add with flipped overflow bit
                 //This prevents timer overflow scheduling errors
                 if(startTime < *currentTime){
+           
                     timeBasedScheduler_addPeriodicTask(tBScheduler, nextTask->function, nextTask->priority, nextTask ->period, startTime, !tBScheduler->overflow);
                 }else{
+
                     timeBasedScheduler_addPeriodicTask(tBScheduler, nextTask->function, nextTask->priority, nextTask ->period, startTime, tBScheduler->overflow);
                 }
-                
                 //priorityQueueHeap_incrementPriorityOfNonPeriodic(tBScheduler->queue);
             }
         }

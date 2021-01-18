@@ -1,7 +1,7 @@
 #include <unity.h>
 #include "bootcamp/circularBuffer.h"
 #include <math.h>
-#define BUFFERSIZE 124
+#define BUFFERSIZE 4
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
 
@@ -326,4 +326,44 @@ void test_circularBuffer_sizeFullBuffer(void){
     TEST_ASSERT_EQUAL_UINT8(BUFFERSIZE, circularBuffer_size(test_cBuffer));
 
 
+}
+
+void test_circularBuffer_mostRecentElement2Elements(void){
+
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, BUFFERSIZE);
+
+    circularBuffer_push(test_cBuffer, 120);
+    circularBuffer_push(test_cBuffer, 232);
+    TEST_ASSERT_EQUAL_UINT8(232, circularBuffer_mostRecentElement(test_cBuffer));
+
+
+    circularBuffer_free(test_cBuffer);
+    free(test_buffer);
+}
+
+void test_circularBuffer_mostRecentElementPushFullThenOverrride(void){
+
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, BUFFERSIZE);
+
+    for (uint8_t i = 0; i < BUFFERSIZE; i++)
+    {
+        TEST_ASSERT_EQUAL_UINT8(i, circularBuffer_size(test_cBuffer));
+        TEST_ASSERT_FALSE(circularBuffer_push(test_cBuffer, i+10));
+        TEST_ASSERT_EQUAL_UINT8(i+10, circularBuffer_mostRecentElement(test_cBuffer));
+    }
+        uint8_t data;
+    for (uint8_t i = 0; i < BUFFERSIZE; i++)
+    {
+        circularBuffer_read(test_cBuffer, &data);
+        TEST_ASSERT_EQUAL_UINT8(i+10, data);
+    }
+    for (uint8_t i = 0; i < BUFFERSIZE; i++)
+    {
+        circularBuffer_overwrite(test_cBuffer, i);
+        TEST_ASSERT_EQUAL_UINT8(i, circularBuffer_mostRecentElement(test_cBuffer));
+    }
+    circularBuffer_free(test_cBuffer);
+    free(test_buffer);
 }

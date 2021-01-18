@@ -135,4 +135,9 @@ size_t circularBuffer_capacity(circularBuffer_t cbuf);
  */
 size_t circularBuffer_size(circularBuffer_t cbuf);
 
+//Return copy of the last added element
+uint8_t circularBuffer_mostRecentElement(circularBuffer_t cbuf);
+
+
+
 #endif // CIRCULARBUFFER_H
