@@ -73,6 +73,7 @@ void awaitNextCommand(void){
 void determineTask(void){
 
   char receivedCommand[commandLength];
+
   for (uint8_t i = 0; i < commandLength; i++)
   {
     circularBuffer_read(cReceivebuffer, &receivedCommand[i]);
@@ -81,6 +82,9 @@ void determineTask(void){
   {
     circularBuffer_push(cTransmitbuffer, receivedCommand[i]);
   }
+  UART_transmit(0xC0);
+  UART_transmit(commandLength);
+  UART_transmit(0xC2);
   UART_interrupt_transmitFromBufferInit(uBuf, commandLength-1);
   commandLength = 0;
 }
@@ -88,11 +92,11 @@ void determineTask(void){
 void receive(void){
 
   UART_interrupt_receiveToBuffer(uBuf, PUSH);
-  UART_transmit(35);
   //Check if last send ASCII was new line (LF)
-  if(circularBuffer_mostRecentElement(cReceivebuffer) == LF){
-    UART_transmit(0xFF);
-    UART_transmit(timeBasedScheduler_addTask(tBScheduler, &determineTask, 129, currentTime));
+  if(circularBuffer_mostRecentElement(cReceivebuffer) == LF && commandLength != 0){
+
+    timeBasedScheduler_addTask(tBScheduler, &determineTask, 255, currentTime);
+    timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, currentTime);
   }
 }
 
@@ -133,10 +137,10 @@ int main() {
   //timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 155, 100, currentTime, 0);
 
   //Receive next item 1ms
-  timeBasedScheduler_addPeriodicTask(tBScheduler, &receive, 0xF9, 0, currentTime, 0);
+  timeBasedScheduler_addPeriodicTask(tBScheduler, &receive, 0xF9, 0, currentTime + 50, 0);
 
   //Transmit next item on Buffer 2ms
-  //timeBasedScheduler_addPeriodicTask(tBScheduler, &transmit,255 ,1 , currentTime + 50, 0);
+  timeBasedScheduler_addPeriodicTask(tBScheduler, &transmit,255 ,1 , currentTime + 50, 0);
 
   //Await first command
   timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, currentTime);

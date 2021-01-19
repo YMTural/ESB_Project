@@ -75,8 +75,10 @@ void UART_interrupt_setReceiveFlag(UART_interrupt_t ubuf, bool status){
 
 void UART_interrupt_transmitFromBufferInit(UART_interrupt_t ubuf, uint8_t count){
     UART_flush();
-    ubuf -> transmitCounter = count;
-    UART_enableTransmitInterrupt();
+    if(count > 0){
+      ubuf -> transmitCounter = count;
+      UART_enableTransmitInterrupt();
+    }
 }
 
 uint8_t getCountRec(UART_interrupt_t ubuf){
@@ -101,8 +103,10 @@ void UART_interrupt_transmitFromBuffer(UART_interrupt_t ubuf){
 
 void UART_interrupt_receiveToBufferInit(UART_interrupt_t ubuf, uint8_t count){
     UART_flush();
-    ubuf -> receiveCounter = count;
-    UART_enableReceiveInterrupt();
+    if(count > 0){
+      ubuf -> receiveCounter = count;
+      UART_enableReceiveInterrupt();
+    }
 }
 
 void UART_interrupt_receiveToBuffer(UART_interrupt_t ubuf, bool mode){

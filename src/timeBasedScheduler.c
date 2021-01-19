@@ -123,10 +123,7 @@ void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler, uint16_t* cur
         if(pTask != 0){
             nextTask = *pTask;
             nextTask.function();
-            UART_transmit(0xA1);
-            UART_transmit(nextTask.priority);
             if(nextTask.isPeriodic){
-                UART_transmit(0xA2);
                 //Use pointer to get most accurate currentTime
                 startTime = *currentTime + nextTask.period;
                 //If overflow occured add with flipped overflow bit
@@ -135,20 +132,13 @@ void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler, uint16_t* cur
                     
                     timeBasedScheduler_addPeriodicTask(tBScheduler, nextTask.function, nextTask.priority, nextTask.period, startTime, !tBScheduler -> overflow);
                 }else{
-                    UART_transmit(0xA3);
+
                     timeBasedScheduler_addPeriodicTask(tBScheduler, nextTask.function, nextTask.priority, nextTask.period, startTime, tBScheduler -> overflow);
                 }
                 //priorityQueueHeap_incrementPriorityOfNonPeriodic(tBScheduler->queue);
             }
         }
-    
- 
-    
-
-
 }
-
-
 
 void timeBasedScheduler_incrementTimer(timeBasedScheduler_t tBScheduler, uint16_t* timer){
 
