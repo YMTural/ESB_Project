@@ -1,2 +1,5 @@
 //ToDo-List
+-Fix bugs:
+            -only 20characters can be sent at once
+            -cant add Tasks in ISR
 //

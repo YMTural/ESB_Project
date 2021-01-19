@@ -1,72 +1,154 @@
-
 #include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
 #include <util/delay.h>
-#include <stdbool.h>
-#include <stdint.h>
 
-#include "bootcamp/debug.h"
-#include "bootcamp/circularBuffer.h"
+#include <string.h>
+//For debbuging
 #include "bootcamp/UART.h"
+//
+#include "bootcamp/circularBuffer.h"
 #include "bootcamp/UART_interrupt.h"
+#include "bootcamp/timeBasedScheduler.h"
+#include "bootcamp/adc_temperature.h"
+#include "bootcamp/priorityQueueHeap.h"
 
 
-#define BUFFERSIZE 255
+/*
 
+Commands:
+
+    help – Help-Command, welches alle unterstützten Kommandos anzeigt.
+    echo <string> – Echo eines übergebenen Strings.
+    led <bit> – Schreibt den Status der LED.
+    toggle – Invertiert den aktuellen Status der LED.
+    flash <int> – Lässt LED eine konfigurierbare Anzahl hintereinander blinken.
+    sine <int> – Lässt LED mithilfe von PWM in einer Sinuskurve und konfigurierbarer Periode an- und abschwellen. (Hierfür ergibt es u.U. Sinn, a. Fixed-Point-Arithmetik für die Taylor Reihe zu verwenden oder b. Werte der Sinusfunktion in einer Lookup-Tabelle vorauszuberechnen*)
+    inc – Inkrementiert einen internen Zähler.
+    counter – Liefert den aktuellen Wert des Zählers zurück.
+    temp – Gibt die aktuelle Temperatur des internen Temperatursensors in °C aus.
+
+    periodic <command> <int8> < - Führt den Command für alle x Sekunden aus.
+    kill <id> - Löscht den Task mit der zugehörigen ID
+    list - Gibt alle Tasks aus die periodisch ausgeführt werden
+    stat <command> - Führt den Command so schnell wie möglich aus.
+
+*/
+
+#define LF 10
+
+//Size of the Buffers
+#define BUFFERSIZE 128
+
+//Maximum supported length for one command
+#define MAXCOMMANDLENGTH 128
+#define LONGESTCOMMAND 8
+#define NUMBEROFCOMMANDS 13
+#define UGLYHACK 
+
+volatile uint16_t currentTime = 0;
+volatile uint8_t commandLength = 0;
+volatile static const char commands[NUMBEROFCOMMANDS][LONGESTCOMMAND] = {"help", "echo", "led", "toggle", "flash", "sine",
+                                             "inc", "counter", "temp", "periodic", "kill", "list", "stat" };
 
 volatile uint8_t* transBuffer;
 volatile uint8_t* recBuffer;
 
-volatile circularBuffer_t cTbuf;
-volatile circularBuffer_t cRbuf;
+volatile circularBuffer_t cTransmitbuffer;
+volatile circularBuffer_t cReceivebuffer;
+
+volatile priorityQueueHeap_t pQueue;
 
 volatile UART_interrupt_t uBuf;
 
-int main(void)
-{
+volatile timeBasedScheduler_t tBScheduler;
+
+void receive(void);
+
+void awaitNextCommand(void){
+
+  UART_interrupt_receiveToBufferInit(uBuf,MAXCOMMANDLENGTH);
+}
+
+void determineTask(void){
+
+  char receivedCommand[commandLength];
+  for (uint8_t i = 0; i < commandLength; i++)
+  {
+    circularBuffer_read(cReceivebuffer, &receivedCommand[i]);
+  }
+  for (uint8_t i = 0; i < commandLength - 1; i++)
+  {
+    circularBuffer_push(cTransmitbuffer, receivedCommand[i]);
+  }
+  UART_interrupt_transmitFromBufferInit(uBuf, commandLength-1);
+  commandLength = 0;
+}
+
+void receive(void){
+
+  UART_interrupt_receiveToBuffer(uBuf, PUSH);
+  UART_transmit(35);
+  //Check if last send ASCII was new line (LF)
+  if(circularBuffer_mostRecentElement(cReceivebuffer) == LF){
+    UART_transmit(0xFF);
+    UART_transmit(timeBasedScheduler_addTask(tBScheduler, &determineTask, 129, currentTime));
+  }
+}
+
+
+void transmit(void){
+
+  UART_interrupt_transmitFromBuffer(uBuf);
+}
+
+
+void toggleLed(void){
+
+  PORTB ^= _BV(5);
+}
+
+int main() {
+
+  sei();
+  
+
+  DDRB = _BV(5);
+  PORTB ^= _BV(5);
+
+  pQueue = priorityQueueHeap_init(128);
+
   transBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
   recBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
   
-  cTbuf = circularBuffer_init(transBuffer, BUFFERSIZE);
-  cRbuf = circularBuffer_init(recBuffer, BUFFERSIZE);
+  cTransmitbuffer = circularBuffer_init(transBuffer, BUFFERSIZE);
+  cReceivebuffer = circularBuffer_init(recBuffer, BUFFERSIZE);
 
-  uBuf = UART_interrupt_init(cRbuf, cTbuf, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
+  tBScheduler = timeBasedScheduler_init(16, pQueue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
-  sei();
-  DDRB = _BV(5);
+  uBuf = UART_interrupt_init(cReceivebuffer, cTransmitbuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
 
-  //Pushing number 0 to 24 in Buffer
-  for(uint8_t i = 0; i < BUFFERSIZE; i++){
+  
+  //Blinking
+  //timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 155, 100, currentTime, 0);
 
-    //circularBuffer_push(cTbuf,i);
+  //Receive next item 1ms
+  timeBasedScheduler_addPeriodicTask(tBScheduler, &receive, 0xF9, 0, currentTime, 0);
+
+  //Transmit next item on Buffer 2ms
+  //timeBasedScheduler_addPeriodicTask(tBScheduler, &transmit,255 ,1 , currentTime + 50, 0);
+
+  //Await first command
+  timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, currentTime);
+
+
+  while(true){
+
+    timeBasedScheduler_schedule(tBScheduler, &currentTime);
   }
 
-  //Initializing transmit of 25 Data units from Buffer 
-  UART_interrupt_transmitFromBufferInit(uBuf, 255);
 
-  //Initializing receive of 25 Data units from the UART connection 
-  UART_interrupt_receiveToBufferInit(uBuf, 255);
-
-  uint8_t data;
- 
-  while (true)
-  {
-    //Sending Data whenever the transmit register is ready
-    UART_interrupt_transmitFromBuffer(uBuf);
-    PORTB ^= _BV(5);
-    //_delay_ms(250);
-    UART_interrupt_receiveToBuffer(uBuf, OVERWRITE);
-    if(!circularBuffer_read(cRbuf, &data)){
-      circularBuffer_push(cTbuf, data);
-    }
-
-
-    //Send 0xFF when all the expected data has been received
-    if(circularBuffer_full(cRbuf)){
-
-      UART_transmit(255);
-    }
-
-  }
+  return 0;
 }
 
 ISR(USART_UDRE_vect){
@@ -85,7 +167,7 @@ ISR(USART_TX_vect){
     UART_disableTransmitCompleteInterrupt();
   }
   else{
-    UART_disableTransmitCompleteInterrupt();
+
     UART_enableTransmitInterrupt();
   }
   sei();
@@ -94,7 +176,27 @@ ISR(USART_TX_vect){
 ISR(USART_RX_vect){
 
   cli();
-    UART_disableReceiveInterrupt();
-    UART_interrupt_setReceiveFlag(uBuf, true);
+  commandLength++;
+  UART_disableReceiveInterrupt();
+  UART_interrupt_setReceiveFlag(uBuf, true); 
   sei();
 }
+
+ISR(TIMER0_COMPA_vect){
+
+  cli();
+  //keeps track of the number of ms passed
+  timeBasedScheduler_incrementTimer(tBScheduler, &currentTime);
+  //iterates over tasks in queue and checks
+  //if their starttime <= currentTime
+  timeBasedScheduler_markIfReady(tBScheduler,currentTime);
+  sei();
+  }
+
+ISR(ADC_vect){
+
+    cli();
+    adc_temperature_temperatureReady = 1;
+    sei();
+}
+//Interrupt ISR end

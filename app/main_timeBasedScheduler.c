@@ -111,7 +111,7 @@ int main(void){
   //Periodic tasks here
 
   //Blinking
-  timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 26, 250, currentTime, 0);
+  //timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 26, 250, currentTime, 0);
 
   timeBasedScheduler_addPeriodicTask(tBScheduler, &transmit,24 ,1 , 50, 0);
   
@@ -148,6 +148,7 @@ ISR(USART_TX_vect){
   if(UART_interrupt_isTransmitComplete(uBuf)){
 
     UART_disableTransmitCompleteInterrupt();
+    timeBasedScheduler_addTask(tBScheduler, &toggleLed, 255, currentTime);
   }
   else{
 

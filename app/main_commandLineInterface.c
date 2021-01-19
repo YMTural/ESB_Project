@@ -34,6 +34,7 @@ Commands:
     stat <command> - Führt den Command so schnell wie möglich aus.
 
 */
+
 #define LF 10
 
 //Size of the Buffers
@@ -132,7 +133,7 @@ int main() {
 
   
   //Blinking
-  timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 155, 100, currentTime, 0);
+  //timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 155, 100, currentTime, 0);
 
   //Receive next item 1ms
   timeBasedScheduler_addPeriodicTask(tBScheduler, &receive, 255, 0, currentTime, 0);

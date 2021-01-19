@@ -82,7 +82,7 @@ bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void* 
     task.priority = priority;
     task.isPeriodic = true;
     task.period = period;
-    task.startTime = startTime;
+    task.startTime = startTime;   
     task.isReady = false;
     task.overflow = overflow;
     tBScheduler -> queueAdd((tBScheduler->queue), task);
@@ -104,7 +104,7 @@ void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler, uint16_t c
     for (uint8_t i = 0; i < tBScheduler->queueSize(tBScheduler->queue); i++)
     {   
         
-        if (tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->startTime <= currentTime && (tBScheduler -> overflow == tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->overflow) )
+        if (tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->startTime <= currentTime && ((tBScheduler -> overflow == tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->overflow) || tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->isPeriodic == false) )
         {
             tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->isReady = true;
         }
@@ -117,23 +117,26 @@ void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler, uint16_t c
 void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler, uint16_t* currentTime){
 
     uint16_t startTime;
-    task* nextTask;
-        nextTask = tBScheduler -> queueGetNextReady(tBScheduler->queue);
-        if(nextTask != 0){
-
-            nextTask->function();
-            
-            if(nextTask -> isPeriodic){
+    task nextTask;
+    task* pTask;
+        pTask = tBScheduler -> queueGetNextReady(tBScheduler->queue);
+        if(pTask != 0){
+            nextTask = *pTask;
+            nextTask.function();
+            UART_transmit(0xA1);
+            UART_transmit(nextTask.priority);
+            if(nextTask.isPeriodic){
+                UART_transmit(0xA2);
                 //Use pointer to get most accurate currentTime
-                startTime = *currentTime + nextTask ->period;
+                startTime = *currentTime + nextTask.period;
                 //If overflow occured add with flipped overflow bit
                 //This prevents timer overflow scheduling errors
                 if(startTime < *currentTime){
-           
-                    timeBasedScheduler_addPeriodicTask(tBScheduler, nextTask->function, nextTask->priority, nextTask ->period, startTime, !tBScheduler->overflow);
+                    
+                    timeBasedScheduler_addPeriodicTask(tBScheduler, nextTask.function, nextTask.priority, nextTask.period, startTime, !tBScheduler -> overflow);
                 }else{
-
-                    timeBasedScheduler_addPeriodicTask(tBScheduler, nextTask->function, nextTask->priority, nextTask ->period, startTime, tBScheduler->overflow);
+                    UART_transmit(0xA3);
+                    timeBasedScheduler_addPeriodicTask(tBScheduler, nextTask.function, nextTask.priority, nextTask.period, startTime, tBScheduler -> overflow);
                 }
                 //priorityQueueHeap_incrementPriorityOfNonPeriodic(tBScheduler->queue);
             }
