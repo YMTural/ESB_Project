@@ -1,8 +1,10 @@
+#include <avr/pgmspace.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <util/delay.h>
 
+#include <stdlib.h>
 #include <string.h>
 //For debbuging
 #include "bootcamp/UART.h"
@@ -50,11 +52,13 @@ Commands:
 volatile uint16_t currentTime = 0;
 volatile uint8_t commandLength = 0;
 
-//Switch to enumeration after implementing MQTT Client
-volatile static const char multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill"};
-volatile static const char singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list"};                                             
+volatile uint8_t user_counter = 0;
 
-volatile static const char helpMessage[] = "Folgende Befehle sind verfügbar: help, echo <string>, led <bit>, flash <int>, sine <int>, inc, counter, temp, periodic, kill <id>, list";
+//Switch to enumeration after implementing MQTT Client
+volatile const char multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill"};
+volatile const char singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list"};                                             
+
+volatile static const char helpMessage[114] = {"Commands: help, echo <string>, led <bit>, flash <int>, sine <int>, inc, counter, temp, periodic, kill <id>, list\n"};
 
 volatile uint8_t* transBuffer;
 volatile uint8_t* recBuffer;
@@ -73,16 +77,35 @@ void receive(void);
 //SingleCommands
 void task_help(void){
 
-
   for (uint8_t i = 0; i < strlen(helpMessage); i++)
   {
-    circularBuffer_push(cTransmitbuffer, helpMessage[i]); 
+    circularBuffer_overwrite(cTransmitbuffer, helpMessage[i]); 
   }
   UART_interrupt_transmitFromBufferInit(uBuf, strlen(helpMessage));
 }
 
+void toggleLed(void){
+
+  PORTB ^= _BV(5);
+}
+
+void incrementCounter(){
+
+  user_counter++;
+}
+
+void returnCounter(){
+
+  char message[3];
 
 
+  sprintf(message, "%d", user_counter);
+
+  for(uint8_t i = 0; i < strlen(message); i++){
+    circularBuffer_overwrite(cTransmitbuffer, message[i]);
+  }
+  UART_interrupt_transmitFromBufferInit(uBuf, 3);
+}
 
 
 void awaitNextCommand(void){
@@ -114,11 +137,11 @@ void determineTask(void){
       break;
     } 
   }
-
   if(singleType){
 
     uint8_t commandNumber = 255;
     strncpy(firstPart, receivedCommand, commandLength-1);
+
     //Must set end character manually
     firstPart[commandLength-1] = '\0';
 
@@ -129,15 +152,33 @@ void determineTask(void){
         break;
       }
     }
-    
     switch (commandNumber)
     {
     //help  
     case 0:
       timeBasedScheduler_addTask(tBScheduler, &task_help, 150, currentTime);
       break;
-    
+    //toggle:  
+    case 1:
+      timeBasedScheduler_addTask(tBScheduler, &toggleLed, 25, currentTime);
+      break;
+    //inc  
+    case 2:
+      timeBasedScheduler_addTask(tBScheduler, &incrementCounter, 25, currentTime);
+      break;
+    //counter
+    case 3:
+      UART_transmit(commandNumber);
+      timeBasedScheduler_addTask(tBScheduler, &returnCounter, 150, currentTime);
+      break;    
+    case 4:
+      UART_transmit(commandNumber);
+      break;
+    case 5:
+      UART_transmit(commandNumber);
+      break;          
     default:
+      UART_transmit(commandNumber);
       break;
     }
 
@@ -159,7 +200,6 @@ void determineTask(void){
 }
 
 void receive(void){
-
   UART_interrupt_receiveToBuffer(uBuf, PUSH);
   //Check if last send ASCII was new line (LF)
   if(circularBuffer_mostRecentElement(cReceivebuffer) == LF && commandLength != 0){
@@ -175,12 +215,6 @@ void transmit(void){
   UART_interrupt_transmitFromBuffer(uBuf);
 }
 
-
-void toggleLed(void){
-
-  PORTB ^= _BV(5);
-}
-
 int main() {
 
   sei();
@@ -188,7 +222,7 @@ int main() {
   DDRB = _BV(5);
   PORTB ^= _BV(5);
 
-  pQueue = priorityQueueHeap_init(128);
+  pQueue = priorityQueueHeap_init(24);
 
   transBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
   recBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
@@ -250,7 +284,7 @@ ISR(USART_RX_vect){
   cli();
   commandLength++;
   UART_disableReceiveInterrupt();
-  UART_interrupt_setReceiveFlag(uBuf, true); 
+  UART_interrupt_setReceiveFlag(uBuf, true);
   sei();
 }
 

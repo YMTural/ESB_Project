@@ -1,3 +1,4 @@
+#include <avr/pgmspace.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
@@ -53,11 +54,17 @@ volatile uint8_t commandLength = 0;
 
 volatile uint8_t user_counter = 0;
 
-//Switch to enumeration after implementing MQTT Client
-volatile static const char multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill"};
-volatile static const char singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list"};                                             
+volatile uint8_t errorCode = 0;
 
-volatile static const char helpMessage[114] = {"Commands: help, echo <string>, led <bit>, flash <int>, sine <int>, inc, counter, temp, periodic, kill <id>, list\n"};
+//Switch to enumeration after implementing MQTT Client
+volatile const char multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill"};
+volatile const char singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list"};                                             
+
+const char helpMessage[128] PROGMEM = {"Commands: help, echo <string>, led <bit>, flash <int>, sine <int>, inc, counter, temp, periodic, kill <id>, list \n"};
+const char counterMessage[32] PROGMEM = {"Der Counter liegt aktuell bei: "};
+const char temperatureMessage[64] PROGMEM = {"Die aktuelle Temperatur des Chips betraegt: "};
+const char error_unknownCommand[32] PROGMEM = {"Dieser Befehl ist ungueltig!\n"};
+
 
 volatile uint8_t* transBuffer;
 volatile uint8_t* recBuffer;
@@ -70,16 +77,19 @@ volatile priorityQueueHeap_t pQueue;
 volatile UART_interrupt_t uBuf;
 
 volatile timeBasedScheduler_t tBScheduler;
+
+enum errorCodes {UNKNOWNCOMMAND};
 //Declare here for determine task
 void receive(void);
-
+void prepareTemp(void);
+void sendError(void);
 //SingleCommands
 void task_help(void){
-
   for (uint8_t i = 0; i < strlen(helpMessage); i++)
   {
-    circularBuffer_overwrite(cTransmitbuffer, helpMessage[i]); 
+    circularBuffer_overwrite(cTransmitbuffer, pgm_read_byte_near(helpMessage + i)); 
   }
+
   UART_interrupt_transmitFromBufferInit(uBuf, strlen(helpMessage));
 }
 
@@ -96,20 +106,19 @@ void incrementCounter(){
 void returnCounter(){
 
   char message[3];
-
+  for(uint8_t i = 0; i < strlen(counterMessage); i++){
+    circularBuffer_overwrite(cTransmitbuffer, pgm_read_byte_near(counterMessage + i));
+  }
 
   sprintf(message, "%d", user_counter);
 
   for(uint8_t i = 0; i < strlen(message); i++){
     circularBuffer_overwrite(cTransmitbuffer, message[i]);
   }
-  UART_interrupt_transmitFromBufferInit(uBuf, 3);
-}
+  //Zeilenumbruch
+  circularBuffer_overwrite(cTransmitbuffer, 0x0A);
 
-
-void awaitNextCommand(void){
-
-  UART_interrupt_receiveToBufferInit(uBuf,MAXCOMMANDLENGTH);
+  UART_interrupt_transmitFromBufferInit(uBuf, strlen(counterMessage) + strlen(message) + 1);
 }
 
 void determineTask(void){
@@ -155,7 +164,7 @@ void determineTask(void){
     {
     //help  
     case 0:
-      timeBasedScheduler_addTask(tBScheduler, &task_help, 150, currentTime);
+      timeBasedScheduler_addTask(tBScheduler, &task_help, 175, currentTime);
       break;
     //toggle:  
     case 1:
@@ -167,35 +176,28 @@ void determineTask(void){
       break;
     //counter
     case 3:
-      UART_transmit(commandNumber);
-      timeBasedScheduler_addTask(tBScheduler, &returnCounter, 150, currentTime);
+      timeBasedScheduler_addTask(tBScheduler, &returnCounter, 170, currentTime);
       break;    
     case 4:
-      UART_transmit(commandNumber);
+      timeBasedScheduler_addTask(tBScheduler, &prepareTemp, 210, currentTime);
       break;
     case 5:
       UART_transmit(commandNumber);
       break;          
     default:
-      UART_transmit(commandNumber);
+      errorCode = UNKNOWNCOMMAND;
+      timeBasedScheduler_addTask(tBScheduler, &sendError, 255, currentTime);
       break;
     }
 
   }
-  
 
-
-/*
-  for (uint8_t i = 0; i < lengthFirstPart; i++)
-  {
-    circularBuffer_push(cTransmitbuffer, receivedCommand[i]);
-  }
-
-  for (uint8_t i = 0; i < NUMBEROFCOMMANDS; i++)
-  {
-  }
-  UART_interrupt_transmitFromBufferInit(uBuf, commandLength-1);*/
   commandLength = 0;
+}
+
+void awaitNextCommand(void){
+
+  UART_interrupt_receiveToBufferInit(uBuf,MAXCOMMANDLENGTH);
 }
 
 void receive(void){
@@ -208,10 +210,41 @@ void receive(void){
   }
 }
 
-
 void transmit(void){
-
   UART_interrupt_transmitFromBuffer(uBuf);
+}
+
+void prepareTemp(void){
+
+  adc_temperature_fetchTemperature();
+}
+
+void sendTemperature(void){
+  char message[3];
+  uint8_t temp = adc_temperature_getTemperature();
+
+  for(uint8_t i = 0; i < strlen(temperatureMessage); i++){
+    circularBuffer_overwrite(cTransmitbuffer, pgm_read_byte_near(temperatureMessage + i));
+  }
+
+  sprintf(message, "%d", temp);
+
+  for(uint8_t i = 0; i < strlen(message); i++){
+    circularBuffer_overwrite(cTransmitbuffer, message[i]);
+  }
+  circularBuffer_overwrite(cTransmitbuffer, 'C');
+  circularBuffer_overwrite(cTransmitbuffer, 0x0A);
+
+  UART_interrupt_transmitFromBufferInit(uBuf, strlen(temperatureMessage) + strlen(message) + 2);
+
+}
+
+void sendError(void){
+
+  for(uint8_t i = 0; i < strlen(error_unknownCommand); i++){
+    circularBuffer_overwrite(cTransmitbuffer, pgm_read_byte_near(error_unknownCommand + i));
+  }
+  UART_interrupt_transmitFromBufferInit(uBuf, strlen(error_unknownCommand));
 }
 
 int main() {
@@ -229,19 +262,19 @@ int main() {
   cTransmitbuffer = circularBuffer_init(transBuffer, BUFFERSIZE);
   cReceivebuffer = circularBuffer_init(recBuffer, BUFFERSIZE);
 
-  tBScheduler = timeBasedScheduler_init(16, pQueue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
+  tBScheduler = timeBasedScheduler_init(24, pQueue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
   uBuf = UART_interrupt_init(cReceivebuffer, cTransmitbuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
 
-  
+  adc_temperature_init();
   //Blinking
   //timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 155, 100, currentTime, 0);
 
   //Receive next item 1ms
-  timeBasedScheduler_addPeriodicTask(tBScheduler, &receive, 250, 0, currentTime + 50, 0);
+  //timeBasedScheduler_addPeriodicTask(tBScheduler, &receive, 250, 0, currentTime + 50, 0);
 
   //Transmit next item on Buffer 2ms
-  timeBasedScheduler_addPeriodicTask(tBScheduler, &transmit,200 ,1 , currentTime + 50, 0);
+  //timeBasedScheduler_addPeriodicTask(tBScheduler, &transmit,254 ,10 , currentTime + 50, 0);
 
   //Await first command
   timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, currentTime);
@@ -261,6 +294,8 @@ ISR(USART_UDRE_vect){
   cli();
   UART_interrupt_setTransmitFlag(uBuf, true);
   UART_disableTransmitInterrupt();
+  //Schedule next transmit
+  timeBasedScheduler_addTask(tBScheduler, &transmit, 200, currentTime);
   sei();
 }
 
@@ -284,6 +319,8 @@ ISR(USART_RX_vect){
   commandLength++;
   UART_disableReceiveInterrupt();
   UART_interrupt_setReceiveFlag(uBuf, true);
+  //Schedule receive asap
+  timeBasedScheduler_addTask(tBScheduler, &receive, 255, currentTime);
   sei();
 }
 
@@ -292,7 +329,8 @@ ISR(TIMER0_COMPA_vect){
   cli();
   //keeps track of the number of ms passed
   timeBasedScheduler_incrementTimer(tBScheduler, &currentTime);
-  //iterates over tasks in queue and checks
+  //iterates over tasks in queue and checks  timeBasedScheduler_addPeriodicTask(tBScheduler, &transmit,200 ,1 , currentTime + 50, 0);
+
   //if their starttime <= currentTime
   timeBasedScheduler_markIfReady(tBScheduler,currentTime);
   sei();
@@ -301,7 +339,7 @@ ISR(TIMER0_COMPA_vect){
 ISR(ADC_vect){
 
     cli();
-    adc_temperature_temperatureReady = 1;
+    timeBasedScheduler_addTask(tBScheduler, &sendTemperature, 155, currentTime);
     sei();
 }
 //Interrupt ISR end
