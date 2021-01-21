@@ -28,6 +28,8 @@ typedef struct  timeBasedScheduler
     int8_t (*queueAdd)(void* queue, task thisTask);
     task* (*queuePeekAt)(void* queue, uint8_t n);
     task* (*queueGetNextReady)(void* queue);
+    void (*queueDelete)(void* queue, uint8_t n);
+    uint32_t availableIDs;
 
 } timeBasedScheduler;
 
@@ -80,7 +82,7 @@ timeBasedScheduler_t timeBasedScheduler_init(uint8_t maxSize, void* queue, uint8
  * 
  */
 
-bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function, uint8_t priority, uint16_t start_time);
+bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function(void), uint8_t priority, uint16_t start_time);
 
 /**
  * @brief   Adds a new periodic task to the schedule
@@ -93,7 +95,7 @@ bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function
  * 
  */
 
-bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void* function, uint8_t priority, uint16_t period, uint16_t startTime, bool overflow);
+bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void* function(void), uint8_t priority, uint16_t period, uint16_t startTime, bool overflow);
 
 /**
  * @brief   Schedules all the tasks. Will run forever. Can return error code
@@ -140,4 +142,6 @@ void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler, uint16_t c
  * 
  */
 void timeBasedScheduler_incrementTimer(timeBasedScheduler_t tBScheduler, uint16_t* timer);
+
+bool timeBasedScheduler_addTaskWithParam(timeBasedScheduler_t tBScheduler, void* function(char*), uint8_t priority, uint16_t start_time, char* param, uint8_t paramLength);
 #endif

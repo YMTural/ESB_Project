@@ -136,7 +136,7 @@ void test_timeBasedScheduler_markIfReady(void){
     timeBasedScheduler_markIfReady(tBScheduler, currentTime);
 
     task1 = *priorityQueueHeap_getNextReady(tBScheduler->queue);
-    TEST_ASSERT_EQUAL_PTR(&test_timeBasedScheduler_addOneTask,task1.function);
+    TEST_ASSERT_EQUAL_PTR(&test_timeBasedScheduler_addOneTask,task1.functions.voidfunction);
 
     timeBasedScheduler_free(tBScheduler);
     priorityQueueHeap_free(queue);

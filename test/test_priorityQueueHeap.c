@@ -15,16 +15,16 @@ void test_priorityQueueHeap_init(void){
 
 void test_priorityQueueHeap_addOne(void){
 
-    task task;
-    task.function = test_priorityQueueHeap_addOne;
-    task.priority = 255;
-    task.isPeriodic = NONPERIODIC;
-    task.period = 0;
-    task.isReady = true;
-    task.startTime = 23;
+    task task1;
+    task1.functions.voidfunction = test_priorityQueueHeap_addOne;
+    task1.priority = 255;
+    task1.isPeriodic = NONPERIODIC;
+    task1.period = 0;
+    task1.isReady = true;
+    task1.startTime = 23;
 
     priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
-    TEST_ASSERT_EQUAL_UINT8(0,priorityQueueHeap_add(queue, task));
+    TEST_ASSERT_EQUAL_UINT8(0,priorityQueueHeap_add(queue, task1));
     priorityQueueHeap_free(queue);
 }
 
@@ -32,7 +32,7 @@ void test_priorityQueueHeap_addOne(void){
 void test_priorityQueueHeap_getNextOnce(void){
 
     task task1;
-    task1.function = test_priorityQueueHeap_addOne;
+    task1.functions.voidfunction = test_priorityQueueHeap_addOne;
     task1.priority = 255;
     task1.isPeriodic = NONPERIODIC;
     task1.period = 0;
@@ -50,7 +50,7 @@ void test_priorityQueueHeap_getNextOnce(void){
     TEST_ASSERT_EQUAL_UINT8(0,taskE.period);
     TEST_ASSERT_TRUE(taskE.isReady);
     TEST_ASSERT_EQUAL_UINT8(23,taskE.startTime);
-    TEST_ASSERT_EQUAL_PTR(test_priorityQueueHeap_addOne,taskE.function);
+    TEST_ASSERT_EQUAL_PTR(test_priorityQueueHeap_addOne,taskE.functions.voidfunction);
 
     priorityQueueHeap_free(queue);
 }
@@ -59,7 +59,7 @@ void test_priorityQueueHeap_getNextOnce(void){
 void test_priorityQueueHeap_addMultiple(void){
 
     task task1;
-    task1.function = test_priorityQueueHeap_addOne;
+    task1.functions.voidfunction = test_priorityQueueHeap_addOne;
     task1.priority = 255;
     task1.isPeriodic = NONPERIODIC;
     task1.period = 0;
@@ -87,7 +87,7 @@ void test_priorityQueueHeap_swapOnce(void){
 
     task task1;
     task1.id = 1;
-    task1.function = test_priorityQueueHeap_addOne;
+    task1.functions.voidfunction = test_priorityQueueHeap_addOne;
     task1.priority = 255;
     task1.isPeriodic = NONPERIODIC;
     task1.period = 0;
@@ -109,7 +109,7 @@ void test_priorityQueueHeap_heapify(void){
     priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
 
     task task1;
-    task1.function = test_priorityQueueHeap_addOne;
+    task1.functions.voidfunction = test_priorityQueueHeap_addOne;
     task1.priority = 255;
     task1.isPeriodic = NONPERIODIC;
     task1.period = 0;
@@ -137,7 +137,7 @@ void test_priorityQueueHeap_getMultiple(void){
 
     task task1;
     task1.id = 0;
-    task1.function = test_priorityQueueHeap_addOne;
+    task1.functions.voidfunction = test_priorityQueueHeap_addOne;
     task1.priority = 255;
     task1.isPeriodic = NONPERIODIC;
     task1.period = 0;
@@ -190,7 +190,7 @@ void test_priorityQueueHeap_getNextReady(void){
 
     task task1;
     task1.id = 0;
-    task1.function = test_priorityQueueHeap_addOne;
+    task1.functions.voidfunction = test_priorityQueueHeap_addOne;
     task1.priority = 255;
     task1.isPeriodic = NONPERIODIC;
     task1.period = 0;
@@ -218,7 +218,7 @@ void test_priorityQueueHeap_size(void){
 
     task task1;
     task1.id = 0;
-    task1.function = test_priorityQueueHeap_addOne;
+    task1.functions.voidfunction = test_priorityQueueHeap_addOne;
     task1.priority = 255;
     task1.isPeriodic = NONPERIODIC;
     task1.period = 0;
@@ -261,7 +261,7 @@ void test_priorityQueueHeap_getNextReadyFromOne(void){
 
     task task1;
     task1.id = 0;
-    task1.function = test_priorityQueueHeap_addOne;
+    task1.functions.voidfunction = test_priorityQueueHeap_addOne;
     task1.priority = 255;
     task1.isPeriodic = NONPERIODIC;
     task1.period = 0;
@@ -280,7 +280,7 @@ void test_priorityQueueHeap_deleteOneItem(void){
 
     task task1;
     task1.id = 0;
-    task1.function = test_priorityQueueHeap_addOne;
+    task1.functions.voidfunction = test_priorityQueueHeap_addOne;
     task1.priority = 255;
     task1.isPeriodic = NONPERIODIC;
     task1.period = 0;
@@ -299,7 +299,7 @@ void test_priorityQueueHeap_deleteFromMiddle(void){
 
     task task1;
     task1.id = 0;
-    task1.function = test_priorityQueueHeap_addOne;
+    task1.functions.voidfunction = test_priorityQueueHeap_addOne;
     task1.priority = 255;
     task1.isPeriodic = NONPERIODIC;
     task1.period = 0;

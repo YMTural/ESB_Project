@@ -11,9 +11,12 @@
 typedef struct task {
 
     uint8_t id;
-
-    void (*function)(void);
-
+    union functionType{
+        void (*voidfunction)(void);
+        void (*charfunction)(char * param);
+    }functions;
+    char * param;
+    uint8_t paramLength;
     uint8_t priority;
 
     bool isPeriodic;

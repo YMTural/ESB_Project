@@ -76,7 +76,7 @@ void UART_interrupt_setReceiveFlag(UART_interrupt_t ubuf, bool status){
 void UART_interrupt_transmitFromBufferInit(UART_interrupt_t ubuf, uint8_t count){
     UART_flush();
     if(count > 0){
-      ubuf -> transmitCounter = count;
+      ubuf -> transmitCounter += count;
       UART_enableTransmitInterrupt();
     }
 }

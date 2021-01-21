@@ -8,6 +8,8 @@
         "string": "c",
         "chrono": "c",
         "algorithm": "c",
-        "system_error": "c"
+        "system_error": "c",
+        "functional": "c",
+        "streambuf": "c"
     }
 }
