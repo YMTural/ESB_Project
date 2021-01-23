@@ -28,7 +28,7 @@ typedef priorityQueueHeap* priorityQueueHeap_t;
  * @returns
  *  A priority queue heap handler
  */
-priorityQueueHeap_t priorityQueueHeap_init(uint8_t maxSize);
+priorityQueueHeap_t priorityQueueHeap_init(uint8_t maxSize, task* array);
 
 /**
  * @brief   Adds a new task to the priority queue. Returns -1 if queue full else 0

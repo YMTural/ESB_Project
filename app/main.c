@@ -54,7 +54,7 @@ volatile uint8_t commandLength = 0;
 
 volatile uint8_t user_counter = 0;
 
-volatile uint8_t errorCode = 0;
+volatile uint8_t errorCode = 1;
 
 //Switch to enumeration after implementing MQTT Client
 volatile const char multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill"};
@@ -80,12 +80,28 @@ volatile priorityQueueHeap_t pQueue;
 volatile UART_interrupt_t uBuf;
 
 volatile timeBasedScheduler_t tBScheduler;
+volatile task* taskArray;
 
+
+void freeRam () {
+  extern int __heap_start, *__brkval;
+  int v;
+  int z = (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
+  char m[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+  sprintf(m,"%d",z);
+
+  for(uint8_t i = 0; i < 16; i++){
+    
+    UART_transmit(m[i]);
+   
+  }
+}
 
 //Declare here for determine task
 void receive(void);
 void prepareTemp(void);
 void sendError(void);
+
 //help func
 void clearLastCommand(uint8_t length){
   uint8_t dump;
@@ -96,21 +112,26 @@ void clearLastCommand(uint8_t length){
 }
 //MultiCommands
 void echo(char * param){
+  
   for (uint8_t i = 0; i < strlen(param); i++)
   {
-    UART_transmit(param[i]);
+    circularBuffer_overwrite(cTransmitbuffer, param[i]);
   }
-}
+  circularBuffer_overwrite(cTransmitbuffer, 0x0A);
+
+  UART_interrupt_transmitFromBufferInit(uBuf, strlen(param) + 1);
+  free(param);
+  }
 
 
 
 //SingleCommands
 void task_help(void){
+
   for (uint8_t i = 0; i < strlen(helpMessage); i++)
   {
     circularBuffer_overwrite(cTransmitbuffer, pgm_read_byte_near(helpMessage + i)); 
   }
-
   UART_interrupt_transmitFromBufferInit(uBuf, strlen(helpMessage));
 }
 
@@ -146,19 +167,20 @@ void determineTask(void){
 
   char receivedCommand[commandLength];
   char firstPart[8] = {0,0,0,0,0,0,0,0};
-  char secondPart[8];
-  char thirdPart[8];
+  char secondPart[commandLength];
+  //char thirdPart[8];
 
   bool singleType = true;
 
   uint8_t lengthFirstPart = 0;
-  uint8_t lengthSecondPart = 0;
-  uint8_t lengthThirdPart = 0;
+  //uint8_t lengthSecondPart = 0;
+  //uint8_t lengthThirdPart = 0;
 
   //Determine first part
   for (uint8_t i = 0; i < commandLength; i++)
   {
     circularBuffer_read(cReceivebuffer, &receivedCommand[i]);
+    //UART_transmit(receivedCommand[i]);
     lengthFirstPart++;
     //Search for space
     if(receivedCommand[i] == 32){
@@ -223,12 +245,6 @@ void determineTask(void){
       break;
     }
   }else{
-      /*
-    for (uint8_t i = 0; i < strlen(firstPart); i++)
-    {
-      UART_transmit(firstPart[i]);
-    }*/
-    
 
     for (uint8_t i = 0; i < NUMBEROFMULTICOMMANDS; i++)
     {
@@ -243,13 +259,14 @@ void determineTask(void){
     //help  
     case 0:
 
-      for (uint8_t i = lengthFirstPart + 1; i < commandLength; i++)
+      for (uint8_t i = lengthFirstPart; i < commandLength; i++)
       {
-        circularBuffer_read(cReceivebuffer, &receivedCommand[i-lengthFirstPart-1]);
+        circularBuffer_read(cReceivebuffer, &secondPart[i-lengthFirstPart]);
       }
-      char* t = malloc(sizeof(char)*(commandLength - lengthFirstPart));
 
+      char *t = malloc(sizeof(char) * (commandLength - lengthFirstPart));
       if(t == NULL){
+        UART_transmit(0xeB);
         errorCode = NOFREEMEM;
         timeBasedScheduler_addTask(tBScheduler, &sendError, 255, currentTime);
         clearLastCommand(commandLength - lengthFirstPart);
@@ -257,9 +274,9 @@ void determineTask(void){
         return;
       }
 
-      strncpy(t, receivedCommand, (commandLength - lengthFirstPart) - 1);
-      t[(commandLength - lengthFirstPart - 1)] = '\0';
-      timeBasedScheduler_addTaskWithParam(tBScheduler, &echo, 185, currentTime, t, (commandLength - lengthFirstPart + 1));
+      strncpy(t, secondPart, (commandLength - lengthFirstPart) - 1);
+      t[(commandLength - lengthFirstPart) - 1] = '\0';
+      timeBasedScheduler_addTaskWithParam(tBScheduler, &echo, 185, currentTime, t, (commandLength - lengthFirstPart));
       break;
     //toggle:  
     case 1:
@@ -285,10 +302,12 @@ void determineTask(void){
       break;
     }
   }
-
-
+  //clearLastCommand(commandLength);
   commandLength = 0;
 }
+
+
+
 
 void awaitNextCommand(void){
 
@@ -296,10 +315,10 @@ void awaitNextCommand(void){
 }
 
 void receive(void){
+
   UART_interrupt_receiveToBuffer(uBuf, PUSH);
   //Check if last send ASCII was new line (LF)
   if(circularBuffer_mostRecentElement(cReceivebuffer) == LF && commandLength != 0){
-
     timeBasedScheduler_addTask(tBScheduler, &determineTask, 255, currentTime);
     timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, currentTime);
   }
@@ -365,32 +384,30 @@ void sendError(void){
 
 int main() {
 
-  sei();
-  
-  DDRB = _BV(5);
-  PORTB ^= _BV(5);
-
-  pQueue = priorityQueueHeap_init(35);
+  taskArray = malloc(sizeof(task)*35);
 
   transBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
   recBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
   
+  pQueue = priorityQueueHeap_init(35, taskArray);
   cTransmitbuffer = circularBuffer_init(transBuffer, BUFFERSIZE);
+    
   cReceivebuffer = circularBuffer_init(recBuffer, BUFFERSIZE);
 
   tBScheduler = timeBasedScheduler_init(35, pQueue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
   uBuf = UART_interrupt_init(cReceivebuffer, cTransmitbuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
+  //freeRam();
+  
+  DDRB = _BV(5);
+  PORTB ^= _BV(5);
 
+  sei();
   adc_temperature_init();
+  UART_transmit(0x01);
+
   //Blinking
   //timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 155, 100, currentTime, 0);
-
-  //Receive next item 1ms
-  //timeBasedScheduler_addPeriodicTask(tBScheduler, &receive, 250, 0, currentTime + 50, 0);
-
-  //Transmit next item on Buffer 2ms
-  //timeBasedScheduler_addPeriodicTask(tBScheduler, &transmit,254 ,10 , currentTime + 50, 0);
 
   //Await first command
   timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, currentTime);

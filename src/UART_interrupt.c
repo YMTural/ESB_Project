@@ -27,7 +27,7 @@ UART_interrupt_t UART_interrupt_init(void* receiveBuffer, void* transmitBuffer,
 
     UART_init(MYUBRR);                        
 
-    UART_interrupt_t u_buf = malloc(sizeof(UART_interrupt_t));
+    UART_interrupt_t u_buf = malloc(sizeof(UART_interrupt));
 
     u_buf -> receiveBuffer = (uint8_t*) receiveBuffer;
     u_buf -> transmitBuffer = (uint8_t*) transmitBuffer;
@@ -88,6 +88,7 @@ uint8_t getCountRec(UART_interrupt_t ubuf){
 }
 
 void UART_interrupt_transmitFromBuffer(UART_interrupt_t ubuf){
+
     uint8_t data;
     if(ubuf -> readyForTransmit){
       UART_flush();

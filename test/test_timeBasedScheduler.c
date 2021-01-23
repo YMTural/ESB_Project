@@ -11,7 +11,8 @@ timeBasedScheduler_t specialTBScheduler;
 
 void test_timeBasedScheduler_init(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+        task * tQ = malloc(sizeof(task)*TASKQUEUELENGTH);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH,tQ);
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init( TASKQUEUELENGTH, queue, priorityQueueHeap_size,
                                                                 priorityQueueHeap_capacity, priorityQueueHeap_add,
                                                                 priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
@@ -25,7 +26,8 @@ void test_timeBasedScheduler_init(void){
 }
 
 void test_timeBasedScheduler_addOneTask(void){
-    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+        task * tQ = malloc(sizeof(task)*TASKQUEUELENGTH);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH,tQ);
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
     TEST_ASSERT_TRUE(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 1,0));
@@ -36,7 +38,8 @@ void test_timeBasedScheduler_addOneTask(void){
 }
 
 void test_timeBasedScheduler_addMoreThanMaxSizeTasks(void){
-    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+        task * tQ = malloc(sizeof(task)*TASKQUEUELENGTH);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH,tQ);
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
     for (int i = 0; i < TASKQUEUELENGTH; i++)
     {
@@ -49,7 +52,8 @@ void test_timeBasedScheduler_addMoreThanMaxSizeTasks(void){
 }
 
 void test_timeBasedScheduler_addOnePeriodicTask(void){
-    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+        task * tQ = malloc(sizeof(task)*TASKQUEUELENGTH);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH,tQ);
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
     TEST_ASSERT_TRUE(timeBasedScheduler_addPeriodicTask(tBScheduler, test_timeBasedScheduler_addOneTask, 255,10,23,0));
@@ -58,7 +62,8 @@ void test_timeBasedScheduler_addOnePeriodicTask(void){
 }
 
 void test_timeBasedScheduler_addOnePeriodicTaskToFull(void){
-    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+        task * tQ = malloc(sizeof(task)*TASKQUEUELENGTH);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH,tQ);
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
 
@@ -77,7 +82,8 @@ void help_timeBasedSchedule(){
 }
 
 void test_timeBasedScheduler_schedule(void){
-    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+        task * tQ = malloc(sizeof(task)*TASKQUEUELENGTH);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH,tQ);
     uint16_t currentTime = 100;
 
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
@@ -95,7 +101,8 @@ void test_timeBasedScheduler_schedule(void){
 }
 
 void test_timeBasedScheduler_scheduleOnEmpty(void){
-    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+        task * tQ = malloc(sizeof(task)*TASKQUEUELENGTH);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH,tQ);
     uint16_t currentTime = 100;
 
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
@@ -107,7 +114,8 @@ void test_timeBasedScheduler_scheduleOnEmpty(void){
 }
 
 void test_timeBasedScheduler_scheduleNonPeriodicTask(void){
-    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+        task * tQ = malloc(sizeof(task)*TASKQUEUELENGTH);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH,tQ);
     uint16_t currentTime = 100;
 
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
@@ -124,7 +132,8 @@ void test_timeBasedScheduler_scheduleNonPeriodicTask(void){
 }
 
 void test_timeBasedScheduler_markIfReady(void){
-    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+        task * tQ = malloc(sizeof(task)*TASKQUEUELENGTH);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH,tQ);
     uint16_t currentTime = 100;
 
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
@@ -144,7 +153,8 @@ void test_timeBasedScheduler_markIfReady(void){
 
 void test_timeBasedScheduler_incrementTimer(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+        task * tQ = malloc(sizeof(task)*TASKQUEUELENGTH);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH,tQ);
     uint16_t currentTime = 65530;
 
     timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
@@ -172,7 +182,8 @@ void addTask(void){
 
 void timeBasedScheduler_addTaskWithTask(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+        task * tQ = malloc(sizeof(task)*TASKQUEUELENGTH);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH,tQ);
     uint16_t currentTime = 65530;
 
     specialTBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
@@ -188,7 +199,8 @@ void timeBasedScheduler_addTaskWithTask(void){
 
 void timeBasedScheduler_addTaskWithTimeOverflow(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH); 
+    task * tQ = malloc(sizeof(task)*TASKQUEUELENGTH);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(TASKQUEUELENGTH,tQ);
     uint16_t currentTime = 65430;
 
     specialTBScheduler = timeBasedScheduler_init(TASKQUEUELENGTH, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);

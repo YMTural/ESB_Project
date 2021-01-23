@@ -19,7 +19,7 @@ struct circularBuffer {
 circularBuffer_t circularBuffer_init(uint8_t* buffer, size_t size){
 
     circularBuffer_t cbuf = malloc(sizeof(circularBuffer));
-
+    
     cbuf->startAddress = buffer;
     //Since the startAddress contains data aswell 
     cbuf->endAddress = buffer + size - 1;

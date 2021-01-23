@@ -6,7 +6,8 @@
 
 void test_priorityQueueHeap_init(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
     
     TEST_ASSERT_TRUE(queue);
 
@@ -23,7 +24,8 @@ void test_priorityQueueHeap_addOne(void){
     task1.isReady = true;
     task1.startTime = 23;
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
     TEST_ASSERT_EQUAL_UINT8(0,priorityQueueHeap_add(queue, task1));
     priorityQueueHeap_free(queue);
 }
@@ -39,7 +41,8 @@ void test_priorityQueueHeap_getNextOnce(void){
     task1.isReady = true;
     task1.startTime = 23;
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
 
     TEST_ASSERT_EQUAL_UINT8(0,priorityQueueHeap_add(queue, task1));
 
@@ -66,7 +69,8 @@ void test_priorityQueueHeap_addMultiple(void){
     task1.isReady = true;
     task1.startTime = 23;
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
     for (size_t i = 0; i < BUFFERSIZE; i++)
     {
         task1.priority = i;
@@ -94,7 +98,8 @@ void test_priorityQueueHeap_swapOnce(void){
     task1.isReady = true;
     task1.startTime = 23;
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
 
     priorityQueueHeap_add(queue, task1);
     task1.id = 2;
@@ -106,7 +111,8 @@ void test_priorityQueueHeap_swapOnce(void){
 
 void test_priorityQueueHeap_heapify(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
 
     task task1;
     task1.functions.voidfunction = test_priorityQueueHeap_addOne;
@@ -144,7 +150,8 @@ void test_priorityQueueHeap_getMultiple(void){
     task1.isReady = true;
     task1.startTime = 23;
     task taskE; 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
 
     for (size_t i = 0; i < BUFFERSIZE; i++)
     {
@@ -168,7 +175,8 @@ void test_priorityQueueHeap_getMultiple(void){
 void test_priorityQueueHeap_getFromNone(void){
 
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
 
     TEST_ASSERT_FALSE(priorityQueueHeap_getNext(queue));
 
@@ -177,7 +185,8 @@ void test_priorityQueueHeap_getFromNone(void){
 
 void test_priorityQueueHeap_peekAtNull(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
     
     TEST_ASSERT_FALSE(priorityQueueHeap_peekAt(queue,1));
     priorityQueueHeap_free(queue);
@@ -197,7 +206,8 @@ void test_priorityQueueHeap_getNextReady(void){
     task1.isReady = false;
     task1.startTime = 23;
     task taskE; 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
 
     priorityQueueHeap_add(queue,task1);
     task1.id++;
@@ -225,7 +235,8 @@ void test_priorityQueueHeap_size(void){
     task1.isReady = false;
     task1.startTime = 23;
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
     for (size_t i = 0; i < BUFFERSIZE; i++)
     {
         TEST_ASSERT_EQUAL_UINT8(i, priorityQueueHeap_size(queue));
@@ -240,7 +251,8 @@ void test_priorityQueueHeap_capacity(void){
 
     for (size_t i = 0; i < BUFFERSIZE; i++)
     {
-        queue = priorityQueueHeap_init(i);
+        task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+        queue = priorityQueueHeap_init(i,tQ);
         TEST_ASSERT_EQUAL_UINT8(i, priorityQueueHeap_capacity(queue));
         priorityQueueHeap_free(queue);
     }
@@ -250,7 +262,8 @@ void test_priorityQueueHeap_capacity(void){
 
 void test_priorityQueueHeap_getNextReadyFromNull(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
     
     TEST_ASSERT_FALSE(priorityQueueHeap_getNextReady(queue));
     
@@ -268,7 +281,8 @@ void test_priorityQueueHeap_getNextReadyFromOne(void){
     task1.isReady = true;
     task1.startTime = 23;
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
     priorityQueueHeap_add(queue,task1);
 
     TEST_ASSERT_TRUE(priorityQueueHeap_getNextReady(queue));
@@ -287,7 +301,8 @@ void test_priorityQueueHeap_deleteOneItem(void){
     task1.isReady = true;
     task1.startTime = 23;
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
     priorityQueueHeap_add(queue,task1);
     TEST_ASSERT_EQUAL_UINT8(1,priorityQueueHeap_size(queue));
     priorityQueueHeap_deleteItem(queue,0);
@@ -306,7 +321,8 @@ void test_priorityQueueHeap_deleteFromMiddle(void){
     task1.isReady = true;
     task1.startTime = 23;
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
     priorityQueueHeap_add(queue,task1);
     task1.id = 1;
     task1.priority = 254;
@@ -334,7 +350,8 @@ void test_priorityQueueHeap_incPrio(void){
     task1.isReady = true;
     task1.startTime = 23;    
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE);
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
 
     priorityQueueHeap_add(queue, task1);
     task1.isPeriodic = PERIODIC;
