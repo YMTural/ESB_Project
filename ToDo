@@ -3,3 +3,33 @@
             -only 20characters can be sent at once
             -cant add Tasks in ISR
 //
+
+
+
+void flash(char * param){
+  uint8_t num = 0;
+  if(strlen(param) > 3){
+    errorCode = WRONGPARAM;
+    timeBasedScheduler_addTask(tBScheduler, &sendError, 255, currentTime);
+  }else{
+    for (uint8_t i = 0; i < strlen(param); i++)
+    {
+      if(param[i] < 0x30 || param[i] > 0x39){
+        errorCode = WRONGPARAM;
+        timeBasedScheduler_addTask(tBScheduler, &sendError, 255, currentTime);
+        return;
+      }
+      num += (param[i]-0x30) * pow(10,strlen(param)-i-1);
+    }
+    if(num != 0){
+
+      timeBasedScheduler_addTask(tBScheduler, &toggleLed, 195, currentTime);
+      timeBasedScheduler_addTask(tBScheduler, &toggleLed, 195, currentTime + 100);
+      num--;
+      char number = malloc(sizeof(char)*3);
+      sprintf(number, "%i", num);
+      timeBasedScheduler_addTaskWithParam(tBScheduler, &flash, 165, currentTime+200, number, strlen(param));
+
+      }
+  }
+}

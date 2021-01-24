@@ -64,6 +64,7 @@ task* priorityQueueHeap_getNext(priorityQueueHeap_t priorityQueueHeap){
 task* priorityQueueHeap_getNextReady(void* v_priorityQueueHeap){
     priorityQueueHeap_t priorityQueueHeap = v_priorityQueueHeap;
     uint8_t index = 0;
+    bool found = false;
     if(priorityQueueHeap->size <= 0){
          
         //Implement error, probably should return NULL pointer
@@ -77,10 +78,24 @@ task* priorityQueueHeap_getNextReady(void* v_priorityQueueHeap){
         return &priorityQueueHeap -> prioQueue[0];
     }
     //Search for next ready task
+    for (uint8_t i = 0; i < priorityQueueHeap_size(priorityQueueHeap); i++)
+    {
+        if((priorityQueueHeap -> prioQueue[i].isReady)){
+            index = i;
+            found = true;
+            break;
+        }
+    }
+    if(!found){
+        return 0;
+    }
+    //No need for busy waiting, probably check here^ for sleep opportunity
+    /*
     while(!(priorityQueueHeap -> prioQueue[index].isReady)){
  
         index = (index + 1) % priorityQueueHeap -> size;
-    }
+    }*/
+
     task task = priorityQueueHeap -> prioQueue[index];
 
     priorityQueueHeap -> size--;

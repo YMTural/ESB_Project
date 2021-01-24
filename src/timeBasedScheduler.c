@@ -52,22 +52,32 @@ timeBasedScheduler_t timeBasedScheduler_init(uint8_t maxSize, void* queue, uint8
     return tBScheduler;
 }
 
-bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function(void), uint8_t priority, uint16_t start_time){
+bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function(void), uint8_t priority, uint16_t start_time, uint16_t *currentTime){
 
-    
     if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){
 
         return false;
     }
+    uint16_t startTime;
     task task;
+    //Use pointer to get most accurate currentTime
+    startTime = *currentTime + start_time;
+    //If overflow occured add with flipped overflow bit
+    //This prevents timer overflow scheduling errors
+    if(startTime < *currentTime){
+        task.overflow = !tBScheduler -> overflow;
+    }else
+    {
+        task.overflow = tBScheduler ->overflow;
+    }
     task.functions.voidfunction = function;
+    task.param = 0;
     task.paramLength = 0;
     task.priority = priority;
     task.isPeriodic = false;
     task.period = 0;
     task.isReady = false;
-    task.startTime = start_time;
-    task.overflow = tBScheduler->overflow;
+    task.startTime = startTime;
     tBScheduler -> queueAdd((tBScheduler->queue), task);
     
     return true;
@@ -77,13 +87,13 @@ bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void* 
 
    
     if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){
-
        
         return false;
     }
  
     task task;
     task.functions.voidfunction = function;
+    task.param = 0;
     task.paramLength = 0;
     task.priority = priority;
     task.isPeriodic = true;
@@ -95,16 +105,14 @@ bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void* 
     
     return true;
 }
-
+//remove param length and use strlen(param) instead, can check with param = 0 if param is set.
 bool timeBasedScheduler_addPeriodicTaskWithParam(timeBasedScheduler_t tBScheduler, void* function(char*), uint8_t priority, uint16_t period, uint16_t startTime, bool overflow, char* param, uint8_t paramLength,  uint8_t id){
 
    
     if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){
 
-       
         return false;
     }
- 
     task task;
     task.id = id;
     task.functions.charfunction = function;
@@ -120,14 +128,27 @@ bool timeBasedScheduler_addPeriodicTaskWithParam(timeBasedScheduler_t tBSchedule
     
     return true;
 }
-bool timeBasedScheduler_addTaskWithParam(timeBasedScheduler_t tBScheduler, void* function(char*), uint8_t priority, uint16_t start_time, char* param, uint8_t paramLength){
+
+bool timeBasedScheduler_addTaskWithParam(timeBasedScheduler_t tBScheduler, void* function(char*), uint8_t priority, uint16_t start_time, uint16_t* currentTime, char* param, uint8_t paramLength){
 
     
     if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){
 
         return false;
     }
+    uint16_t startTime;
     task task;
+    //Use pointer to get most accurate currentTime
+    startTime = (*currentTime + start_time);
+    //If overflow occured add with flipped overflow bit
+    //This prevents timer overflow scheduling errors
+    if(startTime < *currentTime){
+        task.overflow = !tBScheduler -> overflow;
+    }else
+    {
+        task.overflow = tBScheduler ->overflow;
+    }
+
     task.functions.charfunction = function;
     task.param = param;
     task.paramLength = paramLength;
@@ -135,8 +156,7 @@ bool timeBasedScheduler_addTaskWithParam(timeBasedScheduler_t tBScheduler, void*
     task.isPeriodic = false;
     task.period = 0;
     task.isReady = false;
-    task.startTime = start_time;
-    task.overflow = tBScheduler->overflow;
+    task.startTime = startTime;
     tBScheduler -> queueAdd((tBScheduler->queue), task);
     
     return true;
@@ -174,6 +194,7 @@ bool timeBasedScheduler_addPeriodicTaskID(timeBasedScheduler_t tBScheduler, void
     task task;
     task.id = id;
     task.functions.voidfunction = function;
+    task.param = 0;
     task.paramLength = 0;
     task.priority = priority;
     task.isPeriodic = true;
@@ -198,7 +219,7 @@ void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler, uint16_t c
     for (uint8_t i = 0; i < tBScheduler->queueSize(tBScheduler->queue); i++)
     {   
         
-        if (tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->startTime <= currentTime && ((tBScheduler -> overflow == tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->overflow) || tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->isPeriodic == false) )
+        if ( (tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->startTime <= currentTime) && ((tBScheduler -> overflow == tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->overflow)) )
         {
             tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->isReady = true;
         }
@@ -244,8 +265,11 @@ void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler, uint16_t* cur
                     
                 }
                 //priorityQueueHeap_incrementPriorityOfNonPeriodic(tBScheduler->queue);
-            }
+            }else{
+                //Free param if task is non-periodic
+                free(nextTask.param);
         }
+    }
 }
 
 void timBasedScheduler_deleteTask(timeBasedScheduler_t tBScheduler, uint8_t id){

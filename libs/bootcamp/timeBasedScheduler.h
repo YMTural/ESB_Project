@@ -82,7 +82,7 @@ timeBasedScheduler_t timeBasedScheduler_init(uint8_t maxSize, void* queue, uint8
  * 
  */
 
-bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function(void), uint8_t priority, uint16_t start_time);
+bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function(void), uint8_t priority, uint16_t start_time, uint16_t* currentTime);
 
 /**
  * @brief   Adds a new periodic task to the schedule
@@ -143,5 +143,5 @@ void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler, uint16_t c
  */
 void timeBasedScheduler_incrementTimer(timeBasedScheduler_t tBScheduler, uint16_t* timer);
 
-bool timeBasedScheduler_addTaskWithParam(timeBasedScheduler_t tBScheduler, void* function(char*), uint8_t priority, uint16_t start_time, char* param, uint8_t paramLength);
+bool timeBasedScheduler_addTaskWithParam(timeBasedScheduler_t tBScheduler, void* function(char*), uint8_t priority, uint16_t start_time, uint16_t* currentTime, char* param, uint8_t paramLength);
 #endif
