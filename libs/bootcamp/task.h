@@ -16,7 +16,6 @@ typedef struct task {
         void (*charfunction)(char * param);
     }functions;
     char * param;
-    uint8_t paramLength;
     uint8_t priority;
 
     bool isPeriodic;

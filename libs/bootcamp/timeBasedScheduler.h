@@ -62,7 +62,7 @@ typedef timeBasedScheduler* timeBasedScheduler_t;
  * @returns
  *  A time based scheduler handle
  */
-timeBasedScheduler_t timeBasedScheduler_init(uint8_t maxSize, void* queue, uint8_t (*queueSize)(void* queue),
+timeBasedScheduler_t timeBasedScheduler_init(uint16_t* currentTime, void* queue, uint8_t (*queueSize)(void* queue),
     uint8_t (*queueCapacity)(void* queue),
     int8_t (*queueAdd)(void* queue, task thisTask),
     task* (*queuePeekAt)(void* queue, uint8_t n),
@@ -82,7 +82,7 @@ timeBasedScheduler_t timeBasedScheduler_init(uint8_t maxSize, void* queue, uint8
  * 
  */
 
-bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function(void), uint8_t priority, uint16_t start_time, uint16_t* currentTime);
+bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function(void), uint8_t priority, uint16_t start_time);
 
 /**
  * @brief   Adds a new periodic task to the schedule
@@ -102,7 +102,7 @@ bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void* 
  * @param
  *  time based Schedule which is to be scheduled
  */
-void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler, uint16_t* currentTime);
+void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler);
 
 /**
  * @brief   NOT FINISHED YET! ; Configures the selected timer to given intervall
@@ -129,7 +129,7 @@ void timeBasedScheduler_free(timeBasedScheduler_t tbScheduler);
  * 
  */
 
-void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler, uint16_t currentTime);
+void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler);
 
 /**
  *  @brief Increments the Timer and checks for overflow
@@ -141,7 +141,17 @@ void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler, uint16_t c
  * 
  * 
  */
-void timeBasedScheduler_incrementTimer(timeBasedScheduler_t tBScheduler, uint16_t* timer);
+void timeBasedScheduler_incrementTimer(timeBasedScheduler_t tBScheduler);
 
-bool timeBasedScheduler_addTaskWithParam(timeBasedScheduler_t tBScheduler, void* function(char*), uint8_t priority, uint16_t start_time, uint16_t* currentTime, char* param, uint8_t paramLength);
+bool timeBasedScheduler_addTaskWithParam(timeBasedScheduler_t tBScheduler, void* function(char*), uint8_t priority, uint16_t start_time, char* param);
+
+uint8_t timeBasedScheduler_findNextAvailableId(timeBasedScheduler_t tBScheduler);
+
+void timeBasedScheduler_freeID(timeBasedScheduler_t tBScheduler, uint8_t n);
+
+bool timeBasedScheduler_addPeriodicTaskID(timeBasedScheduler_t tBScheduler, void* function, uint8_t priority, uint16_t period, uint16_t start_time, bool overflow, uint8_t id);
+
+bool timeBasedScheduler_addPeriodicTaskWithParam(timeBasedScheduler_t tBScheduler, void* function(char*), uint8_t priority, uint16_t period, uint16_t start_time, bool overflow, char* param, uint8_t id);
+
+bool getOverflowBit(timeBasedScheduler_t tBScheduler);
 #endif
