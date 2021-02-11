@@ -46,4 +46,8 @@ void arduinoArch_fetchTemperature(void);
  */ 
 uint16_t arduinoArch_getTemperatureRegister(void);
 
+void arduinoArch_PWMTimerinit(void);
+
+void arduinoArch_PWMTimerStop(void);
+
 #endif

@@ -54,7 +54,7 @@ timeBasedScheduler_t timeBasedScheduler_init(uint16_t* currentTime, void* queue,
     return tBScheduler;
 }
 
-bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function(void), uint8_t priority, uint16_t start_time){
+bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void (*function)(void), uint8_t priority, uint16_t start_time){
 
     if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){
 
@@ -84,7 +84,7 @@ bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void* function
     return true;
 }
 
-bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void* function(void), uint8_t priority, uint16_t period, uint16_t startTime, bool overflow){
+bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void (*function)(void), uint8_t priority, uint16_t period, uint16_t startTime, bool overflow){
 
    
     if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){
@@ -105,8 +105,42 @@ bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void* 
     
     return true;
 }
-//remove param length and use strlen(param) instead, can check with param = 0 if param is set.
-bool timeBasedScheduler_addPeriodicTaskWithParam(timeBasedScheduler_t tBScheduler, void* function(char*), uint8_t priority, uint16_t period, uint16_t start_time, bool overflow, char* param, uint8_t id){
+
+bool timeBasedScheduler_addPeriodicTaskID(timeBasedScheduler_t tBScheduler, void (*function)(void), uint8_t priority, uint16_t period, uint16_t start_time, bool overflow, uint8_t id){
+
+   
+    if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){
+
+       
+        return false;
+    }
+ 
+    task task;
+    uint16_t startTime;
+    //Use pointer to get most accurate currentTime
+    startTime = *(tBScheduler -> currentTime) + start_time;
+    //If overflow occured add with flipped overflow bit
+    //This prevents timer overflow scheduling errors
+    if(startTime < *(tBScheduler -> currentTime)){
+        task.overflow = !tBScheduler -> overflow;
+    }else
+    {
+        task.overflow = tBScheduler ->overflow;
+    }
+    task.id = id;
+    task.functions.voidfunction = function;
+    task.param = 0;
+    task.priority = priority;
+    task.isPeriodic = true;
+    task.period = period;
+    task.startTime = startTime;   
+    task.isReady = false;
+    tBScheduler -> queueAdd((tBScheduler->queue), task);
+    
+    return true;
+}
+
+bool timeBasedScheduler_addPeriodicTaskWithParam(timeBasedScheduler_t tBScheduler, void (*function)(char*), uint8_t priority, uint16_t period, uint16_t start_time, bool overflow, char* param, uint8_t id){
 
    
     if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){
@@ -138,7 +172,7 @@ bool timeBasedScheduler_addPeriodicTaskWithParam(timeBasedScheduler_t tBSchedule
     return true;
 }
 
-bool timeBasedScheduler_addTaskWithParam(timeBasedScheduler_t tBScheduler, void* function(char*), uint8_t priority, uint16_t start_time, char* param){
+bool timeBasedScheduler_addTaskWithParam(timeBasedScheduler_t tBScheduler, void (*function)(char*), uint8_t priority, uint16_t start_time, char* param){
 
     
     if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){
@@ -189,41 +223,6 @@ void timeBasedScheduler_freeID(timeBasedScheduler_t tBScheduler, uint8_t n){
 }
 
 
-
-bool timeBasedScheduler_addPeriodicTaskID(timeBasedScheduler_t tBScheduler, void* function, uint8_t priority, uint16_t period, uint16_t start_time, bool overflow, uint8_t id){
-
-   
-    if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){
-
-       
-        return false;
-    }
- 
-    task task;
-    uint16_t startTime;
-    //Use pointer to get most accurate currentTime
-    startTime = *(tBScheduler -> currentTime) + start_time;
-    //If overflow occured add with flipped overflow bit
-    //This prevents timer overflow scheduling errors
-    if(startTime < *(tBScheduler -> currentTime)){
-        task.overflow = !tBScheduler -> overflow;
-    }else
-    {
-        task.overflow = tBScheduler ->overflow;
-    }
-    task.id = id;
-    task.functions.voidfunction = function;
-    task.param = 0;
-    task.priority = priority;
-    task.isPeriodic = true;
-    task.period = period;
-    task.startTime = startTime;   
-    task.isReady = false;
-    tBScheduler -> queueAdd((tBScheduler->queue), task);
-    
-    return true;
-}
-
 void timeBasedScheduler_timer(uint8_t timer, uint16_t intervall){
 
 
@@ -248,7 +247,6 @@ void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler){
 
 void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler){
 
-    uint16_t startTime;
     task nextTask;
     task* pTask;
         pTask = tBScheduler -> queueGetNextReady(tBScheduler->queue);
@@ -261,27 +259,12 @@ void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler){
             }
             if(nextTask.isPeriodic){
                 UART_transmit(nextTask.id);
-                //Use pointer to get most accurate currentTime
-                startTime = *(tBScheduler -> currentTime) + nextTask.period;
-                //If overflow occured add with flipped overflow bit
-                //This prevents timer overflow scheduling errors
-                if(startTime < *(tBScheduler -> currentTime)){
                     if(nextTask.param){
-                        timeBasedScheduler_addPeriodicTaskWithParam(tBScheduler, nextTask.functions.charfunction, nextTask.priority, nextTask.period, startTime, !tBScheduler -> overflow, nextTask.param, nextTask.id);
+                        timeBasedScheduler_addPeriodicTaskWithParam(tBScheduler, nextTask.functions.charfunction, nextTask.priority, nextTask.period, nextTask.period, tBScheduler -> overflow, nextTask.param, nextTask.id);
                     }else
                     {
-                        timeBasedScheduler_addPeriodicTask(tBScheduler, nextTask.functions.voidfunction, nextTask.priority, nextTask.period, startTime, !tBScheduler -> overflow);
+                        timeBasedScheduler_addPeriodicTaskID(tBScheduler, nextTask.functions.voidfunction, nextTask.priority, nextTask.period, nextTask.period, tBScheduler -> overflow, nextTask.id);    
                     }
-                    
-                }else{
-                    if(nextTask.param){
-                        timeBasedScheduler_addPeriodicTaskWithParam(tBScheduler, nextTask.functions.charfunction, nextTask.priority, nextTask.period, startTime, tBScheduler -> overflow, nextTask.param, nextTask.id);
-                    }else
-                    {
-                        timeBasedScheduler_addPeriodicTask(tBScheduler, nextTask.functions.voidfunction, nextTask.priority, nextTask.period, startTime, tBScheduler -> overflow);    
-                    }
-                    
-                }
                 //priorityQueueHeap_incrementPriorityOfNonPeriodic(tBScheduler->queue);
             }else{
                 //Free param if task is non-periodic
@@ -290,19 +273,26 @@ void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler){
     }
 }
 
-void timBasedScheduler_deleteTask(timeBasedScheduler_t tBScheduler, uint8_t id){
+void timeBasedScheduler_deleteTask(timeBasedScheduler_t tBScheduler, uint8_t id){
 
     uint8_t n;
     for (uint8_t i = 0; i < tBScheduler -> queueSize(tBScheduler -> queue); i++)
     {
         if(tBScheduler -> queuePeekAt(tBScheduler -> queue, i) -> id == id){
             n = i;
+            free(tBScheduler -> queuePeekAt(tBScheduler -> queue, i) -> param);
             break;
         }
     }
     
     tBScheduler -> queueDelete(tBScheduler -> queue, n);
     timeBasedScheduler_freeID(tBScheduler, n);
+}
+
+
+uint32_t timeBasedScheduler_getUsedIDsInt(timeBasedScheduler_t tBScheduler){
+
+    return tBScheduler -> availableIDs;
 }
 
 void timeBasedScheduler_incrementTimer(timeBasedScheduler_t tBScheduler){
@@ -314,7 +304,7 @@ void timeBasedScheduler_incrementTimer(timeBasedScheduler_t tBScheduler){
     }
 }
 
-bool getOverflowBit(timeBasedScheduler_t tBScheduler){
+bool timeBasedScheduler_getOverflowBit(timeBasedScheduler_t tBScheduler){
 
     return tBScheduler -> overflow;
 }
