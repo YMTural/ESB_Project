@@ -15,6 +15,7 @@
 #include "bootcamp/adc_temperature.h"
 #include "bootcamp/priorityQueueHeap.h"
 #include "bootcamp/sinusFunctions/sinusFunction.h"
+#include "bootcamp/taskHandler.h"
 
 /*
 
@@ -42,6 +43,7 @@ Commands:
 #define START_IN_M(X) (X*1000)
 #define SINESTEPS 256
 #define BASE10 10
+#define BASE_PRIORITY_SINGLECMD 150
 //Size of the Buffers
 #define BUFFERSIZE 128
 
@@ -64,9 +66,8 @@ uint8_t user_counter = 0;
 
 uint8_t errorCode = 1;
 
-//Switch to enumeration after implementing MQTT Client
-const char multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill"};
-const char singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list"};                                             
+const char const multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill"};
+const char const singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list"};                                             
 
 const char greetingMessage[128] PROGMEM = {"ESB - Arduino Command-Line Interface - Willkommen!\nGeben Sie help ein um alle verfuegbaren Commands zu sehen.\n"};
 const char helpMessage[128] PROGMEM = {"Commands: help, echo <string>, led <bit>, flash <uint8>, sine <uint8>, inc, counter, temp, periodic, kill <uint8>, list \n"};
@@ -113,7 +114,7 @@ UART_interrupt_t uBuf;
 
 timeBasedScheduler_t tBScheduler;
 task* taskArray;
-
+taskHandler_t tHandler;
 
 void freeRam () {
   extern int __heap_start, *__brkval;
@@ -121,12 +122,7 @@ void freeRam () {
   int z = (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
   char m[16];
   sprintf(m,"%d",z);
-
-  for(uint8_t i = 0; i < 4; i++){
-    
-    UART_transmit(m[i]);
-   
-  }
+  sendMessage(m);
 }
 
 //Declare here for determine task
@@ -150,7 +146,7 @@ void periodic(char *param);
 void sendMessage(char *param);
 void sendMessage_P(const char *param, int length);
            
-void (*singleCommandList[])(void) = {task_help, toggleLed, incrementCounter, returnCounter, sendTemperature, listTasks};
+void (*singleCommandList[])(void) = {task_help, toggleLed, incrementCounter, returnCounter, prepareTemp, listTasks};
 void (*multiCommandList[])(char*) = {echo, led, flash, sineInit, periodic, kill}; 
 
 //help func
@@ -242,12 +238,12 @@ void sineFade(char *param){
     if(newParams == 0){
       errorCode = NOFREEMEM;
       timeBasedScheduler_addTask(tBScheduler, &sendError, 255, STARTIMMEDIATELY);
-    }else{
+    }else{ 
     
       newParams[0] = param[0];
       newParams[1] = param[1] + 1;
       newParams[2] = param[2];
-      timeBasedScheduler_addTaskWithParam(tBScheduler, &sineFade, 125, START_IN_M(1)/SINESTEPS, newParams);
+      timeBasedScheduler_addTaskWithParam(tBScheduler, &sineFade, 125, START_IN_M(newParams[0])/SINESTEPS, newParams);
     }
   }else{
     
@@ -371,6 +367,7 @@ void determineTask(void){
 
   uint8_t lengthFirstPart = 0;
 
+  
   //Determine first part
   for (uint8_t i = 0; i < commandLength; i++)
   {
@@ -437,23 +434,23 @@ void determineTask(void){
     {
     //echo
     case 0:
-      timeBasedScheduler_addTaskWithParam(tBScheduler, &echo, 185, 0, param);
+      timeBasedScheduler_addTaskWithParam(tBScheduler, &echo, 185, STARTIMMEDIATELY, param);
       break;
     //led
     case 1:
       if(strlen(param) > 1){
         raiseError(WRONGPARAM);
       }else{
-        timeBasedScheduler_addTaskWithParam(tBScheduler, &led, 120, 0, param);
+        timeBasedScheduler_addTaskWithParam(tBScheduler, &led, 120, STARTIMMEDIATELY, param);
       }
       break;
     //flash
     case 2:
-      timeBasedScheduler_addTaskWithParam(tBScheduler, &flash, 125, 0, param);
+      timeBasedScheduler_addTaskWithParam(tBScheduler, &flash, 125, STARTIMMEDIATELY, param);
       break;
     //sine
     case 3: 
-      timeBasedScheduler_addTaskWithParam(tBScheduler, &sineInit, 130, 0, param);
+      timeBasedScheduler_addTaskWithParam(tBScheduler, &sineInit, 130, STARTIMMEDIATELY, param);
       break;    
 
     //periodic
@@ -496,7 +493,7 @@ void determineTask(void){
           raiseError(UNKNOWNCOMMAND);
           break;
         }
-        timeBasedScheduler_addPeriodicTaskID(tBScheduler, singleCommandList[commandNumber], commandNumber*15,num*1000,0, 0, timeBasedScheduler_findNextAvailableId(tBScheduler));
+        timeBasedScheduler_addPeriodicTaskID(tBScheduler, singleCommandList[commandNumber], commandNumber*15, num*1000, STARTIMMEDIATELY, timeBasedScheduler_getOverflowBit(tBScheduler), timeBasedScheduler_findNextAvailableId(tBScheduler));
       }else{
 
         firstPart[lengthFirstPart - 1] = 0;
@@ -520,18 +517,18 @@ void determineTask(void){
 
         strncpy(param2, ptrToCmdStart + lengthFirstPart + 1, strlen(ptrToCmdStart) - lengthFirstPart);
         param2[strlen(ptrToCmdStart) - lengthFirstPart] = '\0';
-        timeBasedScheduler_addPeriodicTaskWithParam(tBScheduler, multiCommandList[commandNumber], commandNumber*15, num*1000, 0, timeBasedScheduler_getOverflowBit(tBScheduler), param2, timeBasedScheduler_findNextAvailableId(tBScheduler));
+        timeBasedScheduler_addPeriodicTaskWithParam(tBScheduler, multiCommandList[commandNumber], commandNumber*15, num*1000, STARTIMMEDIATELY, timeBasedScheduler_getOverflowBit(tBScheduler), param2, timeBasedScheduler_findNextAvailableId(tBScheduler));
 
         }
       free(param);
       break;
 
     case 5:
-      timeBasedScheduler_addTaskWithParam(tBScheduler, &kill, 255, 0, param);
+      timeBasedScheduler_addTaskWithParam(tBScheduler, &kill, 255, STARTIMMEDIATELY, param);
       break;
     default:
       errorCode = UNKNOWNCOMMAND;
-      timeBasedScheduler_addTask(tBScheduler, &sendError, 255, 0);
+      timeBasedScheduler_addTask(tBScheduler, &sendError, 255, STARTIMMEDIATELY);
       break;
     }
   }
@@ -553,8 +550,8 @@ void receive(void){
   //Check if last send ASCII was new line (LF)
   if(circularBuffer_mostRecentElement(cReceivebuffer) == LF && commandLength != 0){
 
-    timeBasedScheduler_addTask(tBScheduler, &determineTask, 255, 0);
-    timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, 0);
+    timeBasedScheduler_addTask(tBScheduler, &determineTask, 255, STARTIMMEDIATELY);
+    timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, STARTIMMEDIATELY);
   }
 }
 
@@ -640,7 +637,8 @@ int main() {
   tBScheduler = timeBasedScheduler_init(&currentTime, pQueue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
   uBuf = UART_interrupt_init(cReceivebuffer, cTransmitbuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
-  //freeRam();
+  tHandler = taskHandler_init(singleCommands, multiCommands);
+
   DDRB = 0xFF;
   PORTB ^= _BV(5);
   sei();
@@ -650,10 +648,12 @@ int main() {
   //timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 0x33, 1000, currentTime, 0);
 
   //Await first command
-  timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, 0);
+  timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, STARTIMMEDIATELY);
 
   //Welcome Message
-  timeBasedScheduler_addTask(tBScheduler, &sendWelcomeMessage, 127, 0);
+  timeBasedScheduler_addTask(tBScheduler, &sendWelcomeMessage, 127, STARTIMMEDIATELY);
+
+  timeBasedScheduler_addPeriodicTask(tBScheduler, &freeRam, 250, 1000, STARTIMMEDIATELY, 0);
 
   while(true){
 
@@ -669,7 +669,7 @@ ISR(USART_UDRE_vect){
   UART_interrupt_setTransmitFlag(uBuf, true);
   UART_disableTransmitInterrupt();
   //Schedule next transmit
-  timeBasedScheduler_addTask(tBScheduler, &transmit, 240, 0);
+  timeBasedScheduler_addTask(tBScheduler, &transmit, 240, STARTIMMEDIATELY);
   sei();
 }
 
@@ -692,7 +692,7 @@ ISR(USART_RX_vect){
   UART_disableReceiveInterrupt();
   UART_interrupt_setReceiveFlag(uBuf, true);
   //Schedule receive with highest priority
-  timeBasedScheduler_addTask(tBScheduler, &receive, 255, 0);
+  timeBasedScheduler_addTask(tBScheduler, &receive, 255, STARTIMMEDIATELY);
   sei();
 }
 
@@ -708,7 +708,7 @@ ISR(TIMER0_COMPA_vect){
   
 ISR(ADC_vect){
     cli();
-    timeBasedScheduler_addTask(tBScheduler, &sendTemperature, 155, 0);
+    timeBasedScheduler_addTask(tBScheduler, &sendTemperature, 155, STARTIMMEDIATELY);
     sei();
 }
 

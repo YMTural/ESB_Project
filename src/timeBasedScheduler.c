@@ -168,7 +168,6 @@ bool timeBasedScheduler_addPeriodicTaskWithParam(timeBasedScheduler_t tBSchedule
     task.startTime = startTime;   
     task.isReady = false;
     tBScheduler -> queueAdd((tBScheduler->queue), task);
-    
     return true;
 }
 
@@ -258,7 +257,6 @@ void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler){
                 nextTask.functions.voidfunction();
             }
             if(nextTask.isPeriodic){
-                UART_transmit(nextTask.id);
                     if(nextTask.param){
                         timeBasedScheduler_addPeriodicTaskWithParam(tBScheduler, nextTask.functions.charfunction, nextTask.priority, nextTask.period, nextTask.period, tBScheduler -> overflow, nextTask.param, nextTask.id);
                     }else

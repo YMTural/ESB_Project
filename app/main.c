@@ -15,6 +15,7 @@
 #include "bootcamp/adc_temperature.h"
 #include "bootcamp/priorityQueueHeap.h"
 #include "bootcamp/sinusFunctions/sinusFunction.h"
+#include "bootcamp/taskHandler.h"
 
 /*
 
@@ -42,6 +43,7 @@ Commands:
 #define START_IN_M(X) (X*1000)
 #define SINESTEPS 256
 #define BASE10 10
+#define BASE_PRIORITY_SINGLECMD 150
 //Size of the Buffers
 #define BUFFERSIZE 128
 
@@ -64,9 +66,8 @@ uint8_t user_counter = 0;
 
 uint8_t errorCode = 1;
 
-//Switch to enumeration after implementing MQTT Client
-const char multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill"};
-const char singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list"};                                             
+const char const multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill"};
+const char const singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list"};                                             
 
 const char greetingMessage[128] PROGMEM = {"ESB - Arduino Command-Line Interface - Willkommen!\nGeben Sie help ein um alle verfuegbaren Commands zu sehen.\n"};
 const char helpMessage[128] PROGMEM = {"Commands: help, echo <string>, led <bit>, flash <uint8>, sine <uint8>, inc, counter, temp, periodic, kill <uint8>, list \n"};
@@ -113,21 +114,9 @@ UART_interrupt_t uBuf;
 
 timeBasedScheduler_t tBScheduler;
 task* taskArray;
+taskHandler_t tHandler;
 
 
-void freeRam () {
-  extern int __heap_start, *__brkval;
-  int v;
-  int z = (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
-  char m[16];
-  sprintf(m,"%d",z);
-
-  for(uint8_t i = 0; i < 4; i++){
-    
-    UART_transmit(m[i]);
-   
-  }
-}
 
 //Declare here for determine task
 void receive(void);
@@ -149,6 +138,7 @@ void kill(char *param);
 void periodic(char *param);
 void sendMessage(char *param);
 void sendMessage_P(const char *param, int length);
+uint8_t extractIntParam(char* receivedCommand, char number[3], uint8_t* nextTokenIndex);
            
 void (*singleCommandList[])(void) = {task_help, toggleLed, incrementCounter, returnCounter, prepareTemp, listTasks};
 void (*multiCommandList[])(char*) = {echo, led, flash, sineInit, periodic, kill}; 
@@ -161,7 +151,14 @@ void clearLastCommand(uint8_t length){
     circularBuffer_read(cReceivebuffer, 0);  
   }
 }
-
+void freeRam () {
+  extern int __heap_start, *__brkval;
+  int v;
+  int z = (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
+  char m[16];
+  sprintf(m,"%d",z);
+  sendMessage(m);
+}
 void raiseError(uint8_t eCode){
 
   errorCode = eCode;
@@ -172,7 +169,7 @@ void raiseError(uint8_t eCode){
 
 //MultiCommands
 void echo(char * param){
-  
+
   sendMessage(param);
   sendMessage_P(newlineString, 1);
 }
@@ -242,12 +239,12 @@ void sineFade(char *param){
     if(newParams == 0){
       errorCode = NOFREEMEM;
       timeBasedScheduler_addTask(tBScheduler, &sendError, 255, STARTIMMEDIATELY);
-    }else{
+    }else{ 
     
       newParams[0] = param[0];
       newParams[1] = param[1] + 1;
       newParams[2] = param[2];
-      timeBasedScheduler_addTaskWithParam(tBScheduler, &sineFade, 125, START_IN_M(1)/SINESTEPS, newParams);
+      timeBasedScheduler_addTaskWithParam(tBScheduler, &sineFade, 125, START_IN_M(newParams[0])/SINESTEPS, newParams);
     }
   }else{
     
@@ -364,183 +361,60 @@ void listTasks(void){
 void determineTask(void){
 
   char receivedCommand[commandLength];
-  char firstPart[8] = {0,0,0,0,0,0,0,0};
-  char secondPart[commandLength];
-
-  bool singleType = true;
-
-  uint8_t lengthFirstPart = 0;
-
-  //Determine first part
   for (uint8_t i = 0; i < commandLength; i++)
   {
     circularBuffer_read(cReceivebuffer, &receivedCommand[i]);
-    lengthFirstPart++;
-    //Search for space
-    if(receivedCommand[i] == ' '){
-      singleType = false;
-      break;
-    } 
   }
 
-  uint8_t commandNumber = 255;
-  strncpy(firstPart, receivedCommand, lengthFirstPart-1);
-   //Must set end character manually
-  firstPart[lengthFirstPart-1] = '\0';
+  uint8_t nextTokenIndex = taskHandler_parseNextToken(tHandler, receivedCommand, commandLength);
+  uint8_t commandNumber = taskHandler_getCommandNumber(tHandler);
 
+  if(commandNumber == 255){
+      taskHandler_reset(tHandler);
+      raiseError(UNKNOWNCOMMAND);
+      return;
+  }
   //Queue ist voll
   if(priorityQueueHeap_size(pQueue) > MAXTASKS - 4){
+    taskHandler_reset(tHandler);
     raiseError(QUEUEFULL);
     return;
   }
+  char* param = taskHandler_getParam(tHandler);   
 
-  if(singleType){
+  
+  if(taskHandler_commandType(tHandler) == SINGLE){
 
-    for (uint8_t i = 0; i < NUMBEROFSINGLECOMMANDS; i++)
-    {
-      if(strcmp(firstPart, singleCommands[i]) == 0){
-        commandNumber = i;
-        timeBasedScheduler_addTask(tBScheduler, singleCommandList[i], 150 + 5 * i, STARTIMMEDIATELY);
-        break;
-      }
-    }
-    if(commandNumber == 255) raiseError(UNKNOWNCOMMAND);
+    timeBasedScheduler_addTask(tBScheduler, singleCommandList[commandNumber], 150 + 5 * commandNumber, STARTIMMEDIATELY);
   }
+
   else{
 
-    for (uint8_t i = 0; i < NUMBEROFMULTICOMMANDS; i++)
-    {
-      if(strcmp(firstPart, multiCommands[i]) == 0){
-        commandNumber = i;
-        break;
-      }
-    }    
+    if(commandNumber != 4){
+      timeBasedScheduler_addTaskWithParam(tBScheduler, multiCommandList[commandNumber],  150 + 5 * commandNumber, STARTIMMEDIATELY, taskHandler_getParam(tHandler));
+    }else{
 
-    if(lengthFirstPart == commandLength - 1){
-      raiseError(WRONGPARAM);
-      return;
-    }
+      taskHandler_reset(tHandler);
 
-    for (uint8_t i = lengthFirstPart; i < commandLength; i++)
-    {
-        circularBuffer_read(cReceivebuffer, &secondPart[i-lengthFirstPart]);
-    }
-    char *param = malloc(sizeof(char) * (commandLength - lengthFirstPart));
-    if(param == NULL){
-      raiseError(NOFREEMEM);
-      return;
-    }
-    strncpy(param, secondPart, (commandLength - lengthFirstPart) - 1);
-    param[(commandLength - lengthFirstPart) - 1] = '\0';
-
-    switch (commandNumber)
-    {
-    //echo
-    case 0:
-      timeBasedScheduler_addTaskWithParam(tBScheduler, &echo, 185, STARTIMMEDIATELY, param);
-      break;
-    //led
-    case 1:
-      if(strlen(param) > 1){
-        raiseError(WRONGPARAM);
-      }else{
-        timeBasedScheduler_addTaskWithParam(tBScheduler, &led, 120, STARTIMMEDIATELY, param);
-      }
-      break;
-    //flash
-    case 2:
-      timeBasedScheduler_addTaskWithParam(tBScheduler, &flash, 125, STARTIMMEDIATELY, param);
-      break;
-    //sine
-    case 3: 
-      timeBasedScheduler_addTaskWithParam(tBScheduler, &sineInit, 130, STARTIMMEDIATELY, param);
-      break;    
-
-    //periodic
-    case 4:
-      lengthFirstPart = 0;
-      memset(firstPart, 0, sizeof(char)*8);
-      singleType = true;
+      char number[3] = {"\0\0\0"};
       char *ptrToCmdStart;
-      uint8_t num = strtol(param, &ptrToCmdStart, 10);
-      if(num == 0){
+      uint8_t num = strtol(receivedCommand + nextTokenIndex, &ptrToCmdStart, 10);
 
-        raiseError(WRONGPARAM);
-        break;
+      //Skip space with + 1
+      taskHandler_parseNextToken(tHandler, ptrToCmdStart + 1, (receivedCommand + commandLength - 1)  - ptrToCmdStart);
+      commandNumber = taskHandler_getCommandNumber(tHandler);
+
+      if(commandNumber == 255){
+        taskHandler_reset(tHandler);
+        raiseError(UNKNOWNCOMMAND);
+        return;
       }
 
-      for (uint8_t i = 1; i < strlen(ptrToCmdStart); i++)
-      {
-        firstPart[i-1] = ptrToCmdStart[i];
-        lengthFirstPart++;
-        //Search for space
-        if(ptrToCmdStart[i] == 32){
-          singleType = false;
-          break;
-        } 
-      }
-      uint8_t commandNumber = 255;
-      //Delete Space
-      //firstPart[lengthFirstPart] = "\0";
-
-      if(singleType){
-
-        for (uint8_t i = 0; i < NUMBEROFSINGLECOMMANDS; i++)
-        {
-          if(strcmp(firstPart, singleCommands[i]) == 0){
-            commandNumber = i;
-            break;
-          }
-        }
-        if(commandNumber == 255){
-          raiseError(UNKNOWNCOMMAND);
-          break;
-        }
-        timeBasedScheduler_addPeriodicTaskID(tBScheduler, singleCommandList[commandNumber], commandNumber*15, num*1000, STARTIMMEDIATELY, timeBasedScheduler_getOverflowBit(tBScheduler), timeBasedScheduler_findNextAvailableId(tBScheduler));
-      }else{
-
-        firstPart[lengthFirstPart - 1] = 0;
-        for (uint8_t i = 0; i < NUMBEROFMULTICOMMANDS; i++)
-        {
-          if(strcmp(firstPart, multiCommands[i]) == 0){
-            commandNumber = i;
-            break;
-          }
-        }
-        if(commandNumber == 255){
-          raiseError(UNKNOWNCOMMAND);
-          break;
-        }
-        if(commandNumber > 4){
-          raiseError(NOTSUPPORTED);
-          break;
-        }
-
-        char *param2 = malloc(sizeof(char)* (strlen(ptrToCmdStart) - lengthFirstPart));
-
-        strncpy(param2, ptrToCmdStart + lengthFirstPart + 1, strlen(ptrToCmdStart) - lengthFirstPart);
-        param2[strlen(ptrToCmdStart) - lengthFirstPart] = '\0';
-        timeBasedScheduler_addPeriodicTaskWithParam(tBScheduler, multiCommandList[commandNumber], commandNumber*15, num*1000, STARTIMMEDIATELY, timeBasedScheduler_getOverflowBit(tBScheduler), param2, timeBasedScheduler_findNextAvailableId(tBScheduler));
-
-        }
-      free(param);
-      break;
-
-    case 5:
-      timeBasedScheduler_addTaskWithParam(tBScheduler, &kill, 255, STARTIMMEDIATELY, param);
-      break;
-    default:
-      errorCode = UNKNOWNCOMMAND;
-      timeBasedScheduler_addTask(tBScheduler, &sendError, 255, STARTIMMEDIATELY);
-      break;
+      timeBasedScheduler_addPeriodicTaskWithParam(tBScheduler, multiCommandList[commandNumber], commandNumber*15, num*1000, STARTIMMEDIATELY, timeBasedScheduler_getOverflowBit(tBScheduler), taskHandler_getParam(tHandler), timeBasedScheduler_findNextAvailableId(tBScheduler));
     }
   }
-  //clearLastCommand(commandLength);
   commandLength = 0;
 }
-
-
-
 
 void awaitNextCommand(void){
 
@@ -572,8 +446,6 @@ void sendTemperature(void){
   
   char tempStr[3];
   uint8_t temp = adc_temperature_getTemperature();
-  UART_transmit(0xEF);
-  UART_transmit(temp);
   sprintf(tempStr, "%d", temp);
   sendMessage_P(temperatureMessage, strlen(temperatureMessage));
   sendMessage(tempStr);
@@ -591,7 +463,7 @@ void sendMessage(char *msg){
 //Must handle flash mem pointer differently
 void sendMessage_P(const char *pointerToMsg, int length){
 
-    char message[length];
+    char message[length + 1];
     strcpy_P(message, pointerToMsg);
     for(uint8_t i = 0; i < length; i++){
       circularBuffer_overwrite(cTransmitbuffer, message[i]);
@@ -640,20 +512,20 @@ int main() {
   tBScheduler = timeBasedScheduler_init(&currentTime, pQueue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
   uBuf = UART_interrupt_init(cReceivebuffer, cTransmitbuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
-  //freeRam();
+  tHandler = taskHandler_init(singleCommands, multiCommands);
+
   DDRB = 0xFF;
   PORTB ^= _BV(5);
   sei();
   adc_temperature_init();
-
-  //Blinking
-  //timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 0x33, 1000, currentTime, 0);
 
   //Await first command
   timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, STARTIMMEDIATELY);
 
   //Welcome Message
   timeBasedScheduler_addTask(tBScheduler, &sendWelcomeMessage, 127, STARTIMMEDIATELY);
+
+  //timeBasedScheduler_addPeriodicTask(tBScheduler, &freeRam, 250, 1000, STARTIMMEDIATELY, 0);
 
   while(true){
 

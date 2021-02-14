@@ -10,6 +10,11 @@
         "algorithm": "c",
         "system_error": "c",
         "functional": "c",
-        "streambuf": "c"
+        "streambuf": "c",
+        "*.tcc": "c",
+        "memory": "c",
+        "istream": "c",
+        "tuple": "c",
+        "ratio": "c"
     }
 }
