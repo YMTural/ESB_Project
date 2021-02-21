@@ -72,6 +72,7 @@ bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void (*functio
     {
         task.overflow = tBScheduler ->overflow;
     }
+    task.id = 33;
     task.functions.voidfunction = function;
     task.param = 0;
     task.priority = priority;
@@ -91,8 +92,9 @@ bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void (
        
         return false;
     }
- 
+
     task task;
+    task.id = 33;
     task.functions.voidfunction = function;
     task.param = 0;
     task.priority = priority;
@@ -108,7 +110,8 @@ bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void (
 
 bool timeBasedScheduler_addPeriodicTaskID(timeBasedScheduler_t tBScheduler, void (*function)(void), uint8_t priority, uint16_t period, uint16_t start_time, bool overflow, uint8_t id){
 
-   
+    //UART_transmit(0xCC);
+    //UART_transmit(id);
     if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){
 
        
@@ -190,7 +193,7 @@ bool timeBasedScheduler_addTaskWithParam(timeBasedScheduler_t tBScheduler, void 
     {
         task.overflow = tBScheduler ->overflow;
     }
-
+    task.id = 33;
     task.functions.charfunction = function;
     task.param = param;
     task.priority = priority;
@@ -217,7 +220,8 @@ uint8_t timeBasedScheduler_findNextAvailableId(timeBasedScheduler_t tBScheduler)
 }
 
 void timeBasedScheduler_freeID(timeBasedScheduler_t tBScheduler, uint8_t n){
-
+    //UART_transmit(0xD0);
+    //UART_transmit(n);
     tBScheduler -> availableIDs &= (~ (1 << n));
 }
 
@@ -231,14 +235,14 @@ void timeBasedScheduler_timer(uint8_t timer, uint16_t intervall){
 
 void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler){
 
-    for (uint8_t i = 0; i < tBScheduler->queueSize(tBScheduler->queue); i++)
+    uint8_t size = tBScheduler->queueSize(tBScheduler->queue);
+    for (uint8_t i = 0; i < size; i++)
     {   
-        
         if ( (tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->startTime <= *(tBScheduler -> currentTime)) && ((tBScheduler -> overflow == tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->overflow)) )
         {
             tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->isReady = true;
         }
-        
+
     }
     
 
@@ -248,9 +252,12 @@ void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler){
 
     task nextTask;
     task* pTask;
+        cli();
         pTask = tBScheduler -> queueGetNextReady(tBScheduler->queue);
+        sei();
         if(pTask != 0){
             nextTask = *pTask;
+            //UART_transmit(nextTask.priority);
             if(nextTask.param){
                 nextTask.functions.charfunction(nextTask.param);
             }else{
@@ -272,7 +279,10 @@ void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler){
 }
 
 void timeBasedScheduler_deleteTask(timeBasedScheduler_t tBScheduler, uint8_t id){
-
+    //UART_transmit(0xD1);
+    //UART_transmit(id);
+    //Receive Interrupt could interfere by adding receive task
+    cli();
     uint8_t n;
     for (uint8_t i = 0; i < tBScheduler -> queueSize(tBScheduler -> queue); i++)
     {
@@ -282,9 +292,9 @@ void timeBasedScheduler_deleteTask(timeBasedScheduler_t tBScheduler, uint8_t id)
             break;
         }
     }
-    
     tBScheduler -> queueDelete(tBScheduler -> queue, n);
-    timeBasedScheduler_freeID(tBScheduler, n);
+    sei();
+    timeBasedScheduler_freeID(tBScheduler, id);
 }
 
 

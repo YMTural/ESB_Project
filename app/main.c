@@ -137,8 +137,9 @@ void sineFade(char *param);
 void kill(char *param);
 void periodic(char *param);
 void sendMessage(char *param);
+void sendPreview(char *param);
 void sendMessage_P(const char *param, int length);
-uint8_t extractIntParam(char* receivedCommand, char number[3], uint8_t* nextTokenIndex);
+
            
 void (*singleCommandList[])(void) = {task_help, toggleLed, incrementCounter, returnCounter, prepareTemp, listTasks};
 void (*multiCommandList[])(char*) = {echo, led, flash, sineInit, periodic, kill}; 
@@ -232,7 +233,7 @@ void sineFade(char *param){
   if((uint8_t)param[1] < 255){
 
     //Start at 0 or 1 depending on led status
-    uint8_t shiftedIndex = (uint8_t) param[1] + 64 + (uint8_t) param[2] * 128;
+    uint8_t shiftedIndex = (uint8_t) param[1] + (SINESTEPS/4) + (uint8_t) param[2] * (SINESTEPS/2);
     OCR1B = pgm_read_byte_near(sineWave + shiftedIndex);
     char* newParams = malloc(sizeof(uint8_t)*3);
 
@@ -258,14 +259,17 @@ void sineFade(char *param){
 void kill(char *param){
 
   char **ptr;
-  uint8_t num = strtol(param, ptr, BASE10);
 
+  uint8_t num = strtol(param, ptr, BASE10);
+  
   if(num > 31){
     errorCode = WRONGPARAM;
     timeBasedScheduler_addTask(tBScheduler, &sendError, 255, STARTIMMEDIATELY);
+    return;
   }
 
-  timeBasedScheduler_deleteTask(tBScheduler,num);
+  UART_transmit(num);
+  timeBasedScheduler_deleteTask(tBScheduler, num);
 }
 
 void periodic(char *param){
@@ -299,62 +303,59 @@ void returnCounter(void){
 
 void listTasks(void){
 
-  uint32_t idInt= timeBasedScheduler_getUsedIDsInt(tBScheduler);
-  bool none = true;
-  char noneMsg[] = " none";
-  
-  for(uint8_t i = 0; i < strlen(listMessage); i++){
-    circularBuffer_overwrite(cTransmitbuffer, pgm_read_byte_near(listMessage + i));
-  }
-  UART_interrupt_transmitFromBufferInit(uBuf, strlen(listMessage));
+  cli();
+  uint8_t size = priorityQueueHeap_size(pQueue);
+  UART_transmit(size);
+  task tasks[size];
 
-  task *iTask;
-
-  for (uint8_t i = 0; i < 32; i++)
+  for (uint8_t i = 0; i < size; i++)
   {
-     if( (  (idInt >> i) & 1)){
-      //UART_transmit(0xEA);
-      //UART_transmit(i);
-      //Push i as ASCII
-      circularBuffer_push(cTransmitbuffer, i/10 + 0x30);
-      circularBuffer_push(cTransmitbuffer, i + 0x30);
-      //ASCII of ":"
-      circularBuffer_push(cTransmitbuffer, 0x3A);
-      //ASCII of Space
-      circularBuffer_push(cTransmitbuffer, 0x20);
-      UART_interrupt_transmitFromBufferInit(uBuf, 4);
-      for (uint8_t u = 0; u < priorityQueueHeap_size(pQueue); u++)
-      {
-        iTask = priorityQueueHeap_peekAt(pQueue, u);
-        if(iTask -> id == i){
+    tasks[i] = *priorityQueueHeap_peekAt(pQueue, i);
+  }
+  sei();
+  bool none = true;
+  char noneMsg[] = "Keine\n";
+  sendMessage_P(listMessage, strlen(listMessage));
 
-          if(iTask -> param == 0){
-            for (uint8_t v = 0; v < NUMBEROFSINGLECOMMANDS; v++)
-            {
-              if(iTask -> functions.voidfunction = singleCommandList[v]){
-                for (uint8_t j = 0; j < strlen(singleCommands[v]); j++)
-                {
-                  circularBuffer_push(cTransmitbuffer, singleCommands[v][j]);
-                }
-              }
-            }
-          }else{
-            for (uint8_t v = 0; v < NUMBEROFMULTICOMMANDS; v++)
-            {
-              if(iTask -> functions.charfunction = multiCommandList[v]){
-                for (uint8_t j = 0; j < strlen(multiCommands[v]); j++)
-                {
-                  circularBuffer_push(cTransmitbuffer, multiCommands[v][j]);
-                }
-              }
-            }              
+
+  for (uint8_t i = 0; i < size; i++)
+  {
+
+    if(tasks[i].id < 32){
+
+
+      none = false;
+      char* name;
+      char num[3];
+      char space[3] = " \0";
+      sprintf(num, "%d", tasks[i].id); 
+      num[2] = "\0";
+      //Compare function ptr
+      for (uint8_t u = 0; u < NUMBEROFCOMMANDS/2; u++)
+      {
+        if(tasks[i].functions.charfunction == multiCommandList[u] || tasks[i].functions.voidfunction == singleCommandList[u]){
+          if(tasks[i].param == 0){
+            name = singleCommands[u];
+          }else
+          {
+            name = multiCommands[u];
           }
-        }else{
-          //DEBUG-ERROR
-          raiseError(NOFREEMEM);
+          break;
         }
       }
+      sendMessage(num);
+      sendMessage(space);
+      sendMessage(name);
+      sendMessage(space);
+      sendPreview(tasks[i].param);
+      sendMessage(space);
     }
+  }
+
+  if(none){
+    sendMessage(noneMsg);
+  }else{
+    sendMessage_P(newlineString, 1);
   }
 }
 
@@ -375,7 +376,7 @@ void determineTask(void){
       return;
   }
   //Queue ist voll
-  if(priorityQueueHeap_size(pQueue) > MAXTASKS - 4){
+  if(priorityQueueHeap_size(pQueue) > MAXTASKS - 4 && commandNumber != 5 && taskHandler_commandType(tHandler) == MULTI){
     taskHandler_reset(tHandler);
     raiseError(QUEUEFULL);
     return;
@@ -384,7 +385,6 @@ void determineTask(void){
 
   
   if(taskHandler_commandType(tHandler) == SINGLE){
-
     timeBasedScheduler_addTask(tBScheduler, singleCommandList[commandNumber], 150 + 5 * commandNumber, STARTIMMEDIATELY);
   }
 
@@ -404,13 +404,17 @@ void determineTask(void){
       taskHandler_parseNextToken(tHandler, ptrToCmdStart + 1, (receivedCommand + commandLength - 1)  - ptrToCmdStart);
       commandNumber = taskHandler_getCommandNumber(tHandler);
 
+      
       if(commandNumber == 255){
         taskHandler_reset(tHandler);
         raiseError(UNKNOWNCOMMAND);
         return;
       }
-
-      timeBasedScheduler_addPeriodicTaskWithParam(tBScheduler, multiCommandList[commandNumber], commandNumber*15, num*1000, STARTIMMEDIATELY, timeBasedScheduler_getOverflowBit(tBScheduler), taskHandler_getParam(tHandler), timeBasedScheduler_findNextAvailableId(tBScheduler));
+      if(taskHandler_commandType(tHandler) == SINGLE){
+        timeBasedScheduler_addPeriodicTaskID(tBScheduler, singleCommandList[commandNumber], commandNumber * 15 + 10, num*1000, STARTIMMEDIATELY, timeBasedScheduler_getOverflowBit(tBScheduler), timeBasedScheduler_findNextAvailableId(tBScheduler) );
+      }else{
+        timeBasedScheduler_addPeriodicTaskWithParam(tBScheduler, multiCommandList[commandNumber], commandNumber*15, num*1000, STARTIMMEDIATELY, timeBasedScheduler_getOverflowBit(tBScheduler), taskHandler_getParam(tHandler), timeBasedScheduler_findNextAvailableId(tBScheduler));
+      }
     }
   }
   commandLength = 0;
@@ -424,6 +428,10 @@ void awaitNextCommand(void){
 void receive(void){
 
   UART_interrupt_receiveToBuffer(uBuf, PUSH);
+  if(circularBuffer_full(cReceivebuffer)){
+    raiseError(NOTSUPPORTED);
+    timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, STARTIMMEDIATELY);
+  }
   //Check if last send ASCII was new line (LF)
   if(circularBuffer_mostRecentElement(cReceivebuffer) == LF && commandLength != 0){
 
@@ -454,11 +462,23 @@ void sendTemperature(void){
 
 void sendMessage(char *msg){
 
-    for(uint8_t i = 0; i < strlen(msg); i++){
-      circularBuffer_overwrite(cTransmitbuffer, msg[i]);
-    }
-    UART_interrupt_transmitFromBufferInit(uBuf, strlen(msg));
+  for(uint8_t i = 0; i < strlen(msg); i++){
+    circularBuffer_overwrite(cTransmitbuffer, msg[i]);
+  }
+  UART_interrupt_transmitFromBufferInit(uBuf, strlen(msg));
 }
+void sendPreview(char *msg){
+
+  if(msg != 0){
+  for(uint8_t i = 0; i < strlen(msg) && i < 3;  i++){
+    circularBuffer_overwrite(cTransmitbuffer, msg[i]);
+  }
+  circularBuffer_overwrite(cTransmitbuffer, '.');
+  circularBuffer_overwrite(cTransmitbuffer, '.');
+  UART_interrupt_transmitFromBufferInit(uBuf, strlen(msg) + 2);
+  }
+}
+
 
 //Must handle flash mem pointer differently
 void sendMessage_P(const char *pointerToMsg, int length){

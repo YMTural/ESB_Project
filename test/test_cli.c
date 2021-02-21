@@ -22,21 +22,18 @@ void test_generalTest(void){
 
     uint8_t* transBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
     uint8_t* recBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
-      uint8_t u = malloc(1);
-    printf("Test: %d", u);
     priorityQueueHeap_t pQueue = priorityQueueHeap_init(35, taskArray);
     circularBuffer_t cTransmitbuffer = circularBuffer_init(transBuffer, BUFFERSIZE);
     
     circularBuffer_t cReceivebuffer = circularBuffer_init(recBuffer, BUFFERSIZE);
 
-    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(35, pQueue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&t, pQueue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
     UART_interrupt_t uBuf = UART_interrupt_init(cReceivebuffer, cTransmitbuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
 
-    timeBasedScheduler_schedule(tBScheduler, &t);
+    timeBasedScheduler_schedule(tBScheduler);
     UART_interrupt_receiveToBufferInit(uBuf,1);
 
     
     printf("Hello World!");
-    TEST_FAIL();
 }

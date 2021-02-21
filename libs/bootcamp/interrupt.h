@@ -27,6 +27,18 @@ extern char ADPS1;
 extern char ADPS0;
 extern char ADCSRA;
 extern char ADSC;
+
+extern char CS10;
+extern char WGM12;
+extern char TCNT1;
+extern char TCCR1B;
+extern char TIMSK1;
+extern short OCR1B;
+extern short OCR1A;
+extern char OCIE1A;
+extern char OCIE1B;
+extern char CS12;
+extern char CS11;
 void sei(void);
 
 

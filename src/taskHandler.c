@@ -87,6 +87,11 @@ uint8_t taskHandler_parseNextToken(taskHandler_t tHandler, char* readBuffer, uin
     } 
 
     lengthFirstPart = taskHandler_getNextTokenIndex(readBuffer, 0, length);
+    
+    if(lengthFirstPart < 2){
+        taskHandler_reset(tHandler);
+        return false;
+    } 
     tHandler -> commandType = (length > lengthFirstPart) ? MULTI : SINGLE;
     if(tHandler -> commandType == SINGLE){
 

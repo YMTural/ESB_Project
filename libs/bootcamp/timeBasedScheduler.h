@@ -30,6 +30,7 @@ typedef struct  timeBasedScheduler
     task* (*queueGetNextReady)(void* queue);
     void (*queueDelete)(void* queue, uint8_t n);
     uint32_t availableIDs;
+    uint16_t* currentTime;
 
 } timeBasedScheduler;
 
@@ -62,7 +63,8 @@ typedef timeBasedScheduler* timeBasedScheduler_t;
  * @returns
  *  A time based scheduler handle
  */
-timeBasedScheduler_t timeBasedScheduler_init(uint16_t* currentTime, void* queue, uint8_t (*queueSize)(void* queue),
+timeBasedScheduler_t timeBasedScheduler_init(uint16_t* currentTime, void* queue,
+    uint8_t (*queueSize)(void* queue),
     uint8_t (*queueCapacity)(void* queue),
     int8_t (*queueAdd)(void* queue, task thisTask),
     task* (*queuePeekAt)(void* queue, uint8_t n),

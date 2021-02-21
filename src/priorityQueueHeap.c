@@ -31,6 +31,7 @@ int8_t priorityQueueHeap_add(void* v_priorityQueueHeap, task task){
 
     uint8_t index = priorityQueueHeap -> size;
     priorityQueueHeap -> size++;
+    cli();
     priorityQueueHeap -> prioQueue[index] = task;
     while (index != 0 &&  priorityQueueHeap -> prioQueue[index].priority >  priorityQueueHeap -> prioQueue[(index-1)/2].priority ){
         
@@ -38,6 +39,7 @@ int8_t priorityQueueHeap_add(void* v_priorityQueueHeap, task task){
         index = (index-1)/2;
 
     }
+    sei();
     return 0;
 }
 
@@ -65,20 +67,10 @@ task* priorityQueueHeap_getNextReady(void* v_priorityQueueHeap){
     priorityQueueHeap_t priorityQueueHeap = v_priorityQueueHeap;
     uint8_t index = 0;
     bool found = false;
-    if(priorityQueueHeap->size <= 0){
-         
-        //Implement error, probably should return NULL pointer
-        return 0;
-        
-    }
-    if(priorityQueueHeap->size == 1 && priorityQueueHeap -> prioQueue[0].isReady){
-         
-   
-        priorityQueueHeap->size = 0;
-        return &priorityQueueHeap -> prioQueue[0];
-    }
+    cli();
     //Search for next ready task
-    for (uint8_t i = 0; i < priorityQueueHeap_size(priorityQueueHeap); i++)
+    uint8_t queueSize = priorityQueueHeap_size(priorityQueueHeap);
+    for (uint8_t i = 0; i < queueSize; i++)
     {
         if((priorityQueueHeap -> prioQueue[i].isReady)){
             index = i;
@@ -89,12 +81,6 @@ task* priorityQueueHeap_getNextReady(void* v_priorityQueueHeap){
     if(!found){
         return 0;
     }
-    //No need for busy waiting, probably check here^ for sleep opportunity
-    /*
-    while(!(priorityQueueHeap -> prioQueue[index].isReady)){
- 
-        index = (index + 1) % priorityQueueHeap -> size;
-    }*/
 
     task task = priorityQueueHeap -> prioQueue[index];
 
@@ -102,6 +88,8 @@ task* priorityQueueHeap_getNextReady(void* v_priorityQueueHeap){
     priorityQueueHeap -> prioQueue[index] = priorityQueueHeap -> prioQueue[priorityQueueHeap->size];
     priorityQueueHeap -> prioQueue[priorityQueueHeap -> size] = task;
     priorityQueueHeap_heapify(priorityQueueHeap, index);
+    //error potential here
+    sei();
     return &priorityQueueHeap -> prioQueue[priorityQueueHeap -> size];
 }
 
@@ -110,7 +98,7 @@ void priorityQueueHeap_heapify(priorityQueueHeap_t priorityQueueHeap, uint8_t st
     uint8_t left = 2*startIndex+1;
     uint8_t right = 2*startIndex+2;
     uint8_t max = startIndex;
-
+    cli();
     if( (left < priorityQueueHeap -> size) && (priorityQueueHeap->prioQueue[max].priority <= priorityQueueHeap->prioQueue[left].priority)){
 
         max = (uint8_t) left;
@@ -125,14 +113,16 @@ void priorityQueueHeap_heapify(priorityQueueHeap_t priorityQueueHeap, uint8_t st
         priorityQueueHeap_swap(startIndex,max, priorityQueueHeap);
         priorityQueueHeap_heapify(priorityQueueHeap, max);
     }
+    sei();
 }
 void priorityQueueHeap_swap(uint8_t a, uint8_t b, priorityQueueHeap_t priorityQueueHeap){
 
     task tmp;
-
+    cli();
     tmp = priorityQueueHeap->prioQueue[a];
     priorityQueueHeap->prioQueue[a] = priorityQueueHeap->prioQueue[b];
     priorityQueueHeap->prioQueue[b] = tmp;
+    sei();
 }
 
 task* priorityQueueHeap_peekAt(void* v_queue, uint8_t n){
@@ -189,9 +179,11 @@ void priorityQueueHeap_deleteItem(void* v_priorityQueueHeap, uint8_t n){
         return;
     }
     else{
-
+        
         priorityQueueHeap_swap(n, (queue -> size) - 1, queue);
+        cli();
         queue -> size--;
         priorityQueueHeap_heapify(queue, n);
+        sei();
     }
 }

@@ -338,26 +338,41 @@ void test_priorityQueueHeap_deleteFromMiddle(void){
 
 }
 
-/*
-void test_priorityQueueHeap_incPrio(void){
-
+void addTaskToQueue(char* pQueue){
     task task1;
-    task1.id = 0;
-    task1.function = test_priorityQueueHeap_addOne;
+    task1.id = 55;
+    task1.functions.charfunction = addTaskToQueue;
     task1.priority = 255;
     task1.isPeriodic = NONPERIODIC;
     task1.period = 0;
     task1.isReady = true;
-    task1.startTime = 23;    
+    task1.startTime = 23;
+    priorityQueueHeap_add(pQueue, task1);
+}
+
+
+void test_priorityQueueHeap_heapAttributeInSchedule(void){
 
     task * tQ = malloc(sizeof(task)*BUFFERSIZE);
-priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
 
-    priorityQueueHeap_add(queue, task1);
-    task1.isPeriodic = PERIODIC;
-    task1.priority = 5;
-    priorityQueueHeap_add(queue, task1);
+    task task1;
+    task1.id = 0;
+    task1.functions.charfunction = addTaskToQueue;
+    task1.priority = 144;
     task1.isPeriodic = NONPERIODIC;
-    task1.priority = BUFFERSIZE;
+    task1.period = 0;
+    task1.isReady = true;
+    task1.startTime = 23;
+    task1.param = queue;
+    priorityQueueHeap_add(queue, task1);
+    priorityQueueHeap_add(queue, task1);
+    task testTask = *priorityQueueHeap_getNextReady(queue);
+    TEST_ASSERT_EQUAL_UINT8(1, priorityQueueHeap_size(queue));
+    testTask.functions.charfunction(testTask.param);
+    TEST_ASSERT_EQUAL_UINT8(2, priorityQueueHeap_size(queue));
+    TEST_ASSERT_EQUAL_UINT8(255, priorityQueueHeap_peekAt(queue,0)->priority);
+    free(tQ);
+    priorityQueueHeap_free(queue);
 
-}*/
+}

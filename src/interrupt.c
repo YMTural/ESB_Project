@@ -24,6 +24,18 @@ char ADPS1 = 0;
 char ADPS0 = 0;
 char ADCSRA = 0;
 char ADSC = 0;
+
+char CS10 = 0;
+char WGM12 = 0;
+char TCNT1 = 0;
+char TCCR1B = 0;
+char TIMSK1 = 0;
+short OCR1B = 0;
+short OCR1A = 0;
+char OCIE1A = 0;
+char OCIE1B = 0;
+char CS12 = 0;
+char CS11 = 0;
 void sei(void){
 
     //no-op
