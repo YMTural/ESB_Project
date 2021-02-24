@@ -28,6 +28,8 @@ extern void test_circularBuffer_empty(void);
 extern void test_circularBuffer_overWriteAll(void);
 extern void test_circularBuffer_overwriteCheckTwice(void);
 extern void test_circularBuffer_sizeFullBuffer(void);
+extern void test_circularBuffer_mostRecentElement2Elements(void);
+extern void test_circularBuffer_mostRecentElementPushFullThenOverrride(void);
 
 
 /*=======Mock Management=====*/
@@ -118,6 +120,8 @@ int main(void)
   run_test(test_circularBuffer_overWriteAll, "test_circularBuffer_overWriteAll", 274);
   run_test(test_circularBuffer_overwriteCheckTwice, "test_circularBuffer_overwriteCheckTwice", 293);
   run_test(test_circularBuffer_sizeFullBuffer, "test_circularBuffer_sizeFullBuffer", 317);
+  run_test(test_circularBuffer_mostRecentElement2Elements, "test_circularBuffer_mostRecentElement2Elements", 331);
+  run_test(test_circularBuffer_mostRecentElementPushFullThenOverrride, "test_circularBuffer_mostRecentElementPushFullThenOverrride", 345);
 
   return UnityEnd();
 }

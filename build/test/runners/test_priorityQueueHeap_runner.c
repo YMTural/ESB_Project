@@ -24,6 +24,10 @@ extern void test_priorityQueueHeap_size(void);
 extern void test_priorityQueueHeap_capacity(void);
 extern void test_priorityQueueHeap_getNextReadyFromNull(void);
 extern void test_priorityQueueHeap_getNextReadyFromOne(void);
+extern void test_priorityQueueHeap_deleteOneItem(void);
+extern void test_priorityQueueHeap_deleteFromMiddle(void);
+extern void test_priorityQueueHeap_deleteFromNone(void);
+extern void test_priorityQueueHeap_heapAttributeInSchedule(void);
 
 
 /*=======Mock Management=====*/
@@ -97,19 +101,23 @@ int main(void)
 {
   UnityBegin("test_priorityQueueHeap.c");
   run_test(test_priorityQueueHeap_init, "test_priorityQueueHeap_init", 7);
-  run_test(test_priorityQueueHeap_addOne, "test_priorityQueueHeap_addOne", 16);
-  run_test(test_priorityQueueHeap_getNextOnce, "test_priorityQueueHeap_getNextOnce", 32);
-  run_test(test_priorityQueueHeap_addMultiple, "test_priorityQueueHeap_addMultiple", 59);
-  run_test(test_priorityQueueHeap_swapOnce, "test_priorityQueueHeap_swapOnce", 86);
-  run_test(test_priorityQueueHeap_heapify, "test_priorityQueueHeap_heapify", 107);
-  run_test(test_priorityQueueHeap_getMultiple, "test_priorityQueueHeap_getMultiple", 136);
-  run_test(test_priorityQueueHeap_getFromNone, "test_priorityQueueHeap_getFromNone", 168);
-  run_test(test_priorityQueueHeap_peekAtNull, "test_priorityQueueHeap_peekAtNull", 178);
-  run_test(test_priorityQueueHeap_getNextReady, "test_priorityQueueHeap_getNextReady", 188);
-  run_test(test_priorityQueueHeap_size, "test_priorityQueueHeap_size", 217);
-  run_test(test_priorityQueueHeap_capacity, "test_priorityQueueHeap_capacity", 238);
-  run_test(test_priorityQueueHeap_getNextReadyFromNull, "test_priorityQueueHeap_getNextReadyFromNull", 251);
-  run_test(test_priorityQueueHeap_getNextReadyFromOne, "test_priorityQueueHeap_getNextReadyFromOne", 260);
+  run_test(test_priorityQueueHeap_addOne, "test_priorityQueueHeap_addOne", 17);
+  run_test(test_priorityQueueHeap_getNextOnce, "test_priorityQueueHeap_getNextOnce", 34);
+  run_test(test_priorityQueueHeap_addMultiple, "test_priorityQueueHeap_addMultiple", 62);
+  run_test(test_priorityQueueHeap_swapOnce, "test_priorityQueueHeap_swapOnce", 90);
+  run_test(test_priorityQueueHeap_heapify, "test_priorityQueueHeap_heapify", 114);
+  run_test(test_priorityQueueHeap_getMultiple, "test_priorityQueueHeap_getMultiple", 144);
+  run_test(test_priorityQueueHeap_getFromNone, "test_priorityQueueHeap_getFromNone", 177);
+  run_test(test_priorityQueueHeap_peekAtNull, "test_priorityQueueHeap_peekAtNull", 188);
+  run_test(test_priorityQueueHeap_getNextReady, "test_priorityQueueHeap_getNextReady", 199);
+  run_test(test_priorityQueueHeap_size, "test_priorityQueueHeap_size", 229);
+  run_test(test_priorityQueueHeap_capacity, "test_priorityQueueHeap_capacity", 251);
+  run_test(test_priorityQueueHeap_getNextReadyFromNull, "test_priorityQueueHeap_getNextReadyFromNull", 265);
+  run_test(test_priorityQueueHeap_getNextReadyFromOne, "test_priorityQueueHeap_getNextReadyFromOne", 275);
+  run_test(test_priorityQueueHeap_deleteOneItem, "test_priorityQueueHeap_deleteOneItem", 295);
+  run_test(test_priorityQueueHeap_deleteFromMiddle, "test_priorityQueueHeap_deleteFromMiddle", 315);
+  run_test(test_priorityQueueHeap_deleteFromNone, "test_priorityQueueHeap_deleteFromNone", 342);
+  run_test(test_priorityQueueHeap_heapAttributeInSchedule, "test_priorityQueueHeap_heapAttributeInSchedule", 365);
 
   return UnityEnd();
 }

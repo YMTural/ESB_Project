@@ -275,7 +275,7 @@
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2021-01-11 16:17:03</td>
+            <td class="headerValue">2021-02-24 19:24:07</td>
             <td></td>
             <td class="headerName">Branches:</td>
             <td class="headerTableEntry">3</td>
@@ -316,7 +316,7 @@
     <tr>
     <td align="right" class="lineno"><pre>3</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>103</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>61</pre></td>
     <td align="left" class="src coveredLine"><pre>void UART_init(unsigned int ubrr){</pre></td>
     </tr>
 
@@ -337,14 +337,14 @@
     <tr>
     <td align="right" class="lineno"><pre>6</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>103</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>61</pre></td>
     <td align="left" class="src coveredLine"><pre>    UBRR0H = (unsigned char)(ubrr>>8);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>7</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>103</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>61</pre></td>
     <td align="left" class="src coveredLine"><pre>    UBRR0L = (unsigned char)ubrr;</pre></td>
     </tr>
 
@@ -365,7 +365,7 @@
     <tr>
     <td align="right" class="lineno"><pre>10</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>103</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>61</pre></td>
     <td align="left" class="src coveredLine"><pre>    UCSR0B = (1&lt;&lt;RXEN0)|(1&lt;&lt;TXEN0);</pre></td>
     </tr>
 
@@ -386,14 +386,14 @@
     <tr>
     <td align="right" class="lineno"><pre>13</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>103</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>61</pre></td>
     <td align="left" class="src coveredLine"><pre>    UCSR0C = (3&lt;&lt;UCSZ00);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>14</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>103</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>61</pre></td>
     <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
@@ -498,7 +498,7 @@
     <tr>
     <td align="right" class="lineno"><pre>29</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2410</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1366</pre></td>
     <td align="left" class="src coveredLine"><pre>void UART_transmit(uint8_t data){</pre></td>
     </tr>
 
@@ -518,8 +518,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>32</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 2410 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>2410</pre></td>
+    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 1366 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>1366</pre></td>
     <td align="left" class="src coveredLine"><pre>    while (!(UCSR0A &amp; (1&lt;&lt;UDRE0)));</pre></td>
     </tr>
 
@@ -540,14 +540,14 @@
     <tr>
     <td align="right" class="lineno"><pre>35</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2410</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1366</pre></td>
     <td align="left" class="src coveredLine"><pre>    UDR0 = data;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>36</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2410</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1366</pre></td>
     <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
@@ -631,7 +631,7 @@
     <tr>
     <td align="right" class="lineno"><pre>48</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2620</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1492</pre></td>
     <td align="left" class="src coveredLine"><pre>uint8_t UART_receive(){</pre></td>
     </tr>
 
@@ -651,8 +651,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>51</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 2620 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>2620</pre></td>
+    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 1492 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>1492</pre></td>
     <td align="left" class="src coveredLine"><pre>    while (!(UCSR0A &amp; (1&lt;&lt;RXC0)));</pre></td>
     </tr>
 
@@ -666,7 +666,7 @@
     <tr>
     <td align="right" class="lineno"><pre>53</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2620</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1492</pre></td>
     <td align="left" class="src coveredLine"><pre>    return UDR0;</pre></td>
     </tr>
 
@@ -687,7 +687,7 @@
     <tr>
     <td align="right" class="lineno"><pre>56</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>23</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>13</pre></td>
     <td align="left" class="src coveredLine"><pre>void UART_flush(void){</pre></td>
     </tr>
 
@@ -707,15 +707,15 @@
 
     <tr>
     <td align="right" class="lineno"><pre>59</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 23 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>23</pre></td>
+    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 13 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>13</pre></td>
     <td align="left" class="src coveredLine"><pre>    while (UCSR0A &amp; (1&lt;&lt;RXC0)) dummy = UDR0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>60</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>23</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>13</pre></td>
     <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 

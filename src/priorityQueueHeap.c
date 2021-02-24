@@ -12,8 +12,6 @@ priorityQueueHeap_t priorityQueueHeap_init(uint8_t maxSize, task* array){
 
     priorityQueueHeap_t queue = malloc(sizeof(priorityQueueHeap));
     
-    //This caused a weird bug!
-    //task *array = malloc(sizeof(task)*maxSize);
     queue -> prioQueue = array;
     queue -> capacity = maxSize;
     queue -> size = 0;

@@ -23,9 +23,10 @@ UPDATE:
     -Keine Zwischenabhängigkeit von Receive und Transmit mehr
     -UART_lib funktioniert nun wie vorgesehen
     -"main_UART_interrupt.c“ und „–buffer.c" provozieren Testfälle, in denen nebenläufig Daten gesendet und empfangen werden.
-    -Main 
-
+    -Unit Test für "adc_temperature.c" hinzugefügt
+    -Main Application funktionier nun wie vorgesehen und enthält einen Counter
+    -Im Unit Test test_priorityQueueHeap_swapOnce Assertion ergänzt
 
 Die Main Application sendet alle paar Sekunden die aktuelle Chip Temperatur und berechnet den Sinus der eingeben Zahl (als ASCII z.B 090.00 oder 123.12). Übertragen muss mit carriage return und new line am Ende.
 Dies geschieht mit moserial, insofern der ASCII Modus ausgewählt wurde, automatisch.
-Vor jeder neuen Eingabe sollte ca. 1s gewartet werden
+

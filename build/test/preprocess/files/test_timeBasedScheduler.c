@@ -18,19 +18,19 @@ volatile uint8_t count = 0;
 
 timeBasedScheduler_t specialTBScheduler;
 
+uint16_t currentTime = 0;
+
 
 
 void test_timeBasedScheduler_init(void){
 
 
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+    task * tQ = malloc(sizeof(task)*15);
 
-    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init( 15, queue, priorityQueueHeap_size,
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
 
-                                                                priorityQueueHeap_capacity, priorityQueueHeap_add,
-
-                                                                priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
 
 
@@ -42,6 +42,8 @@ void test_timeBasedScheduler_init(void){
 
     timeBasedScheduler_free(tBScheduler);
 
+    free(tQ);
+
     priorityQueueHeap_free(queue);
 
     tBScheduler = 0;
@@ -52,13 +54,15 @@ void test_timeBasedScheduler_init(void){
 
 void test_timeBasedScheduler_addOneTask(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+        task * tQ = malloc(sizeof(task)*15);
 
-    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
 
 
-    do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 1,0))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(31)));}} while(0);
+    do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 1,0))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(33)));}} while(0);
 
 
 
@@ -66,11 +70,15 @@ void test_timeBasedScheduler_addOneTask(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(33), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(35), UNITY_DISPLAY_STYLE_UINT8);
 
     timeBasedScheduler_free(tBScheduler);
 
+    free(tQ);
+
     priorityQueueHeap_free(queue);
+
+    tBScheduler = 0;
 
 }
 
@@ -78,25 +86,31 @@ void test_timeBasedScheduler_addOneTask(void){
 
 void test_timeBasedScheduler_addMoreThanMaxSizeTasks(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+        task * tQ = malloc(sizeof(task)*15);
 
-    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
     for (int i = 0; i < 15; i++)
 
     {
 
-        do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, i,0))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(43)));}} while(0);
+        do {if ((timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, i,0))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(48)));}} while(0);
 
     }
 
 
 
-    do {if (!(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 20, 0))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(46)));}} while(0);
+    do {if (!(timeBasedScheduler_addTask(tBScheduler, timeBasedScheduler_addTask, 20, 0))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(51)));}} while(0);
 
     timeBasedScheduler_free(tBScheduler);
 
+    free(tQ);
+
     priorityQueueHeap_free(queue);
+
+    tBScheduler = 0;
 
 }
 
@@ -104,17 +118,23 @@ void test_timeBasedScheduler_addMoreThanMaxSizeTasks(void){
 
 void test_timeBasedScheduler_addOnePeriodicTask(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+        task * tQ = malloc(sizeof(task)*15);
 
-    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
 
 
-    do {if ((timeBasedScheduler_addPeriodicTask(tBScheduler, test_timeBasedScheduler_addOneTask, 255,10,23,0))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(55)));}} while(0);
+    do {if ((timeBasedScheduler_addPeriodicTask(tBScheduler, test_timeBasedScheduler_addOneTask, 255,10,23,0))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(63)));}} while(0);
 
     timeBasedScheduler_free(tBScheduler);
 
+    free(tQ);
+
     priorityQueueHeap_free(queue);
+
+    tBScheduler = 0;
 
 }
 
@@ -122,9 +142,11 @@ void test_timeBasedScheduler_addOnePeriodicTask(void){
 
 void test_timeBasedScheduler_addOnePeriodicTaskToFull(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+        task * tQ = malloc(sizeof(task)*15);
 
-    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
 
 
@@ -138,11 +160,15 @@ void test_timeBasedScheduler_addOnePeriodicTaskToFull(void){
 
     }
 
-    do {if (!(timeBasedScheduler_addPeriodicTask(tBScheduler, test_timeBasedScheduler_addOneTask, 255,10,23,0))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(69)));}} while(0);
+    do {if (!(timeBasedScheduler_addPeriodicTask(tBScheduler, test_timeBasedScheduler_addOneTask, 255,10,23,0))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(80)));}} while(0);
 
     timeBasedScheduler_free(tBScheduler);
 
+    free(tQ);
+
     priorityQueueHeap_free(queue);
+
+    tBScheduler = 0;
 
 }
 
@@ -160,13 +186,15 @@ void help_timeBasedSchedule(){
 
 void test_timeBasedScheduler_schedule(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+        task * tQ = malloc(sizeof(task)*15);
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
 
     uint16_t currentTime = 100;
 
 
 
-    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
 
 
@@ -176,27 +204,31 @@ void test_timeBasedScheduler_schedule(void){
 
     timeBasedScheduler_addPeriodicTask(tBScheduler,help_timeBasedSchedule, 254,10,50, 0);
 
-    timeBasedScheduler_markIfReady(tBScheduler, currentTime);
+    timeBasedScheduler_markIfReady(tBScheduler);
 
-    timeBasedScheduler_schedule(tBScheduler,&currentTime);
+    timeBasedScheduler_schedule(tBScheduler);
 
     UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((1)), (UNITY_INT)(UNITY_UINT8 )((count)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(90), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(104), UNITY_DISPLAY_STYLE_UINT8);
 
     UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((110)), (UNITY_INT)(UNITY_UINT8 )((priorityQueueHeap_peekAt(tBScheduler->queue,1)->startTime)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(91), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(105), UNITY_DISPLAY_STYLE_UINT8);
 
     count = 0;
 
     timeBasedScheduler_free(tBScheduler);
 
+    free(tQ);
+
     priorityQueueHeap_free(queue);
+
+    tBScheduler = 0;
 
 }
 
@@ -204,17 +236,19 @@ void test_timeBasedScheduler_schedule(void){
 
 void test_timeBasedScheduler_scheduleOnEmpty(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+        task * tQ = malloc(sizeof(task)*15);
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
 
     uint16_t currentTime = 100;
 
 
 
-    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
 
 
-    timeBasedScheduler_schedule(tBScheduler,&currentTime);
+    timeBasedScheduler_schedule(tBScheduler);
 
     UnityAssertEqualNumber((UNITY_INT64)((
 
@@ -224,11 +258,15 @@ void test_timeBasedScheduler_scheduleOnEmpty(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(104), UNITY_DISPLAY_STYLE_HEX64);
+   ), (UNITY_UINT)(121), UNITY_DISPLAY_STYLE_HEX64);
 
     timeBasedScheduler_free(tBScheduler);
 
+    free(tQ);
+
     priorityQueueHeap_free(queue);
+
+    tBScheduler = 0;
 
 }
 
@@ -236,13 +274,15 @@ void test_timeBasedScheduler_scheduleOnEmpty(void){
 
 void test_timeBasedScheduler_scheduleNonPeriodicTask(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+        task * tQ = malloc(sizeof(task)*15);
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
 
     uint16_t currentTime = 100;
 
 
 
-    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
 
 
@@ -250,15 +290,15 @@ void test_timeBasedScheduler_scheduleNonPeriodicTask(void){
 
     timeBasedScheduler_addTask(tBScheduler,help_timeBasedSchedule, 254,0);
 
-    timeBasedScheduler_markIfReady(tBScheduler, currentTime);
+    timeBasedScheduler_markIfReady(tBScheduler);
 
-    timeBasedScheduler_schedule(tBScheduler,&currentTime);
+    timeBasedScheduler_schedule(tBScheduler);
 
     UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((1)), (UNITY_INT)(UNITY_UINT8 )((count)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(119), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(139), UNITY_DISPLAY_STYLE_UINT8);
 
     UnityAssertEqualNumber((UNITY_INT64)((
 
@@ -268,13 +308,17 @@ void test_timeBasedScheduler_scheduleNonPeriodicTask(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(120), UNITY_DISPLAY_STYLE_HEX64);
+   ), (UNITY_UINT)(140), UNITY_DISPLAY_STYLE_HEX64);
 
     count = 0;
 
     timeBasedScheduler_free(tBScheduler);
 
+    free(tQ);
+
     priorityQueueHeap_free(queue);
+
+    tBScheduler = 0;
 
 }
 
@@ -282,13 +326,15 @@ void test_timeBasedScheduler_scheduleNonPeriodicTask(void){
 
 void test_timeBasedScheduler_markIfReady(void){
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+    task * tQ = malloc(sizeof(task)*15);
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
 
     uint16_t currentTime = 100;
 
 
 
-    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
 
 
@@ -300,23 +346,27 @@ void test_timeBasedScheduler_markIfReady(void){
 
     timeBasedScheduler_addPeriodicTask(tBScheduler,test_timeBasedScheduler_addOneTask, 0,40,120, 0);
 
-    timeBasedScheduler_markIfReady(tBScheduler, currentTime);
+    timeBasedScheduler_markIfReady(tBScheduler);
 
 
 
     task1 = *priorityQueueHeap_getNextReady(tBScheduler->queue);
 
-    UnityAssertEqualNumber((UNITY_INT64)((&test_timeBasedScheduler_addOneTask)), (UNITY_INT64)((task1.function)), (
+    UnityAssertEqualNumber((UNITY_INT64)((&test_timeBasedScheduler_addOneTask)), (UNITY_INT64)((task1.functions.voidfunction)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(139), UNITY_DISPLAY_STYLE_HEX64);
+   ), (UNITY_UINT)(162), UNITY_DISPLAY_STYLE_HEX64);
 
 
 
     timeBasedScheduler_free(tBScheduler);
 
+    free(tQ);
+
     priorityQueueHeap_free(queue);
+
+    tBScheduler = 0;
 
 }
 
@@ -326,13 +376,15 @@ void test_timeBasedScheduler_incrementTimer(void){
 
 
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+        task * tQ = malloc(sizeof(task)*15);
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
 
     uint16_t currentTime = 65530;
 
 
 
-    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(15, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
 
 
@@ -340,21 +392,21 @@ void test_timeBasedScheduler_incrementTimer(void){
 
     {
 
-        timeBasedScheduler_incrementTimer(tBScheduler, &currentTime);
+        timeBasedScheduler_incrementTimer(tBScheduler);
 
-        do {if (!(tBScheduler ->overflow)) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(155)));}} while(0);
+        do {if (!(tBScheduler ->overflow)) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(181)));}} while(0);
 
         UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT16)((65531+i)), (UNITY_INT)(UNITY_UINT16)((currentTime)), (
 
        ((void *)0)
 
-       ), (UNITY_UINT)(156), UNITY_DISPLAY_STYLE_UINT16);
+       ), (UNITY_UINT)(182), UNITY_DISPLAY_STYLE_UINT16);
 
     }
 
-    timeBasedScheduler_incrementTimer(tBScheduler, &currentTime);
+    timeBasedScheduler_incrementTimer(tBScheduler);
 
-    do {if ((tBScheduler->overflow)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(159)));}} while(0);
+    do {if ((tBScheduler->overflow)) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(185)));}} while(0);
 
 
 
@@ -362,7 +414,11 @@ void test_timeBasedScheduler_incrementTimer(void){
 
     timeBasedScheduler_free(tBScheduler);
 
+    free(tQ);
+
     priorityQueueHeap_free(queue);
+
+    tBScheduler = 0;
 
 }
 
@@ -372,7 +428,7 @@ void addTask(void){
 
 
 
-    timeBasedScheduler_addTask(specialTBScheduler, &addTask, 44,44);
+    timeBasedScheduler_addTaskWithParam(specialTBScheduler, &addTask, 44,44,44);
 
 
 
@@ -382,17 +438,19 @@ void addTask(void){
 
 
 
-void timeBasedScheduler_addTaskWithTask(void){
+void test_timeBasedScheduler_addTaskWithTask(void){
 
 
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+        task * tQ = malloc(sizeof(task)*15);
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
 
     uint16_t currentTime = 65530;
 
 
 
-    specialTBScheduler = timeBasedScheduler_init(15, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+    specialTBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
 
 
@@ -402,17 +460,19 @@ void timeBasedScheduler_addTaskWithTask(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(181), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(210), UNITY_DISPLAY_STYLE_UINT8);
 
-    timeBasedScheduler_markIfReady(specialTBScheduler, currentTime);
+    timeBasedScheduler_markIfReady(specialTBScheduler);
 
-    timeBasedScheduler_schedule(specialTBScheduler,&currentTime);
+    timeBasedScheduler_schedule(specialTBScheduler);
 
     UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((2)), (UNITY_INT)(UNITY_UINT8 )((priorityQueueHeap_size(queue))), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(184), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(213), UNITY_DISPLAY_STYLE_UINT8);
+
+    timeBasedScheduler_free(specialTBScheduler);
 
     specialTBScheduler = 
 
@@ -420,23 +480,29 @@ void timeBasedScheduler_addTaskWithTask(void){
 
                             ;
 
+    free(tQ);
+
+    priorityQueueHeap_free(queue);
+
 
 
 }
 
 
 
-void timeBasedScheduler_addTaskWithTimeOverflow(void){
+void test_timeBasedScheduler_addTaskWithTimeOverflow(void){
 
 
 
-    priorityQueueHeap_t queue = priorityQueueHeap_init(15);
+    task * tQ = malloc(sizeof(task)*15);
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
 
     uint16_t currentTime = 65430;
 
 
 
-    specialTBScheduler = timeBasedScheduler_init(15, queue, priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady);
+    specialTBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
 
 
@@ -446,20 +512,292 @@ void timeBasedScheduler_addTaskWithTimeOverflow(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(197), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(230), UNITY_DISPLAY_STYLE_UINT8);
 
-    timeBasedScheduler_markIfReady(specialTBScheduler, currentTime);
+    timeBasedScheduler_markIfReady(specialTBScheduler);
 
-    timeBasedScheduler_schedule(specialTBScheduler, &currentTime);
+    timeBasedScheduler_schedule(specialTBScheduler);
 
     UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((2)), (UNITY_INT)(UNITY_UINT8 )((priorityQueueHeap_size(queue))), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(200), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(233), UNITY_DISPLAY_STYLE_UINT8);
+
+
+
+    timeBasedScheduler_free(specialTBScheduler);
+
+    specialTBScheduler = 
+
+                        ((void *)0)
+
+                            ;
+
+    free(tQ);
+
+    priorityQueueHeap_free(queue);
+
+
+
+}
 
 
 
 
+
+
+
+
+
+void test_timeBasedScheduler_deleteTask(void){
+
+
+
+    task * tQ = malloc(sizeof(task)*15);
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
+
+    uint16_t currentTime = 100;
+
+
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
+
+
+
+    timeBasedScheduler_addPeriodicTaskWithParam(tBScheduler, 0, 0, 0, 0, 0, 0, 0);
+
+    timeBasedScheduler_deleteTask(tBScheduler, 0);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((0)), (UNITY_INT)(UNITY_UINT8 )((priorityQueueHeap_size(queue))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(255), UNITY_DISPLAY_STYLE_UINT8);
+
+    timeBasedScheduler_free(tBScheduler);
+
+    free(tQ);
+
+    priorityQueueHeap_free(queue);
+
+}
+
+
+
+void test_timeBasedScheduler_getAvailableIdWhenNoneTaken(void){
+
+
+
+    task * tQ = malloc(sizeof(task)*15);
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
+
+    uint16_t currentTime = 100;
+
+
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
+
+
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((0)), (UNITY_INT)(UNITY_UINT8 )((timeBasedScheduler_findNextAvailableId(tBScheduler))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(269), UNITY_DISPLAY_STYLE_UINT8);
+
+
+
+
+
+
+
+    timeBasedScheduler_free(tBScheduler);
+
+    free(tQ);
+
+    priorityQueueHeap_free(queue);
+
+}
+
+
+
+void test_timeBasedScheduler_getAvailableIdWhenOneTaken(void){
+
+
+
+    task * tQ = malloc(sizeof(task)*15);
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
+
+    uint16_t currentTime = 100;
+
+
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
+
+    timeBasedScheduler_findNextAvailableId(tBScheduler);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((1)), (UNITY_INT)(UNITY_UINT8 )((timeBasedScheduler_findNextAvailableId(tBScheduler))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(286), UNITY_DISPLAY_STYLE_UINT8);
+
+
+
+
+
+
+
+    timeBasedScheduler_free(tBScheduler);
+
+    free(tQ);
+
+    priorityQueueHeap_free(queue);
+
+}
+
+
+
+void test_timeBasedScheduler_getAvailableIdWhenFirstFreeSecondTaken(void){
+
+
+
+    task * tQ = malloc(sizeof(task)*15);
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
+
+    uint16_t currentTime = 100;
+
+
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
+
+    timeBasedScheduler_findNextAvailableId(tBScheduler);
+
+    timeBasedScheduler_findNextAvailableId(tBScheduler);
+
+    timeBasedScheduler_freeID(tBScheduler, 0);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((0)), (UNITY_INT)(UNITY_UINT8 )((timeBasedScheduler_findNextAvailableId(tBScheduler))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(305), UNITY_DISPLAY_STYLE_UINT8);
+
+
+
+
+
+
+
+    timeBasedScheduler_free(tBScheduler);
+
+    free(tQ);
+
+    priorityQueueHeap_free(queue);
+
+}
+
+
+
+void test_timeBasedScheduler_getAvailableIdFreeId(void){
+
+
+
+    task * tQ = malloc(sizeof(task)*15);
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
+
+    uint16_t currentTime = 100;
+
+
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
+
+    timeBasedScheduler_findNextAvailableId(tBScheduler);
+
+    timeBasedScheduler_freeID(tBScheduler, 0);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((0)), (UNITY_INT)(UNITY_UINT8 )((timeBasedScheduler_findNextAvailableId(tBScheduler))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(323), UNITY_DISPLAY_STYLE_UINT8);
+
+
+
+
+
+
+
+    timeBasedScheduler_free(tBScheduler);
+
+    free(tQ);
+
+    priorityQueueHeap_free(queue);
+
+}
+
+
+
+void test_timeBasedScheduler_getUsedIds(void){
+
+
+
+    task * tQ = malloc(sizeof(task)*15);
+
+    priorityQueueHeap_t queue = priorityQueueHeap_init(15,tQ);
+
+    uint16_t currentTime = 100;
+
+
+
+    timeBasedScheduler_t tBScheduler = timeBasedScheduler_init(&currentTime, queue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
+
+    for (size_t i = 0; i < 32; i++)
+
+    {
+
+        timeBasedScheduler_findNextAvailableId(tBScheduler);
+
+    }
+
+    for (size_t i = 0; i < 32; i++)
+
+    {
+
+        if(i%2 == 0){
+
+            timeBasedScheduler_freeID(tBScheduler, i);
+
+        }
+
+    }
+
+    uint32_t usedIds = timeBasedScheduler_getUsedIDsInt(tBScheduler);
+
+
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((2863311530)), (UNITY_INT)(UNITY_UINT8 )((usedIds)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(351), UNITY_DISPLAY_STYLE_UINT8);
+
+
+
+
+
+
+
+    timeBasedScheduler_free(tBScheduler);
+
+    free(tQ);
+
+    priorityQueueHeap_free(queue);
 
 }

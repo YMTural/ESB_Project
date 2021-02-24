@@ -20,6 +20,14 @@ extern void test_timeBasedScheduler_scheduleOnEmpty(void);
 extern void test_timeBasedScheduler_scheduleNonPeriodicTask(void);
 extern void test_timeBasedScheduler_markIfReady(void);
 extern void test_timeBasedScheduler_incrementTimer(void);
+extern void test_timeBasedScheduler_addTaskWithTask(void);
+extern void test_timeBasedScheduler_addTaskWithTimeOverflow(void);
+extern void test_timeBasedScheduler_deleteTask(void);
+extern void test_timeBasedScheduler_getAvailableIdWhenNoneTaken(void);
+extern void test_timeBasedScheduler_getAvailableIdWhenOneTaken(void);
+extern void test_timeBasedScheduler_getAvailableIdWhenFirstFreeSecondTaken(void);
+extern void test_timeBasedScheduler_getAvailableIdFreeId(void);
+extern void test_timeBasedScheduler_getUsedIds(void);
 
 
 /*=======Mock Management=====*/
@@ -92,16 +100,24 @@ static void run_test(UnityTestFunction func, const char* name, int line_num)
 int main(void)
 {
   UnityBegin("test_timeBasedScheduler.c");
-  run_test(test_timeBasedScheduler_init, "test_timeBasedScheduler_init", 12);
-  run_test(test_timeBasedScheduler_addOneTask, "test_timeBasedScheduler_addOneTask", 27);
-  run_test(test_timeBasedScheduler_addMoreThanMaxSizeTasks, "test_timeBasedScheduler_addMoreThanMaxSizeTasks", 38);
-  run_test(test_timeBasedScheduler_addOnePeriodicTask, "test_timeBasedScheduler_addOnePeriodicTask", 51);
-  run_test(test_timeBasedScheduler_addOnePeriodicTaskToFull, "test_timeBasedScheduler_addOnePeriodicTaskToFull", 60);
-  run_test(test_timeBasedScheduler_schedule, "test_timeBasedScheduler_schedule", 79);
-  run_test(test_timeBasedScheduler_scheduleOnEmpty, "test_timeBasedScheduler_scheduleOnEmpty", 97);
-  run_test(test_timeBasedScheduler_scheduleNonPeriodicTask, "test_timeBasedScheduler_scheduleNonPeriodicTask", 109);
-  run_test(test_timeBasedScheduler_markIfReady, "test_timeBasedScheduler_markIfReady", 126);
-  run_test(test_timeBasedScheduler_incrementTimer, "test_timeBasedScheduler_incrementTimer", 145);
+  run_test(test_timeBasedScheduler_init, "test_timeBasedScheduler_init", 13);
+  run_test(test_timeBasedScheduler_addOneTask, "test_timeBasedScheduler_addOneTask", 28);
+  run_test(test_timeBasedScheduler_addMoreThanMaxSizeTasks, "test_timeBasedScheduler_addMoreThanMaxSizeTasks", 42);
+  run_test(test_timeBasedScheduler_addOnePeriodicTask, "test_timeBasedScheduler_addOnePeriodicTask", 58);
+  run_test(test_timeBasedScheduler_addOnePeriodicTaskToFull, "test_timeBasedScheduler_addOnePeriodicTaskToFull", 70);
+  run_test(test_timeBasedScheduler_schedule, "test_timeBasedScheduler_schedule", 92);
+  run_test(test_timeBasedScheduler_scheduleOnEmpty, "test_timeBasedScheduler_scheduleOnEmpty", 113);
+  run_test(test_timeBasedScheduler_scheduleNonPeriodicTask, "test_timeBasedScheduler_scheduleNonPeriodicTask", 128);
+  run_test(test_timeBasedScheduler_markIfReady, "test_timeBasedScheduler_markIfReady", 148);
+  run_test(test_timeBasedScheduler_incrementTimer, "test_timeBasedScheduler_incrementTimer", 170);
+  run_test(test_timeBasedScheduler_addTaskWithTask, "test_timeBasedScheduler_addTaskWithTask", 201);
+  run_test(test_timeBasedScheduler_addTaskWithTimeOverflow, "test_timeBasedScheduler_addTaskWithTimeOverflow", 221);
+  run_test(test_timeBasedScheduler_deleteTask, "test_timeBasedScheduler_deleteTask", 245);
+  run_test(test_timeBasedScheduler_getAvailableIdWhenNoneTaken, "test_timeBasedScheduler_getAvailableIdWhenNoneTaken", 261);
+  run_test(test_timeBasedScheduler_getAvailableIdWhenOneTaken, "test_timeBasedScheduler_getAvailableIdWhenOneTaken", 278);
+  run_test(test_timeBasedScheduler_getAvailableIdWhenFirstFreeSecondTaken, "test_timeBasedScheduler_getAvailableIdWhenFirstFreeSecondTaken", 295);
+  run_test(test_timeBasedScheduler_getAvailableIdFreeId, "test_timeBasedScheduler_getAvailableIdFreeId", 314);
+  run_test(test_timeBasedScheduler_getUsedIds, "test_timeBasedScheduler_getUsedIds", 332);
 
   return UnityEnd();
 }

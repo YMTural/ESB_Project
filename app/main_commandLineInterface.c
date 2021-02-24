@@ -294,7 +294,7 @@ void incrementCounter(){
 
 void returnCounter(void){
 
-  char message[3];
+  char message[4];
   sprintf(message, "%d", user_counter);
   sendMessage_P(counterMessage, strlen(counterMessage));
   sendMessage(message);

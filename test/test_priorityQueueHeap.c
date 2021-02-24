@@ -105,7 +105,9 @@ void test_priorityQueueHeap_swapOnce(void){
     task1.id = 2;
     task1.priority = 2;
     priorityQueueHeap_add(queue, task1);
-
+    priorityQueueHeap_swap(0, 1, queue);
+    TEST_ASSERT_EQUAL_INT8(2, priorityQueueHeap_peekAt(queue, 0) -> id);
+    TEST_ASSERT_EQUAL_INT8(1, priorityQueueHeap_peekAt(queue, 1) -> id);
     priorityQueueHeap_free(queue);
 }
 
@@ -335,6 +337,15 @@ void test_priorityQueueHeap_deleteFromMiddle(void){
     priorityQueueHeap_deleteItem(queue, 1);
     TEST_ASSERT_EQUAL_UINT8(2,priorityQueueHeap_size(queue));
     TEST_ASSERT_EQUAL_UINT8(2,priorityQueueHeap_peekAt(queue,1) -> id);
+}
+
+void test_priorityQueueHeap_deleteFromNone(void){
+
+    task * tQ = malloc(sizeof(task)*BUFFERSIZE);
+    priorityQueueHeap_t queue = priorityQueueHeap_init(BUFFERSIZE, tQ);
+    priorityQueueHeap_deleteItem(queue, 10);
+    priorityQueueHeap_free(queue);
+    free(tQ);
 
 }
 

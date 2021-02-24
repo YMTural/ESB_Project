@@ -25,3 +25,7 @@ src/priorityQueueHeap.c:
 - TEST
 src/arduinoArch.c:
 - TEST
+src/UART_interrupt.c:
+- TEST
+src/adc_temperature.c:
+- TEST

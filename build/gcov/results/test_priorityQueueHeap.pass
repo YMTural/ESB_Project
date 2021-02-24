@@ -8,63 +8,79 @@
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueueHeap_addOne
-  :line: 16
+  :line: 17
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueueHeap_getNextOnce
-  :line: 32
+  :line: 34
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueueHeap_addMultiple
-  :line: 59
+  :line: 62
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueueHeap_swapOnce
-  :line: 86
+  :line: 90
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueueHeap_heapify
-  :line: 107
+  :line: 114
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueueHeap_getMultiple
-  :line: 136
+  :line: 144
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueueHeap_getFromNone
-  :line: 168
+  :line: 177
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueueHeap_peekAtNull
-  :line: 178
-  :message: ''
-  :unity_test_time: 0
-- :test: test_priorityQueueHeap_getNextReady
   :line: 188
   :message: ''
   :unity_test_time: 0
+- :test: test_priorityQueueHeap_getNextReady
+  :line: 199
+  :message: ''
+  :unity_test_time: 0
 - :test: test_priorityQueueHeap_size
-  :line: 217
+  :line: 229
   :message: ''
   :unity_test_time: 0
 - :test: test_priorityQueueHeap_capacity
-  :line: 238
-  :message: ''
-  :unity_test_time: 0
-- :test: test_priorityQueueHeap_getNextReadyFromNull
   :line: 251
   :message: ''
   :unity_test_time: 0
+- :test: test_priorityQueueHeap_getNextReadyFromNull
+  :line: 265
+  :message: ''
+  :unity_test_time: 0
 - :test: test_priorityQueueHeap_getNextReadyFromOne
-  :line: 260
+  :line: 275
+  :message: ''
+  :unity_test_time: 0
+- :test: test_priorityQueueHeap_deleteOneItem
+  :line: 295
+  :message: ''
+  :unity_test_time: 0
+- :test: test_priorityQueueHeap_deleteFromMiddle
+  :line: 315
+  :message: ''
+  :unity_test_time: 0
+- :test: test_priorityQueueHeap_deleteFromNone
+  :line: 342
+  :message: ''
+  :unity_test_time: 0
+- :test: test_priorityQueueHeap_heapAttributeInSchedule
+  :line: 365
   :message: ''
   :unity_test_time: 0
 :failures: []
 :ignores: []
 :counts:
-  :total: 14
-  :passed: 14
+  :total: 18
+  :passed: 18
   :failed: 0
   :ignored: 0
 :stdout: []
-:time: 0.0019325839998600713
+:time: 0.002259377000882523

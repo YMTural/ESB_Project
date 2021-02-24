@@ -75,12 +75,20 @@
   :line: 317
   :message: ''
   :unity_test_time: 0
+- :test: test_circularBuffer_mostRecentElement2Elements
+  :line: 331
+  :message: ''
+  :unity_test_time: 0
+- :test: test_circularBuffer_mostRecentElementPushFullThenOverrride
+  :line: 345
+  :message: ''
+  :unity_test_time: 0
 :failures: []
 :ignores: []
 :counts:
-  :total: 18
-  :passed: 18
+  :total: 20
+  :passed: 20
   :failed: 0
   :ignored: 0
 :stdout: []
-:time: 0.0019606959999691753
+:time: 0.0016713939985493198

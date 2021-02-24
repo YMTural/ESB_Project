@@ -17,11 +17,11 @@ void test_circularBuffer_init(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
 
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
 
 
@@ -41,11 +41,11 @@ void test_circularBuffer_free(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
 
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
 
 
@@ -77,7 +77,7 @@ void test_circularBuffer_reset(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
 
 
@@ -85,7 +85,7 @@ void test_circularBuffer_reset(void){
 
 
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -97,13 +97,13 @@ void test_circularBuffer_reset(void){
 
 
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
     circularBuffer_reset(test_cBuffer);
 
 
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -129,13 +129,13 @@ void test_circularBuffer_capacity(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
 
 
-    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((124)), (UNITY_INT)(UNITY_UINT8 )((circularBuffer_capacity(test_cBuffer))), (
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((4)), (UNITY_INT)(UNITY_UINT8 )((circularBuffer_capacity(test_cBuffer))), (
 
    ((void *)0)
 
@@ -155,13 +155,13 @@ void test_circularBuffer_pushFull(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
 
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -187,11 +187,11 @@ void test_circularBuffer_pushOver(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
-     for (size_t i = 0; i <124 +124; i++)
+     for (size_t i = 0; i <4 +4; i++)
 
     {
 
@@ -199,7 +199,7 @@ void test_circularBuffer_pushOver(void){
 
     }
 
-    for (size_t i = 124; i <124 +124; i++)
+    for (size_t i = 4; i <4 +4; i++)
 
     {
 
@@ -225,13 +225,13 @@ void test_circularBuffer_pushCheck(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
 
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -239,7 +239,7 @@ void test_circularBuffer_pushCheck(void){
 
     }
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -267,11 +267,11 @@ void test_circularBuffer_readAll(void){
 
     uint8_t data=0;
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -281,7 +281,7 @@ void test_circularBuffer_readAll(void){
 
 
 
-    for (char i = 0; i < 124; i++)
+    for (char i = 0; i < 4; i++)
 
     {
 
@@ -307,13 +307,13 @@ void test_circularBuffer_readCheck(void){
 
     uint8_t data=0;
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
 
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -323,7 +323,7 @@ void test_circularBuffer_readCheck(void){
 
 
 
-    for (uint8_t i = 0; i < 124; i++)
+    for (uint8_t i = 0; i < 4; i++)
 
     {
 
@@ -359,13 +359,13 @@ void test_circularBuffer_readEmpty(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
 
 
-    for (uint8_t i = 0; i < 124; i++)
+    for (uint8_t i = 0; i < 4; i++)
 
     {
 
@@ -397,13 +397,13 @@ void test_circularBuffer_sizeFillingUp(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
 
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -439,13 +439,13 @@ void test_circularBuffer_sizeLooping(void){
 
     uint8_t data;
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
 
 
-    for (size_t i = 0; i < 124/2; i++)
+    for (size_t i = 0; i < 4/2; i++)
 
     {
 
@@ -453,7 +453,7 @@ void test_circularBuffer_sizeLooping(void){
 
     }
 
-    for (size_t i = 0; i < 124 / 4; i++)
+    for (size_t i = 0; i < 4 / 4; i++)
 
     {
 
@@ -461,13 +461,13 @@ void test_circularBuffer_sizeLooping(void){
 
     }
 
-    for (size_t i = 0; i < 124 +124; i++)
+    for (size_t i = 0; i < 4 +4; i++)
 
     {
 
     message[0] = 48+ (char) i;
 
-     UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )(((124 / 2) - (124 / 4))), (UNITY_INT)(UNITY_UINT8 )((circularBuffer_size(test_cBuffer))), (
+     UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )(((4 / 2) - (4 / 4))), (UNITY_INT)(UNITY_UINT8 )((circularBuffer_size(test_cBuffer))), (
 
     ((void *)0)
 
@@ -499,9 +499,9 @@ void test_circularBuffer_fullEmpty(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
 
 
@@ -519,13 +519,13 @@ void test_circularBuffer_fullFull(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
 
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -553,9 +553,9 @@ void test_circularBuffer_empty(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
 
 
@@ -575,13 +575,13 @@ void test_circularBuffer_overWriteAll(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
     uint8_t num;
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -589,7 +589,7 @@ void test_circularBuffer_overWriteAll(void){
 
     }
 
-    for (size_t i = 0; i < 124 * 2; i++)
+    for (size_t i = 0; i < 4 * 2; i++)
 
     {
 
@@ -597,7 +597,7 @@ void test_circularBuffer_overWriteAll(void){
 
         circularBuffer_overwrite(test_cBuffer,num);
 
-        UnityAssertEqualNumber((UNITY_INT)((num)), (UNITY_INT)((*(test_buffer + (i % 124) ))), (
+        UnityAssertEqualNumber((UNITY_INT)((num)), (UNITY_INT)((*(test_buffer + (i % 4) ))), (
 
        ((void *)0)
 
@@ -617,13 +617,13 @@ void test_circularBuffer_overwriteCheckTwice(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
     uint8_t data;
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -631,7 +631,7 @@ void test_circularBuffer_overwriteCheckTwice(void){
 
     }
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -639,7 +639,7 @@ void test_circularBuffer_overwriteCheckTwice(void){
 
     }
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -647,7 +647,7 @@ void test_circularBuffer_overwriteCheckTwice(void){
 
     }
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -669,13 +669,13 @@ void test_circularBuffer_sizeFullBuffer(void){
 
 
 
-    uint8_t* test_buffer = malloc(sizeof(uint8_t)*124);
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
 
-    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 124);
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
 
     uint8_t data;
 
-    for (size_t i = 0; i < 124; i++)
+    for (size_t i = 0; i < 4; i++)
 
     {
 
@@ -683,7 +683,7 @@ void test_circularBuffer_sizeFullBuffer(void){
 
     }
 
-    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((124)), (UNITY_INT)(UNITY_UINT8 )((circularBuffer_size(test_cBuffer))), (
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((4)), (UNITY_INT)(UNITY_UINT8 )((circularBuffer_size(test_cBuffer))), (
 
    ((void *)0)
 
@@ -692,5 +692,105 @@ void test_circularBuffer_sizeFullBuffer(void){
 
 
 
+
+}
+
+
+
+void test_circularBuffer_mostRecentElement2Elements(void){
+
+
+
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
+
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
+
+
+
+    circularBuffer_push(test_cBuffer, 120);
+
+    circularBuffer_push(test_cBuffer, 232);
+
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((232)), (UNITY_INT)(UNITY_UINT8 )((circularBuffer_mostRecentElement(test_cBuffer))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(338), UNITY_DISPLAY_STYLE_UINT8);
+
+
+
+
+
+    circularBuffer_free(test_cBuffer);
+
+    free(test_buffer);
+
+}
+
+
+
+void test_circularBuffer_mostRecentElementPushFullThenOverrride(void){
+
+
+
+    uint8_t* test_buffer = malloc(sizeof(uint8_t)*4);
+
+    circularBuffer_t test_cBuffer = circularBuffer_init(test_buffer, 4);
+
+
+
+    for (uint8_t i = 0; i < 4; i++)
+
+    {
+
+        UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((i)), (UNITY_INT)(UNITY_UINT8 )((circularBuffer_size(test_cBuffer))), (
+
+       ((void *)0)
+
+       ), (UNITY_UINT)(352), UNITY_DISPLAY_STYLE_UINT8);
+
+        do {if (!(circularBuffer_push(test_cBuffer, i+10))) {} else {UnityFail( ((" Expected FALSE Was TRUE")), (UNITY_UINT)((UNITY_UINT)(353)));}} while(0);
+
+        UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((i+10)), (UNITY_INT)(UNITY_UINT8 )((circularBuffer_mostRecentElement(test_cBuffer))), (
+
+       ((void *)0)
+
+       ), (UNITY_UINT)(354), UNITY_DISPLAY_STYLE_UINT8);
+
+    }
+
+        uint8_t data;
+
+    for (uint8_t i = 0; i < 4; i++)
+
+    {
+
+        circularBuffer_read(test_cBuffer, &data);
+
+        UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((i+10)), (UNITY_INT)(UNITY_UINT8 )((data)), (
+
+       ((void *)0)
+
+       ), (UNITY_UINT)(360), UNITY_DISPLAY_STYLE_UINT8);
+
+    }
+
+    for (uint8_t i = 0; i < 4; i++)
+
+    {
+
+        circularBuffer_overwrite(test_cBuffer, i);
+
+        UnityAssertEqualNumber((UNITY_INT)(UNITY_UINT8 )((i)), (UNITY_INT)(UNITY_UINT8 )((circularBuffer_mostRecentElement(test_cBuffer))), (
+
+       ((void *)0)
+
+       ), (UNITY_UINT)(365), UNITY_DISPLAY_STYLE_UINT8);
+
+    }
+
+    circularBuffer_free(test_cBuffer);
+
+    free(test_buffer);
 
 }

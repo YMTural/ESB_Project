@@ -269,17 +269,17 @@
             <td class="headerValue">src/circularBuffer.c</td>
             <td></td>
             <td class="headerName">Lines:</td>
-            <td class="headerTableEntry">53</td>
-            <td class="headerTableEntry">53</td>
+            <td class="headerTableEntry">59</td>
+            <td class="headerTableEntry">59</td>
             <td class="headerTableEntry" style="background-color:LightGreen">100.0 %</td>
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2021-01-11 16:17:03</td>
+            <td class="headerValue">2021-02-24 19:24:07</td>
             <td></td>
             <td class="headerName">Branches:</td>
-            <td class="headerTableEntry">16</td>
-            <td class="headerTableEntry">16</td>
+            <td class="headerTableEntry">18</td>
+            <td class="headerTableEntry">18</td>
             <td class="headerTableEntry" style="background-color:LightGreen">100.0 %</td>
           </tr>
         </table>
@@ -428,7 +428,7 @@
     <tr>
     <td align="right" class="lineno"><pre>19</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>340</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>216</pre></td>
     <td align="left" class="src coveredLine"><pre>circularBuffer_t circularBuffer_init(uint8_t* buffer, size_t size){</pre></td>
     </tr>
 
@@ -442,7 +442,7 @@
     <tr>
     <td align="right" class="lineno"><pre>21</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>340</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>216</pre></td>
     <td align="left" class="src coveredLine"><pre>    circularBuffer_t cbuf = malloc(sizeof(circularBuffer));</pre></td>
     </tr>
 
@@ -456,463 +456,463 @@
     <tr>
     <td align="right" class="lineno"><pre>23</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>340</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>216</pre></td>
     <td align="left" class="src coveredLine"><pre>    cbuf->startAddress = buffer;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>24</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>340</pre></td>
-    <td align="left" class="src coveredLine"><pre>    cbuf->endAddress = buffer + size;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    //Since the startAddress contains data aswell</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>25</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>216</pre></td>
+    <td align="left" class="src coveredLine"><pre>    cbuf->endAddress = buffer + size - 1;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>26</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>340</pre></td>
-    <td align="left" class="src coveredLine"><pre>    cbuf->startIndex = cbuf->startAddress;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>27</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>340</pre></td>
-    <td align="left" class="src coveredLine"><pre>    cbuf->endIndex = cbuf->startAddress;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>216</pre></td>
+    <td align="left" class="src coveredLine"><pre>    cbuf->startIndex = cbuf->startAddress;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>28</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>216</pre></td>
+    <td align="left" class="src coveredLine"><pre>    cbuf->endIndex = cbuf->startAddress;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>29</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>340</pre></td>
-    <td align="left" class="src coveredLine"><pre>    cbuf->full = 0;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>30</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>340</pre></td>
-    <td align="left" class="src coveredLine"><pre>    cbuf->capacity = size;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>216</pre></td>
+    <td align="left" class="src coveredLine"><pre>    cbuf->full = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>31</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>216</pre></td>
+    <td align="left" class="src coveredLine"><pre>    cbuf->capacity = size;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>32</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>32</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>340</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return cbuf;</pre></td>
-    </tr>
-
-    <tr>
     <td align="right" class="lineno"><pre>33</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>216</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return cbuf;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>34</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>35</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>36</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>202</pre></td>
     <td align="left" class="src coveredLine"><pre>void circularBuffer_free(circularBuffer_t cbuf){</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>36</pre></td>
+    <td align="right" class="lineno"><pre>37</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>37</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>202</pre></td>
-    <td align="left" class="src coveredLine"><pre>    free(cbuf);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>38</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>202</pre></td>
-    <td align="left" class="src coveredLine"><pre>}</pre></td>
+    <td align="left" class="src coveredLine"><pre>    free(cbuf);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>39</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>202</pre></td>
+    <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>40</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>10</pre></td>
-    <td align="left" class="src coveredLine"><pre>void circularBuffer_reset(circularBuffer_t cbuf){</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>41</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>void circularBuffer_reset(circularBuffer_t cbuf){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>42</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>10</pre></td>
-    <td align="left" class="src coveredLine"><pre>    cbuf->startIndex = 0;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>43</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>10</pre></td>
-    <td align="left" class="src coveredLine"><pre>    cbuf->endIndex = 0;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    cbuf->startIndex = cbuf -> startAddress;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>44</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    cbuf->endIndex = cbuf -> startAddress;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>45</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1240 times">&check;</span><span class="takenBranch" title="Branch 1 taken 10 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>1250</pre></td>
-    <td align="left" class="src coveredLine"><pre>    for(int i = 0; i &lt; cbuf->capacity; i++){</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    cbuf->full = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>46</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 24 times">&check;</span><span class="takenBranch" title="Branch 1 taken 6 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>30</pre></td>
+    <td align="left" class="src coveredLine"><pre>    for(int i = 0; i &lt; cbuf->capacity; i++){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>47</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1240</pre></td>
-    <td align="left" class="src coveredLine"><pre>        *(cbuf->startAddress + i) = 0;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>48</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
+    <td align="left" class="src coveredLine"><pre>        *(cbuf->startAddress + i) = 0;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>49</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>49</pre></td>
+    <td align="right" class="lineno"><pre>50</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>10</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
     <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>50</pre></td>
+    <td align="right" class="lineno"><pre>51</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>//Void pointer for dependency injection</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>51</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5160</pre></td>
-    <td align="left" class="src coveredLine"><pre>void circularBuffer_overwrite(void* v_cbuf, uint8_t data){</pre></td>
-    </tr>
-
-    <tr>
     <td align="right" class="lineno"><pre>52</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>240</pre></td>
+    <td align="left" class="src coveredLine"><pre>void circularBuffer_overwrite(void* v_cbuf, uint8_t data){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>53</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5160</pre></td>
-    <td align="left" class="src coveredLine"><pre>    circularBuffer_t cbuf = v_cbuf;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>54</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 2580 times">&check;</span><span class="takenBranch" title="Branch 2 taken 2580 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>5160</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if(circularBuffer_push(cbuf, data) == -1){</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>240</pre></td>
+    <td align="left" class="src coveredLine"><pre>    circularBuffer_t cbuf = v_cbuf;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>55</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 108 times">&check;</span><span class="takenBranch" title="Branch 2 taken 132 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>240</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if(circularBuffer_push(cbuf, data) == -1){</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>56</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>56</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2580</pre></td>
-    <td align="left" class="src coveredLine"><pre>        *(cbuf->startIndex) = data;</pre></td>
-    </tr>
-
-    <tr>
     <td align="right" class="lineno"><pre>57</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2580</pre></td>
-    <td align="left" class="src coveredLine"><pre>        cbuf->startIndex = cbuf->startAddress + ((cbuf->startIndex - cbuf->startAddress) + 1) % cbuf->capacity;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>108</pre></td>
+    <td align="left" class="src coveredLine"><pre>        *(cbuf->startIndex) = data;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>58</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>108</pre></td>
+    <td align="left" class="src coveredLine"><pre>        cbuf->startIndex = cbuf->startAddress + ((cbuf->startIndex - cbuf->startAddress) + 1) % cbuf->capacity;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>59</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>60</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5160</pre></td>
-    <td align="left" class="src coveredLine"><pre>}</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>61</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>240</pre></td>
+    <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>62</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>22130</pre></td>
-    <td align="left" class="src coveredLine"><pre>int8_t circularBuffer_push(void* v_cbuf, uint8_t data){</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>63</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>22130</pre></td>
-    <td align="left" class="src coveredLine"><pre>    circularBuffer_t cbuf = v_cbuf;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>738</pre></td>
+    <td align="left" class="src coveredLine"><pre>int8_t circularBuffer_push(void* v_cbuf, uint8_t data){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>64</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 17060 times">&check;</span><span class="takenBranch" title="Branch 1 taken 5070 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>22130</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if(!cbuf->full){</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>738</pre></td>
+    <td align="left" class="src coveredLine"><pre>    circularBuffer_t cbuf = v_cbuf;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>65</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 576 times">&check;</span><span class="takenBranch" title="Branch 1 taken 162 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>738</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if(!cbuf->full){</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>66</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>66</pre></td>
+    <td align="right" class="lineno"><pre>67</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>17060</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>576</pre></td>
     <td align="left" class="src coveredLine"><pre>        *(cbuf->endIndex) = data;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>67</pre></td>
+    <td align="right" class="lineno"><pre>68</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        //newEndpos = currentPos + 1 mod cap</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>68</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>17060</pre></td>
-    <td align="left" class="src coveredLine"><pre>        cbuf->endIndex = cbuf->startAddress + ((cbuf->endIndex - cbuf->startAddress) + 1) % cbuf->capacity;</pre></td>
-    </tr>
-
-    <tr>
     <td align="right" class="lineno"><pre>69</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>17060</pre></td>
-    <td align="left" class="src coveredLine"><pre>        cbuf->full = (cbuf->startIndex == cbuf->endIndex);</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>576</pre></td>
+    <td align="left" class="src coveredLine"><pre>        cbuf->endIndex = cbuf->startAddress + ((cbuf->endIndex - cbuf->startAddress) + 1) % cbuf->capacity;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>70</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>17060</pre></td>
-    <td align="left" class="src coveredLine"><pre>        return 0;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>576</pre></td>
+    <td align="left" class="src coveredLine"><pre>        cbuf->full = (cbuf->startIndex == cbuf->endIndex);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>71</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>576</pre></td>
+    <td align="left" class="src coveredLine"><pre>        return 0;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>72</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>72</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5070</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return -1;</pre></td>
-    </tr>
-
-    <tr>
     <td align="right" class="lineno"><pre>73</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>162</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return -1;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>74</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>75</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>9330</pre></td>
-    <td align="left" class="src coveredLine"><pre>int8_t circularBuffer_read(void* v_cbuf, uint8_t* data){</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>76</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>9330</pre></td>
-    <td align="left" class="src coveredLine"><pre>    circularBuffer_t cbuf = v_cbuf;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>402</pre></td>
+    <td align="left" class="src coveredLine"><pre>int8_t circularBuffer_read(void* v_cbuf, uint8_t* data){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>77</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 6830 times">&check;</span><span class="takenBranch" title="Branch 2 taken 2500 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>9330</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if(!circularBuffer_empty(cbuf)){</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>402</pre></td>
+    <td align="left" class="src coveredLine"><pre>    circularBuffer_t cbuf = v_cbuf;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>78</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>6830</pre></td>
-    <td align="left" class="src coveredLine"><pre>        *data = *(cbuf->startIndex);</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 342 times">&check;</span><span class="takenBranch" title="Branch 2 taken 60 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>402</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if(!circularBuffer_empty(cbuf)){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>79</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>342</pre></td>
+    <td align="left" class="src coveredLine"><pre>        *data = *(cbuf->startIndex);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>80</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        //Deleting data</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>81</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>342</pre></td>
+    <td align="left" class="src coveredLine"><pre>        *(cbuf->startIndex) = 0;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>82</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        //newEndpos = currentPos + 1 mod cap</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>80</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>6830</pre></td>
-    <td align="left" class="src coveredLine"><pre>        cbuf->startIndex = cbuf->startAddress + ((cbuf->startIndex - cbuf->startAddress) + 1) % cbuf->capacity;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>81</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>6830</pre></td>
-    <td align="left" class="src coveredLine"><pre>        cbuf->full = 0;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>82</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>6830</pre></td>
-    <td align="left" class="src coveredLine"><pre>        return 0;</pre></td>
-    </tr>
-
-    <tr>
     <td align="right" class="lineno"><pre>83</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>342</pre></td>
+    <td align="left" class="src coveredLine"><pre>        cbuf->startIndex = cbuf->startAddress + ((cbuf->startIndex - cbuf->startAddress) + 1) % cbuf->capacity;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>84</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2500</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return -1;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>342</pre></td>
+    <td align="left" class="src coveredLine"><pre>        cbuf->full = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>85</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>342</pre></td>
+    <td align="left" class="src coveredLine"><pre>        return 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>86</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>87</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>60</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return -1;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>88</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>9340</pre></td>
-    <td align="left" class="src coveredLine"><pre>bool circularBuffer_empty(circularBuffer_t cbuf){</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
@@ -924,16 +924,16 @@
 
     <tr>
     <td align="right" class="lineno"><pre>90</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2570 times">&check;</span><span class="takenBranch" title="Branch 1 taken 6770 times">&check;</span><span class="takenBranch" title="Branch 2 taken 2510 times">&check;</span><span class="takenBranch" title="Branch 3 taken 60 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>9340</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return ( (cbuf-> startIndex == cbuf->endIndex) &amp;&amp; (!(cbuf->full)));</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>91</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>408</pre></td>
+    <td align="left" class="src coveredLine"><pre>bool circularBuffer_empty(circularBuffer_t cbuf){</pre></td>
     </tr>
 
     <tr>
@@ -945,72 +945,72 @@
 
     <tr>
     <td align="right" class="lineno"><pre>93</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
-    <td align="left" class="src coveredLine"><pre>bool circularBuffer_full(circularBuffer_t cbuf){</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 108 times">&check;</span><span class="takenBranch" title="Branch 1 taken 300 times">&check;</span><span class="takenBranch" title="Branch 2 taken 66 times">&check;</span><span class="takenBranch" title="Branch 3 taken 42 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>408</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return ( (cbuf-> startIndex == cbuf->endIndex) &amp;&amp; (!(cbuf->full)));</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>94</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>95</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return cbuf->full;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>96</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>bool circularBuffer_full(circularBuffer_t cbuf){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>97</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>98</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return cbuf->full;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>99</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>10</pre></td>
-    <td align="left" class="src coveredLine"><pre>size_t circularBuffer_capacity(circularBuffer_t cbuf){</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>100</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>101</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>10</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return cbuf->capacity;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>102</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>size_t circularBuffer_capacity(circularBuffer_t cbuf){</pre></td>
     </tr>
 
     <tr>
@@ -1023,120 +1023,120 @@
     <tr>
     <td align="right" class="lineno"><pre>104</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3730</pre></td>
-    <td align="left" class="src coveredLine"><pre>size_t circularBuffer_size(circularBuffer_t cbuf){</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return cbuf->capacity;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>105</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>106</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3730</pre></td>
-    <td align="left" class="src coveredLine"><pre>    size_t size = cbuf->capacity;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>107</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>102</pre></td>
+    <td align="left" class="src coveredLine"><pre>size_t circularBuffer_size(circularBuffer_t cbuf){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>108</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 3720 times">&check;</span><span class="takenBranch" title="Branch 1 taken 10 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3730</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if(!cbuf->full){</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>109</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>102</pre></td>
+    <td align="left" class="src coveredLine"><pre>    size_t size = cbuf->capacity;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>110</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 3100 times">&check;</span><span class="takenBranch" title="Branch 1 taken 620 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3720</pre></td>
-    <td align="left" class="src coveredLine"><pre>        if(cbuf->startIndex &lt;= cbuf->endIndex){</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>111</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 96 times">&check;</span><span class="takenBranch" title="Branch 1 taken 6 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>102</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if(!cbuf->full){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>112</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3100</pre></td>
-    <td align="left" class="src coveredLine"><pre>            size =  cbuf->endIndex - cbuf->startIndex;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>113</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 84 times">&check;</span><span class="takenBranch" title="Branch 1 taken 12 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>96</pre></td>
+    <td align="left" class="src coveredLine"><pre>        if(cbuf->startIndex &lt;= cbuf->endIndex){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>114</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        }else{</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>115</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>            //Looping, therefore must subtract from max size</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>84</pre></td>
+    <td align="left" class="src coveredLine"><pre>            size =  cbuf->endIndex - cbuf->startIndex;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>116</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>620</pre></td>
-    <td align="left" class="src coveredLine"><pre>            size = size - (cbuf->startIndex - cbuf->endIndex);</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>117</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        }</pre></td>
+    <td align="left" class="src "><pre>        }else{</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>118</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>            //Looping, therefore must subtract from max size</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>119</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>            size = size - (cbuf->startIndex - cbuf->endIndex);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>120</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre>        }</pre></td>
     </tr>
 
     <tr>
@@ -1149,15 +1149,15 @@
     <tr>
     <td align="right" class="lineno"><pre>122</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3730</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return size;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>123</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
@@ -1165,6 +1165,90 @@
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>125</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>102</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return size;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>126</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>127</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>128</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>54</pre></td>
+    <td align="left" class="src coveredLine"><pre>uint8_t circularBuffer_mostRecentElement(circularBuffer_t cbuf){</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>129</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    //End Index is pushed to the next free space after the last insertion. Therefore endindex -1 contains the most recent element</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>130</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 12 times">&check;</span><span class="takenBranch" title="Branch 1 taken 42 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>54</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if(cbuf -> endIndex == cbuf -> startAddress){</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>131</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>        return *cbuf -> endAddress ;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>132</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    }else</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>133</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    {</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>134</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>42</pre></td>
+    <td align="left" class="src coveredLine"><pre>        return *(cbuf -> startAddress + (cbuf -> endIndex - 1 - cbuf -> startAddress) % cbuf -> capacity );</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>135</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>136</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
   </table>

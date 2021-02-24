@@ -5,6 +5,12 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "bootcamp/task.h"
+#if(DEBUG == 0)
+#include <avr/interrupt.h>
+#endif
+#if(DEBUG == 1)
+#include "bootcamp/interrupt.h"
+#endif
 /**
  * @typedef priorityQueueHeap
  * @brief   Opaque heap structure.
