@@ -27,12 +27,5 @@ int main(void)
   }
 
   DDRB = _BV(5);
-  
-  while (true)
-  {
-    PORTB ^= _BV(5);
-    _delay_ms(250);
-  }
-  
-
+  PORTB ^= _BV(5);
 }

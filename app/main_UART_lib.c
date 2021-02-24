@@ -22,44 +22,68 @@ volatile UART_lib_t uBuf;
 
 int main(void)
 {
-  uint8_t x = 0;
+  _delay_ms(200);
+  uint8_t size = 0;
+  uint8_t recentElement = 0;
   sei();
   transBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
   recBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
   
   cTbuf = circularBuffer_init(transBuffer, BUFFERSIZE);
   cRbuf = circularBuffer_init(recBuffer, BUFFERSIZE);
-  
+  PORTB ^= _BV(5);
   uBuf = UART_lib_init(INTERRUPTBUFFER, cRbuf, cTbuf, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
-  for (uint8_t i = 0; i < BUFFERSIZE; i++)
-  {
-    circularBuffer_push(cTbuf, i);
-  }
+
   uint8_t data;
-/*
-  for (uint8_t i = 0; i < BUFFERSIZE; i++)
-  {
-    circularBuffer_read(cRbuf, &data);
-    UART_transmit(data);
-  }
-*/
+  //Test Interruptmode
   while (true)
   {
-    //transmit data from the buffer
+    circularBuffer_push(cTbuf, '.');
+    //Is permantely sending dots
     UART_lib_transmit(uBuf, BUFFERSIZE);
-    UART_lib_receive(uBuf, BUFFERSIZE, PUSH);
-    PORTB ^= _BV(5);
+    //Receives data if interrupt was raised before
+    UART_lib_receive(uBuf, 255, OVERWRITE);
 
-    UART_lib_receive(uBuf, 25, OVERWRITE);
 
-    //Send 0xFF when all the expected data has been received
-    if(circularBuffer_full(cRbuf)){
-      UART_transmit(255);
+    //Echo input and exit loop when 0xFF is received
+    if(circularBuffer_size(cRbuf) > size){
+      recentElement = circularBuffer_mostRecentElement(cRbuf);
+      UART_transmit(circularBuffer_mostRecentElement(cRbuf));
+      size++;
+      if(circularBuffer_mostRecentElement(cRbuf) == 0xFF) break;
     }
   }
+  //Switch Mode for next Test
+  circularBuffer_reset(cTbuf);
+  circularBuffer_reset(cRbuf);
+  uBuf = UART_lib_init(POLLINGBUFFER, cRbuf, cTbuf, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
+
+  //Prepare Buffer for transmit: 0 - (BUFFERSIZE -1)
+  for (uint8_t i = 0; i < BUFFERSIZE; i++)
+  {
+    circularBuffer_push(cTbuf,i);
+  }
+
+  //Test Pollingmode
+    size = circularBuffer_size(cRbuf);
+    //Transmit whole buffer
+    UART_lib_transmit(uBuf, BUFFERSIZE);
+    //Receive input 
+    UART_lib_receive(uBuf, BUFFERSIZE, PUSH);
+    size = circularBuffer_size(cRbuf);
+
+    //Echo input
+    for (uint8_t i = 0; i < size; i++)
+    {
+      circularBuffer_read(cRbuf, &data);    
+      UART_transmit(data);
+    }
 
   return 0;
 }
+
+
+
 
 ISR(USART_UDRE_vect){
 
@@ -78,6 +102,7 @@ ISR(USART_TX_vect){
   }
   else{
 
+    UART_disableTransmitCompleteInterrupt();
     UART_enableTransmitInterrupt();
   }
   sei();
@@ -86,12 +111,8 @@ ISR(USART_TX_vect){
 ISR(USART_RX_vect){
 
   cli();
-  if(UART_lib_isReceiveComplete(uBuf)){
-    UART_disableReceiveInterrupt();
-  }
-  else{
-    UART_disableReceiveInterrupt();
-    UART_lib_setReceiveFlag(uBuf); 
-  }
+  UART_disableReceiveInterrupt();
+  UART_lib_setReceiveFlag(uBuf); 
   sei();
 }
+

@@ -40,9 +40,9 @@ void circularBuffer_free(circularBuffer_t cbuf){
 
 void circularBuffer_reset(circularBuffer_t cbuf){
    
-    cbuf->startIndex = 0;
-    cbuf->endIndex = 0;
-
+    cbuf->startIndex = cbuf -> startAddress;
+    cbuf->endIndex = cbuf -> startAddress;
+    cbuf->full = 0;
     for(int i = 0; i < cbuf->capacity; i++){
 
         *(cbuf->startAddress + i) = 0;

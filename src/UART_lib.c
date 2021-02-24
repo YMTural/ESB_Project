@@ -17,8 +17,8 @@ UART_lib_t UART_lib_init(uint8_t mode, void* receiveBuffer, void* transmitBuffer
     void(*circularBuffer_overwrite)(void* cbuf, uint8_t data),
     int8_t (*circularBuffer_push)(void* cbuf, uint8_t data),
     int8_t(*circularBuffer_read)(void* cbuf, uint8_t* data)){
-
-    UART_lib_t ubuf = malloc(sizeof(UART_lib_t));
+    //Nicht schon wieder... sizeOf(UART_lib_t) :')
+    UART_lib_t ubuf = malloc(sizeof(UART_lib));
     switch (mode)
     {
     case POLLINGBUFFER:
@@ -56,7 +56,6 @@ void UART_lib_transmit(UART_lib_t ubuf, uint8_t count){
         if(ubuf->transmitInit){
             UART_interrupt_transmitFromBuffer(ubuf->opType.uInterruptBuff);
             ubuf->transmitInit = UART_interrupt_isTransmitComplete(ubuf->opType.uInterruptBuff) ? false : true;
-
         }else
         {
             UART_interrupt_transmitFromBufferInit(ubuf->opType.uInterruptBuff, count);
@@ -75,14 +74,14 @@ void UART_lib_receive(UART_lib_t ubuf, uint16_t count, uint8_t receiveMode){
         }else
         {
             for(uint16_t i = 0; i < count; i++){
-                UART_transmit(UART_buffer_receive(ubuf->opType.uPollingBuff));
+                UART_buffer_receive(ubuf->opType.uPollingBuff);
             }
         }
     }
     else{
         if(ubuf->receiveInit){
             UART_interrupt_receiveToBuffer(ubuf->opType.uInterruptBuff, receiveMode);
-            ubuf->transmitInit = UART_interrupt_isReceiveComplete(ubuf->opType.uInterruptBuff) ? false : true;
+            ubuf->receiveInit = UART_interrupt_isReceiveComplete(ubuf->opType.uInterruptBuff) ? false : true;
 
         }else
         {

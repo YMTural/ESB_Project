@@ -35,21 +35,6 @@ volatile UART_interrupt_t uBuf;
 
 volatile timeBasedScheduler_t tBScheduler;
 
-/*
-void freeRam () {
-  extern int __heap_start, *__brkval;
-  int v;
-  int z = (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
-  char m[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-  sprintf(m,"%d",z);
-  UART_transmit(255);
-  for(uint8_t i = 0; i < 16; i++){
-    
-    UART_transmit(m[i]);
-   
-  }
-   UART_transmit(255);
-}*/
 
 void toggleLed(void){
 

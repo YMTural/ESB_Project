@@ -17,8 +17,8 @@
 #include "bootcamp/UART.h"
 #include "bootcamp/UART_buffer.h"
 
-
-#define BUFFERSIZE 15
+//Max Buffersize is 255
+#define BUFFERSIZE 255
 
 
 volatile uint8_t* transBuffer;
@@ -39,7 +39,6 @@ int main(void)
 
   uBuf = UART_buffer_init(cRbuf, cTbuf, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
 
-  sei();
   DDRB = _BV(5);
 
   //Pushing number 0 to BUFFERSIZE in Buffer
@@ -67,8 +66,8 @@ int main(void)
   
   while (true)
   {
-
-    _delay_ms(250);
-
+    //Echo received data
+    UART_buffer_receive(cRbuf);
+    UART_buffer_transmitFromBuffer(cRbuf);
   }
 }

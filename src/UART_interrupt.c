@@ -93,11 +93,10 @@ void UART_interrupt_transmitFromBuffer(UART_interrupt_t ubuf){
     if(ubuf -> readyForTransmit){
       UART_flush();
       UART_enableTransmitCompleteInterrupt();
-
       if(!ubuf -> read(ubuf -> transmitBuffer, &data)){
-        UART_overwriteRegister(data);
         ubuf -> transmitCounter--;
         ubuf -> readyForTransmit = false;
+        UART_overwriteRegister(data);
     }
   }
 }
@@ -114,7 +113,7 @@ void UART_interrupt_receiveToBuffer(UART_interrupt_t ubuf, bool mode){
 
     if(ubuf -> dataIsPresent){
       uint8_t data = UART_forceReadData();
-      //UART_transmit(data);
+      
       if(mode){
        ubuf -> overwrite(ubuf -> receiveBuffer, data);
         ubuf -> receiveCounter--;

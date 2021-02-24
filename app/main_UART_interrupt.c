@@ -10,7 +10,7 @@
 #include "bootcamp/UART_interrupt.h"
 
 
-#define BUFFERSIZE 25
+#define BUFFERSIZE 255
 
 
 volatile uint8_t* transBuffer;
@@ -34,39 +34,33 @@ int main(void)
   sei();
   DDRB = _BV(5);
 
-  //Pushing number 0 to 24 in Buffer
-  for(uint8_t i = 0; i < BUFFERSIZE; i++){
-
-    circularBuffer_push(cTbuf,i);
-  }
-
-  //Initializing transmit of 25 Data units from Buffer 
-  UART_interrupt_transmitFromBufferInit(uBuf, 25);
-
-  //Initializing receive of 25 Data units from the UART connection 
-  UART_interrupt_receiveToBufferInit(uBuf, 25);
 
 
- 
+  //Initializing receive of 255 Data units from the UART connection 
+  UART_interrupt_receiveToBufferInit(uBuf, 255);
+
+  uint8_t data;
+  PORTB ^= _BV(5);
   while (true)
   {
+    //Constantly sending dots
+    circularBuffer_push(cTbuf, '.');
+    UART_interrupt_transmitFromBufferInit(uBuf, 1);
     //Sending Data whenever the transmit register is ready
     UART_interrupt_transmitFromBuffer(uBuf);
-    PORTB ^= _BV(5);
-    _delay_ms(250);
+    //Receiving whenever data is present
     UART_interrupt_receiveToBuffer(uBuf, OVERWRITE);
-
-    //Send 0xFF when all the expected data has been received
-    if(circularBuffer_full(cRbuf)){
-
-      UART_transmit(255);
+    //If data has been received toggle Led and send echo
+    if(!circularBuffer_read(cRbuf, &data)){
+      PORTB ^= _BV(5);
+      UART_transmit(data);
     }
+
 
   }
 }
 
 ISR(USART_UDRE_vect){
-
   cli();
   UART_interrupt_setTransmitFlag(uBuf, true);
   UART_disableTransmitInterrupt();
@@ -74,23 +68,21 @@ ISR(USART_UDRE_vect){
 }
 
 ISR(USART_TX_vect){
-
   cli();
   if(UART_interrupt_isTransmitComplete(uBuf)){
 
     UART_disableTransmitCompleteInterrupt();
   }
   else{
-    UART_disableTransmitCompleteInterrupt();
+
     UART_enableTransmitInterrupt();
   }
   sei();
 }
 
 ISR(USART_RX_vect){
-
   cli();
-    UART_disableReceiveInterrupt();
-    UART_interrupt_setReceiveFlag(uBuf, true); 
+  UART_disableReceiveInterrupt();
+  UART_interrupt_setReceiveFlag(uBuf, true);
   sei();
 }

@@ -67,7 +67,7 @@ uint8_t UART_lib_isTransmitComplete(UART_lib_t ubuf);
 uint8_t UART_lib_isReceiveComplete(UART_lib_t ubuf);
 
 void UART_lib_setReceiveFlag(UART_lib_t ubuf);
-
+void UART_lib_free(UART_lib_t ubuf);
 
 
 
