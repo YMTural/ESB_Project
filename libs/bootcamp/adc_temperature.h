@@ -12,7 +12,7 @@
 #endif
 
 //Bool for ISR
-int8_t adc_temperature_temperatureReady;
+extern volatile int8_t adc_temperature_temperatureReady;
 
 /**
  * @brief

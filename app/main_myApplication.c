@@ -35,7 +35,6 @@ volatile UART_interrupt_t uBuf;
 
 volatile timeBasedScheduler_t tBScheduler;
 
-
 void toggleLed(void){
 
   PORTB ^= _BV(5);

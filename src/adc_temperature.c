@@ -3,7 +3,7 @@
 //#include "bootcamp/UART.h"
 
 
-int8_t adc_temperature_temperatureReady = 0;
+volatile int8_t adc_temperature_temperatureReady = 0;
 
 void adc_temperature_init(void){
 
