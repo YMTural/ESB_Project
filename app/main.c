@@ -55,13 +55,22 @@ void sendMessage_P(const char *pointerToMsg, int length){
     }
     UART_interrupt_transmitFromBufferInit(uBuf, length);
 }
+
+void freeRam () {
+  extern int __heap_start, *__brkval;
+  int v;
+  int z = (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
+  char m[16];
+  sprintf(m,"%d",z);
+  sendMessage(m);
+}
 void incrementCounter(){
 
   user_counter++;
 }
 void returnCounter(void){
 
-  char message[3];
+  char message[4];
   sprintf(message, "%d", user_counter);
   sendMessage_P(counterMessage, strlen(counterMessage));
   sendMessage(message);
@@ -286,6 +295,9 @@ int main(void){
 
   //Prepare sinusCalc
   timeBasedScheduler_addPeriodicTask(tBScheduler, &scheduleCalc, 243, 1000, 0, 0);
+
+  //Debugging
+  //timeBasedScheduler_addPeriodicTask(tBScheduler, &freeRam, 245, 1000, 0, 0);
 
   //End tasks
 

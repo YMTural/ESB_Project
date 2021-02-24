@@ -1,7 +1,7 @@
 
 
 
-Jedes main_* ist ein Integration Test, wobei ich die Ausgabe mit dem Programm "moserial" überprüft habe.
+Jedes main_* ist ein Integration Test, wobei ich die Ausgabe mit dem Programm "moserial" überprüft habe. Für "main_UART.c" und "main_UART_buffer.c" gibt es nun automatisierte Tests.
 Port-Settings:
                 - Gerät: /dev/ttyACM0 
                 - Baudrate: 9600
@@ -14,9 +14,16 @@ In den Main files steht in den Kommentaren die erwartete Ausgabe.
 DEBUG in Debug.h muss auf 1 gesetzt werden um Bazel oder Ceedling auszuführen und auf 0 um die main hochzuladen.
 Ich habe mit "Bazel test test:all" getestet und es laufen alle Tests durch.
 
-UART_interrupt, UART_lib und adc_temperature haben keine Unit test, da die einzelnen Funktion nur set/get Methoden sind, bzw. der wichtige Part im zugehörigen Integration Test getestet wird.
+UART_interrupt, UART_lib haben keine Unit test, da die einzelnen Funktion nur set/get Methoden sind, bzw. der wichtige Part im zugehörigen Integration Test getestet wird.
 Gleiches gilt für arduinoArch welches die Register für den Arduino setzt. 
 
+
+UPDATE:
+
+    -Keine Zwischenabhängigkeit von Receive und Transmit mehr
+    -UART_lib funktioniert nun wie vorgesehen
+    -"main_UART_interrupt.c“ und „–buffer.c" provozieren Testfälle, in denen nebenläufig Daten gesendet und empfangen werden.
+    -Main 
 
 
 Die Main Application sendet alle paar Sekunden die aktuelle Chip Temperatur und berechnet den Sinus der eingeben Zahl (als ASCII z.B 090.00 oder 123.12). Übertragen muss mit carriage return und new line am Ende.
