@@ -383,6 +383,7 @@ void determineTask(void){
     }
     movePiece(chessGame, (receivedCommand[0] - 'a'), 7 - (receivedCommand[1] - '1'), (receivedCommand[2] - 'a'), 7 - (receivedCommand[3] - '1'));
     timeBasedScheduler_addTask(tBScheduler, &chess, 200,0);
+    commandLength = 0;
     return;
   }
 
