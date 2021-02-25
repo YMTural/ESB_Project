@@ -17,6 +17,7 @@
         "tuple": "c",
         "ratio": "c",
         "atomic": "cpp",
-        "cstdint": "cpp"
+        "cstdint": "cpp",
+        "sstream": "c"
     }
 }

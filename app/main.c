@@ -19,7 +19,7 @@
 #include "bootcamp/priorityQueueHeap.h"
 #include "bootcamp/sinusFunctions/sinusFunction.h"
 #include "bootcamp/taskHandler.h"
-
+#include "bootcamp/chess.h"
 /*
 
 Commands:
@@ -57,9 +57,9 @@ Commands:
 #define MAXCOMMANDLENGTH 128
 
 #define LONGESTCOMMAND 9
-#define NUMBEROFMULTICOMMANDS 6
-#define NUMBEROFSINGLECOMMANDS 6
-#define NUMBEROFCOMMANDS 12
+#define NUMBEROFMULTICOMMANDS 7
+#define NUMBEROFSINGLECOMMANDS 7
+#define NUMBEROFCOMMANDS 14
 
 uint16_t currentTime = 0;
 uint8_t sineCounter = 0;
@@ -69,8 +69,8 @@ uint8_t user_counter = 0;
 
 uint8_t errorCode = 1;
 
-const char const multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill"};
-const char const singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list"};                                             
+const char const multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill", ""};
+const char const singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list", "chess"};                                                   
 
 const char greetingMessage[128] PROGMEM = {"ESB - Arduino Command-Line Interface - Willkommen!\nGeben Sie help ein um alle verfuegbaren Commands zu sehen.\n"};
 const char helpMessage[128] PROGMEM = {"Commands: help, echo <string>, led <bit>, flash <uint8>, sine <uint8>, inc, counter, temp, periodic, kill <uint8>, list \n"};
@@ -118,8 +118,8 @@ UART_interrupt_t uBuf;
 timeBasedScheduler_t tBScheduler;
 task* taskArray;
 taskHandler_t tHandler;
-
-
+Chess_t chessGame;
+bool chessMode = false;
 
 //Declare here for determine task
 void receive(void);
@@ -130,6 +130,7 @@ void returnCounter(void);
 void sendTemperature(void);
 void incrementCounter(void);
 void task_help(void);
+void chess(void);
 void listTasks(void);
 void raiseError(uint8_t eCode);
 void led(char *param);
@@ -144,7 +145,7 @@ void sendPreview(char *param);
 void sendMessage_P(const char *param, int length);
 
            
-void (*singleCommandList[])(void) = {task_help, toggleLed, incrementCounter, returnCounter, prepareTemp, listTasks};
+void (*singleCommandList[])(void) = {task_help, toggleLed, incrementCounter, returnCounter, prepareTemp, listTasks, chess};
 void (*multiCommandList[])(char*) = {echo, led, flash, sineInit, periodic, kill}; 
 
 //help func
@@ -279,6 +280,12 @@ void periodic(char *param){
 }
 
 //SingleCommands
+
+void chess(void){
+  chessMode = true;
+  sendMessage(getBoard(chessGame));
+}
+
 void task_help(void){
 
   sendMessage_P(helpMessage, strlen(helpMessage));
@@ -367,6 +374,18 @@ void determineTask(void){
   {
     circularBuffer_read(cReceivebuffer, &receivedCommand[i]);
   }
+
+  if(chessMode == true){
+
+    if(commandLength > 5){
+      raiseError(UNKNOWNCOMMAND);
+      return;
+    }
+    movePiece(chessGame, (receivedCommand[0] - 'a'), 7 - (receivedCommand[1] - '1'), (receivedCommand[2] - 'a'), 7 - (receivedCommand[3] - '1'));
+    timeBasedScheduler_addTask(tBScheduler, &chess, 200,0);
+    return;
+  }
+
 
   uint8_t nextTokenIndex = taskHandler_parseNextToken(tHandler, receivedCommand, commandLength);
   uint8_t commandNumber = taskHandler_getCommandNumber(tHandler);
@@ -536,6 +555,8 @@ int main() {
   uBuf = UART_interrupt_init(cReceivebuffer, cTransmitbuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
   tHandler = taskHandler_init(singleCommands, multiCommands);
 
+  chessGame = chessGameInit();
+
   DDRB = 0xFF;
   PORTB ^= _BV(5);
   UART_init(MYUBRR);
@@ -547,7 +568,7 @@ int main() {
   timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, STARTIMMEDIATELY);
 
   //Welcome Message
-  timeBasedScheduler_addTask(tBScheduler, &sendWelcomeMessage, 127, STARTIMMEDIATELY);
+  //timeBasedScheduler_addTask(tBScheduler, &sendWelcomeMessage, 127, STARTIMMEDIATELY);
 
   //Debug
   timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 250, 1000, STARTIMMEDIATELY, 0);
@@ -565,7 +586,7 @@ int main() {
   while(true){
     timeBasedScheduler_schedule(tBScheduler);
 
-    //Goes to sleep until Interrupt wake up
+    //Goes to sleep when there is no available Task
     if(isSleepTime){
       sleep_mode();
     } 

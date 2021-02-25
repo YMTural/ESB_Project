@@ -1,6 +1,6 @@
 #include "bootcamp/taskHandler.h"
 
-#define NUMBEROFSINGLECOMMANDS 6
+#define NUMBEROFSINGLECOMMANDS 7
 
 struct taskHandler{
 
