@@ -1,15 +1,15 @@
 #include "bootcamp/arduinoArch.h"
 
 void arduinoArch_setTimer(){
-    TCNT0 = 0;
+    TCNT2 = 0;
     //Sets CTC mode
-    TCCR0A = (1<<WGM01);
+    TCCR2A = (1<<WGM21);
     //Sets top value for output compare 
-    OCR0A = 250;
+    OCR2A = 250;
     //Enable interrupt for output compare 
-    TIMSK0 = (1<<OCIE0A);
+    TIMSK2 = (1<<OCIE2A);
     //Selects Prescaler 64 and start timer0
-    TCCR0B = (1<<CS01)|(1<<CS00);
+    TCCR2B = (1<<CS21)|(1<<CS20);
 }
 
 void arduinoArch_PWMTimerinit(void){

@@ -2,6 +2,9 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
+#include <avr/wdt.h>
+#include <avr/power.h>
+
 #include <util/delay.h>
 
 #include <stdlib.h>
@@ -48,7 +51,7 @@ Commands:
 #define BUFFERSIZE 128
 
 //
-#define MAXTASKS 16
+#define MAXTASKS 36
 
 //Maximum supported length for one command
 #define MAXCOMMANDLENGTH 128
@@ -104,7 +107,7 @@ enum errorCodes {UNKNOWNCOMMAND, QUEUEFULL, NOFREEMEM, WRONGPARAM, NOTSUPPORTED}
 
 uint8_t* transBuffer;
 uint8_t* recBuffer;
-
+volatile bool isSleepTime = false;
 circularBuffer_t cTransmitbuffer;
 circularBuffer_t cReceivebuffer;
 
@@ -152,6 +155,7 @@ void clearLastCommand(uint8_t length){
     circularBuffer_read(cReceivebuffer, 0);  
   }
 }
+
 void freeRam () {
   extern int __heap_start, *__brkval;
   int v;
@@ -160,6 +164,7 @@ void freeRam () {
   sprintf(m,"%d",z);
   sendMessage(m);
 }
+
 void raiseError(uint8_t eCode){
 
   errorCode = eCode;
@@ -176,7 +181,6 @@ void echo(char * param){
 }
 
 void led(char *param){
-
   if(param[0] != 0x30){
     PORTB |= _BV(5);
   }
@@ -267,8 +271,6 @@ void kill(char *param){
     timeBasedScheduler_addTask(tBScheduler, &sendError, 255, STARTIMMEDIATELY);
     return;
   }
-
-  UART_transmit(num);
   timeBasedScheduler_deleteTask(tBScheduler, num);
 }
 
@@ -305,7 +307,6 @@ void listTasks(void){
 
   cli();
   uint8_t size = priorityQueueHeap_size(pQueue);
-  UART_transmit(size);
   task tasks[size];
 
   for (uint8_t i = 0; i < size; i++)
@@ -426,7 +427,6 @@ void awaitNextCommand(void){
 }
 
 void receive(void){
-
   UART_interrupt_receiveToBuffer(uBuf, PUSH);
   if(circularBuffer_full(cReceivebuffer)){
     raiseError(NOTSUPPORTED);
@@ -446,7 +446,7 @@ void transmit(void){
 }
 
 void prepareTemp(void){
-
+  power_adc_enable();
   adc_temperature_fetchTemperature();
 }
 
@@ -458,10 +458,11 @@ void sendTemperature(void){
   sendMessage_P(temperatureMessage, strlen(temperatureMessage));
   sendMessage(tempStr);
   sendMessage_P(celsiusNewLine, strlen(celsiusNewLine));
+  power_adc_disable();
 }
 
 void sendMessage(char *msg){
-
+  UART_transmit(0xac);
   for(uint8_t i = 0; i < strlen(msg); i++){
     circularBuffer_overwrite(cTransmitbuffer, msg[i]);
   }
@@ -515,6 +516,7 @@ void sendError(void){
 void sendWelcomeMessage(void){
 
   sendMessage_P(greetingMessage, strlen(greetingMessage));
+
 }  
 
 int main() {
@@ -536,8 +538,10 @@ int main() {
 
   DDRB = 0xFF;
   PORTB ^= _BV(5);
-  sei();
+  UART_init(MYUBRR);
   adc_temperature_init();
+  sei();
+
 
   //Await first command
   timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, STARTIMMEDIATELY);
@@ -546,11 +550,25 @@ int main() {
   timeBasedScheduler_addTask(tBScheduler, &sendWelcomeMessage, 127, STARTIMMEDIATELY);
 
   //Debug
-  //timeBasedScheduler_addPeriodicTask(tBScheduler, &freeRam, 250, 1000, STARTIMMEDIATELY, 0);
+  timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 250, 1000, STARTIMMEDIATELY, 0);
+
+  //Disable all Modules
+  power_all_disable();
+  //Reactive needed modules
+  power_timer2_enable();
+  power_timer1_enable();
+  power_usart0_enable();
+  sleep_enable();
+  set_sleep_mode(SLEEP_MODE_IDLE);
+
 
   while(true){
-
     timeBasedScheduler_schedule(tBScheduler);
+
+    //Goes to sleep until Interrupt wake up
+    if(isSleepTime){
+      sleep_mode();
+    } 
   }
 
 
@@ -589,13 +607,13 @@ ISR(USART_RX_vect){
   sei();
 }
 
-ISR(TIMER0_COMPA_vect){
+ISR(TIMER2_COMPA_vect){
   cli();
   //keeps track of the number of ms passed
   timeBasedScheduler_incrementTimer(tBScheduler);
   //iterates over tasks in queue and checks
   //if their starttime <= currentTime
-  timeBasedScheduler_markIfReady(tBScheduler);
+  isSleepTime = !timeBasedScheduler_markIfReady(tBScheduler);
   sei();
   }
   

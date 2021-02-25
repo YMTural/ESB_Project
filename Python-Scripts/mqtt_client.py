@@ -21,7 +21,7 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("yusuf/commands",0)
     client.subscribe("enableThermostat",0)
     client.subscribe("+/temp")
-    client.subscribe("averageTemps")
+    client.subscribe("averageTemps",2)
 
 
 def on_enableThermostat(client, userdata, msg):

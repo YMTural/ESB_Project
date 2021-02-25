@@ -131,7 +131,7 @@ void timeBasedScheduler_free(timeBasedScheduler_t tbScheduler);
  * 
  */
 
-void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler);
+bool timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler);
 
 /**
  *  @brief Increments the Timer and checks for overflow

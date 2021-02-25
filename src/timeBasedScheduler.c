@@ -110,8 +110,6 @@ bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void (
 
 bool timeBasedScheduler_addPeriodicTaskID(timeBasedScheduler_t tBScheduler, void (*function)(void), uint8_t priority, uint16_t period, uint16_t start_time, bool overflow, uint8_t id){
 
-    //UART_transmit(0xCC);
-    //UART_transmit(id);
     if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){
 
        
@@ -220,8 +218,7 @@ uint8_t timeBasedScheduler_findNextAvailableId(timeBasedScheduler_t tBScheduler)
 }
 
 void timeBasedScheduler_freeID(timeBasedScheduler_t tBScheduler, uint8_t n){
-    //UART_transmit(0xD0);
-    //UART_transmit(n);
+
     tBScheduler -> availableIDs &= (~ (1 << n));
 }
 
@@ -233,19 +230,18 @@ void timeBasedScheduler_timer(uint8_t timer, uint16_t intervall){
 
 }
 
-void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler){
-
+bool timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler){
+    bool taskReady = false;
     uint8_t size = tBScheduler->queueSize(tBScheduler->queue);
     for (uint8_t i = 0; i < size; i++)
     {   
         if ( (tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->startTime <= *(tBScheduler -> currentTime)) && ((tBScheduler -> overflow == tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->overflow)) )
         {
             tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->isReady = true;
+            taskReady = true;
         }
-
     }
-    
-
+    return taskReady;
 }
 
 void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler){
@@ -257,7 +253,6 @@ void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler){
         sei();
         if(pTask != 0){
             nextTask = *pTask;
-            //UART_transmit(nextTask.priority);
             if(nextTask.param){
                 nextTask.functions.charfunction(nextTask.param);
             }else{
@@ -279,8 +274,7 @@ void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler){
 }
 
 void timeBasedScheduler_deleteTask(timeBasedScheduler_t tBScheduler, uint8_t id){
-    //UART_transmit(0xD1);
-    //UART_transmit(id);
+
     //Receive Interrupt could interfere by adding receive task
     cli();
     uint8_t n;

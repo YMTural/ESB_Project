@@ -53,11 +53,13 @@ task* priorityQueueHeap_getNext(priorityQueueHeap_t priorityQueueHeap){
         priorityQueueHeap->size = 0;
         return &priorityQueueHeap -> prioQueue[0];
     }
+    cli();
     task task = priorityQueueHeap -> prioQueue[0];
     priorityQueueHeap -> size--;
     priorityQueueHeap -> prioQueue[0] = priorityQueueHeap -> prioQueue[priorityQueueHeap->size];
     priorityQueueHeap -> prioQueue[priorityQueueHeap -> size] = task;
     priorityQueueHeap_heapify(priorityQueueHeap, 0);
+    sei();
     return &priorityQueueHeap -> prioQueue[priorityQueueHeap -> size];
 }
 

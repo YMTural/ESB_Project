@@ -2,6 +2,9 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
+#include <avr/wdt.h>
+#include <avr/power.h>
+
 #include <util/delay.h>
 
 #include <stdlib.h>
@@ -48,7 +51,7 @@ Commands:
 #define BUFFERSIZE 128
 
 //
-#define MAXTASKS 16
+#define MAXTASKS 36
 
 //Maximum supported length for one command
 #define MAXCOMMANDLENGTH 128
@@ -104,7 +107,7 @@ enum errorCodes {UNKNOWNCOMMAND, QUEUEFULL, NOFREEMEM, WRONGPARAM, NOTSUPPORTED}
 
 uint8_t* transBuffer;
 uint8_t* recBuffer;
-
+volatile bool isSleepTime = false;
 circularBuffer_t cTransmitbuffer;
 circularBuffer_t cReceivebuffer;
 
@@ -176,7 +179,6 @@ void echo(char * param){
 }
 
 void led(char *param){
-
   if(param[0] != 0x30){
     PORTB |= _BV(5);
   }
@@ -267,8 +269,6 @@ void kill(char *param){
     timeBasedScheduler_addTask(tBScheduler, &sendError, 255, STARTIMMEDIATELY);
     return;
   }
-
-  UART_transmit(num);
   timeBasedScheduler_deleteTask(tBScheduler, num);
 }
 
@@ -305,7 +305,6 @@ void listTasks(void){
 
   cli();
   uint8_t size = priorityQueueHeap_size(pQueue);
-  UART_transmit(size);
   task tasks[size];
 
   for (uint8_t i = 0; i < size; i++)
@@ -515,6 +514,7 @@ void sendError(void){
 void sendWelcomeMessage(void){
 
   sendMessage_P(greetingMessage, strlen(greetingMessage));
+
 }  
 
 int main() {
@@ -540,16 +540,33 @@ int main() {
   adc_temperature_init();
 
   //Await first command
-  timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, STARTIMMEDIATELY);
+  //timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, STARTIMMEDIATELY);
 
   //Welcome Message
   timeBasedScheduler_addTask(tBScheduler, &sendWelcomeMessage, 127, STARTIMMEDIATELY);
 
+  //Debug
   //timeBasedScheduler_addPeriodicTask(tBScheduler, &freeRam, 250, 1000, STARTIMMEDIATELY, 0);
 
-  while(true){
+  //Disable all Modules
+  //power_all_disable();
+  //Reactive needed modules
+  power_adc_enable();
+  power_timer2_enable();
+  power_timer1_enable();
+  power_usart0_enable();
+  sleep_enable();
+  set_sleep_mode(SLEEP_MODE_IDLE);
 
+
+  while(true){
     timeBasedScheduler_schedule(tBScheduler);
+
+    //Goes to sleep until Interrupt wake up
+    if(isSleepTime){
+      _delay_ms(1);
+      sleep_mode();
+    } 
   }
 
 
@@ -588,13 +605,13 @@ ISR(USART_RX_vect){
   sei();
 }
 
-ISR(TIMER0_COMPA_vect){
+ISR(TIMER2_COMPA_vect){
   cli();
   //keeps track of the number of ms passed
   timeBasedScheduler_incrementTimer(tBScheduler);
   //iterates over tasks in queue and checks
   //if their starttime <= currentTime
-  timeBasedScheduler_markIfReady(tBScheduler);
+  isSleepTime = !timeBasedScheduler_markIfReady(tBScheduler);
   sei();
   }
   
