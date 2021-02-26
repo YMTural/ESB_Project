@@ -49,7 +49,12 @@ CLI Programm:
             -Feedback zur Zugreihenfolge
             -Feedback falls Zug nicht möglich
             -Über MQTT Client nutzbar*** 
-
+            -Gezogen wird über die Schachkoordinaten:
+                -x1y1x2y2 wobei x1,x2 aus {a,b,c,d,e,f,g,h} und y1,y2 aus {1,2,3,4,5,6,7,8}
+                -z.B. Bauer auf E2 nach E4 wird mit dem Befehl "e2e4" gezogen.
+                -Springer auf b1 nach c3 wird mit dem Befehl "b1c3" gezogen.
+            -Mit dem Befehl "exit" wird der Schach Modus verlassen
+            -Während des Schachmoduses laufen alle Periodischen Tasks weiter
 
 
 
@@ -64,5 +69,6 @@ CLI Programm:
 
 
 *Falls zu viele Commands mit Output gleichzeitig ausführt werden sollen, läuft der Buffer über
-**Ausgenommen Rochade, en passent und die Umwandlung eines Bauerns ist immer zur Dame
+**Ausgenommen Rochade, en passent und die Umwandlung eines Bauerns ist immer zur Dame. Es gibt keine Meldung falls es zu einem Schachmatt oder Patt kommt.
+  Für eine neue Partie muss der Arduino neugestartet werden.
 ***Theoretisch ja, aber Implementierung hängt davon ob ich noch die Zeit dazu noch finde
