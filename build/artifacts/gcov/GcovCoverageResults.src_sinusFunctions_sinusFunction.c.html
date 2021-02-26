@@ -275,7 +275,7 @@
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2021-02-24 19:24:07</td>
+            <td class="headerValue">2021-02-26 13:45:43</td>
             <td></td>
             <td class="headerName">Branches:</td>
             <td class="headerTableEntry">8</td>
@@ -337,7 +337,7 @@
     <tr>
     <td align="right" class="lineno"><pre>6</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>43200</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72000</pre></td>
     <td align="left" class="src coveredLine"><pre>float mySinusFunction(float deg)</pre></td>
     </tr>
 
@@ -358,7 +358,7 @@
     <tr>
     <td align="right" class="lineno"><pre>9</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>43200</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72000</pre></td>
     <td align="left" class="src coveredLine"><pre>    uint8_t accuracy = 20;</pre></td>
     </tr>
 
@@ -372,14 +372,14 @@
     <tr>
     <td align="right" class="lineno"><pre>11</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>43200</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72000</pre></td>
     <td align="left" class="src coveredLine"><pre>    float input = fmod(deg * (PI/180),2*PI);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>12</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>43200</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72000</pre></td>
     <td align="left" class="src coveredLine"><pre>    float result = 0;</pre></td>
     </tr>
 
@@ -392,8 +392,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>14</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 820800 times">&check;</span><span class="takenBranch" title="Branch 1 taken 43200 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>864000</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1368000 times">&check;</span><span class="takenBranch" title="Branch 1 taken 72000 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>1440000</pre></td>
     <td align="left" class="src coveredLine"><pre>    for(uint8_t i = 1; i &lt; accuracy; i++){</pre></td>
     </tr>
 
@@ -414,7 +414,7 @@
     <tr>
     <td align="right" class="lineno"><pre>17</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>820800</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1368000</pre></td>
     <td align="left" class="src coveredLine"><pre>        result += myPositivePowerFunction(-1,i-1) * (myPositivePowerFunction(input,2*i-1) / myFactorialFunction(2*i-1));</pre></td>
     </tr>
 
@@ -435,7 +435,7 @@
     <tr>
     <td align="right" class="lineno"><pre>20</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>43200</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72000</pre></td>
     <td align="left" class="src coveredLine"><pre>    return result;</pre></td>
     </tr>
 
@@ -470,7 +470,7 @@
     <tr>
     <td align="right" class="lineno"><pre>25</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1643496</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2739160</pre></td>
     <td align="left" class="src coveredLine"><pre>float myPositivePowerFunction(float x, uint8_t n)</pre></td>
     </tr>
 
@@ -483,29 +483,29 @@
 
     <tr>
     <td align="right" class="lineno"><pre>27</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1599990 times">&check;</span><span class="takenBranch" title="Branch 1 taken 43506 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>1643496</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2666650 times">&check;</span><span class="takenBranch" title="Branch 1 taken 72510 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2739160</pre></td>
     <td align="left" class="src coveredLine"><pre>    if(n){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>28</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1599990</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2666650</pre></td>
     <td align="left" class="src coveredLine"><pre>        float result = 1;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>29</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 23011566 times">&check;</span><span class="takenBranch" title="Branch 1 taken 1599990 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>24611556</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 38352610 times">&check;</span><span class="takenBranch" title="Branch 1 taken 2666650 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>41019260</pre></td>
     <td align="left" class="src coveredLine"><pre>        for(uint8_t i = 0; i &lt; n; i++ ){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>30</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>23011566</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>38352610</pre></td>
     <td align="left" class="src coveredLine"><pre>            result = x*result;</pre></td>
     </tr>
 
@@ -519,7 +519,7 @@
     <tr>
     <td align="right" class="lineno"><pre>32</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1599990</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2666650</pre></td>
     <td align="left" class="src coveredLine"><pre>        return result;</pre></td>
     </tr>
 
@@ -540,7 +540,7 @@
     <tr>
     <td align="right" class="lineno"><pre>35</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>43506</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72510</pre></td>
     <td align="left" class="src coveredLine"><pre>        return 1;</pre></td>
     </tr>
 
@@ -575,7 +575,7 @@
     <tr>
     <td align="right" class="lineno"><pre>40</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>820920</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1368200</pre></td>
     <td align="left" class="src coveredLine"><pre>float myFactorialFunction(uint8_t n)</pre></td>
     </tr>
 
@@ -589,21 +589,21 @@
     <tr>
     <td align="right" class="lineno"><pre>42</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>820920</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1368200</pre></td>
     <td align="left" class="src coveredLine"><pre>    float result = 1;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>43</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 15596340 times">&check;</span><span class="takenBranch" title="Branch 1 taken 820920 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>16417260</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 25993900 times">&check;</span><span class="takenBranch" title="Branch 1 taken 1368200 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>27362100</pre></td>
     <td align="left" class="src coveredLine"><pre>    for(uint8_t i = 1; i &lt;= n; i++){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>44</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>15596340</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>25993900</pre></td>
     <td align="left" class="src coveredLine"><pre>        result = result*i;</pre></td>
     </tr>
 
@@ -617,7 +617,7 @@
     <tr>
     <td align="right" class="lineno"><pre>46</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>820920</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1368200</pre></td>
     <td align="left" class="src coveredLine"><pre>    return result;</pre></td>
     </tr>
 

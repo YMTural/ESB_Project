@@ -104,7 +104,7 @@ uint8_t taskHandler_parseNextToken(taskHandler_t tHandler, char* readBuffer, uin
             if(tHandler -> param != 0){
 
                 strncpy(tHandler -> param, readBuffer + lengthFirstPart, length - lengthFirstPart);
-                tHandler -> param[length - lengthFirstPart - 1] = '\0';
+                tHandler -> param[length - lengthFirstPart -1] = '\0';
             }else{
 
                 return 254;

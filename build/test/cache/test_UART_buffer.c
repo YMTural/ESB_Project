@@ -118,7 +118,7 @@ void test_UART_buffer_receiveOne(void){
 
 
 
-    free(test_rBuffer);
+
 
     free(test_tBuffer);
 

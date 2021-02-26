@@ -180,63 +180,78 @@
 			<Name>test/test_priorityQueueHeap.c::test_priorityQueueHeap_heapAttributeInSchedule</Name>
 		</Test>
 		<Test id="60">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_init</Name>
+			<Name>test/test_taskHandler.c::test_parseNextTokenValidMultiCmd</Name>
 		</Test>
 		<Test id="61">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOneTask</Name>
+			<Name>test/test_taskHandler.c::test_parseNextTokenValidSingleCmd</Name>
 		</Test>
 		<Test id="62">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addMoreThanMaxSizeTasks</Name>
+			<Name>test/test_taskHandler.c::test_parseNextTokenInvalidMultiCmd</Name>
 		</Test>
 		<Test id="63">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOnePeriodicTask</Name>
+			<Name>test/test_taskHandler.c::test_parseNextTokenInvalidSingleCmd</Name>
 		</Test>
 		<Test id="64">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOnePeriodicTaskToFull</Name>
+			<Name>test/test_taskHandler.c::test_taskHandlerReset</Name>
 		</Test>
 		<Test id="65">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_schedule</Name>
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_init</Name>
 		</Test>
 		<Test id="66">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_scheduleOnEmpty</Name>
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOneTask</Name>
 		</Test>
 		<Test id="67">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_scheduleNonPeriodicTask</Name>
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addMoreThanMaxSizeTasks</Name>
 		</Test>
 		<Test id="68">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_markIfReady</Name>
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOnePeriodicTask</Name>
 		</Test>
 		<Test id="69">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_incrementTimer</Name>
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addOnePeriodicTaskToFull</Name>
 		</Test>
 		<Test id="70">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addTaskWithTask</Name>
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_schedule</Name>
 		</Test>
 		<Test id="71">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addTaskWithTimeOverflow</Name>
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_scheduleOnEmpty</Name>
 		</Test>
 		<Test id="72">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_deleteTask</Name>
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_scheduleNonPeriodicTask</Name>
 		</Test>
 		<Test id="73">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_getAvailableIdWhenNoneTaken</Name>
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_markIfReady</Name>
 		</Test>
 		<Test id="74">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_getAvailableIdWhenOneTaken</Name>
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_incrementTimer</Name>
 		</Test>
 		<Test id="75">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_getAvailableIdWhenFirstFreeSecondTaken</Name>
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addTaskWithTask</Name>
 		</Test>
 		<Test id="76">
-			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_getAvailableIdFreeId</Name>
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_addTaskWithTimeOverflow</Name>
 		</Test>
 		<Test id="77">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_deleteTask</Name>
+		</Test>
+		<Test id="78">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_getAvailableIdWhenNoneTaken</Name>
+		</Test>
+		<Test id="79">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_getAvailableIdWhenOneTaken</Name>
+		</Test>
+		<Test id="80">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_getAvailableIdWhenFirstFreeSecondTaken</Name>
+		</Test>
+		<Test id="81">
+			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_getAvailableIdFreeId</Name>
+		</Test>
+		<Test id="82">
 			<Name>test/test_timeBasedScheduler.c::test_timeBasedScheduler_getUsedIds</Name>
 		</Test>
 	</SuccessfulTests>
 	<IgnoredTests/>
 	<Statistics>
-		<Tests>77</Tests>
+		<Tests>82</Tests>
 		<Ignores>0</Ignores>
 		<FailuresTotal>0</FailuresTotal>
 		<Errors>0</Errors>

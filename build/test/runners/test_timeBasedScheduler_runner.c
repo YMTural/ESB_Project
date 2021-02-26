@@ -112,12 +112,12 @@ int main(void)
   run_test(test_timeBasedScheduler_incrementTimer, "test_timeBasedScheduler_incrementTimer", 170);
   run_test(test_timeBasedScheduler_addTaskWithTask, "test_timeBasedScheduler_addTaskWithTask", 201);
   run_test(test_timeBasedScheduler_addTaskWithTimeOverflow, "test_timeBasedScheduler_addTaskWithTimeOverflow", 221);
-  run_test(test_timeBasedScheduler_deleteTask, "test_timeBasedScheduler_deleteTask", 245);
-  run_test(test_timeBasedScheduler_getAvailableIdWhenNoneTaken, "test_timeBasedScheduler_getAvailableIdWhenNoneTaken", 261);
-  run_test(test_timeBasedScheduler_getAvailableIdWhenOneTaken, "test_timeBasedScheduler_getAvailableIdWhenOneTaken", 278);
-  run_test(test_timeBasedScheduler_getAvailableIdWhenFirstFreeSecondTaken, "test_timeBasedScheduler_getAvailableIdWhenFirstFreeSecondTaken", 295);
-  run_test(test_timeBasedScheduler_getAvailableIdFreeId, "test_timeBasedScheduler_getAvailableIdFreeId", 314);
-  run_test(test_timeBasedScheduler_getUsedIds, "test_timeBasedScheduler_getUsedIds", 332);
+  run_test(test_timeBasedScheduler_deleteTask, "test_timeBasedScheduler_deleteTask", 244);
+  run_test(test_timeBasedScheduler_getAvailableIdWhenNoneTaken, "test_timeBasedScheduler_getAvailableIdWhenNoneTaken", 260);
+  run_test(test_timeBasedScheduler_getAvailableIdWhenOneTaken, "test_timeBasedScheduler_getAvailableIdWhenOneTaken", 277);
+  run_test(test_timeBasedScheduler_getAvailableIdWhenFirstFreeSecondTaken, "test_timeBasedScheduler_getAvailableIdWhenFirstFreeSecondTaken", 294);
+  run_test(test_timeBasedScheduler_getAvailableIdFreeId, "test_timeBasedScheduler_getAvailableIdFreeId", 313);
+  run_test(test_timeBasedScheduler_getUsedIds, "test_timeBasedScheduler_getUsedIds", 331);
 
   return UnityEnd();
 }

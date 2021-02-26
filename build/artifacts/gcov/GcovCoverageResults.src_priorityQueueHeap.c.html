@@ -269,13 +269,13 @@
             <td class="headerValue">src/priorityQueueHeap.c</td>
             <td></td>
             <td class="headerName">Lines:</td>
-            <td class="headerTableEntry">95</td>
-            <td class="headerTableEntry">95</td>
+            <td class="headerTableEntry">97</td>
+            <td class="headerTableEntry">97</td>
             <td class="headerTableEntry" style="background-color:LightGreen">100.0 %</td>
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2021-02-24 19:24:07</td>
+            <td class="headerValue">2021-02-26 13:45:43</td>
             <td></td>
             <td class="headerName">Branches:</td>
             <td class="headerTableEntry">30</td>
@@ -372,7 +372,7 @@
     <tr>
     <td align="right" class="lineno"><pre>11</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>311</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>268</pre></td>
     <td align="left" class="src coveredLine"><pre>priorityQueueHeap_t priorityQueueHeap_init(uint8_t maxSize, task* array){</pre></td>
     </tr>
 
@@ -386,7 +386,7 @@
     <tr>
     <td align="right" class="lineno"><pre>13</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>311</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>268</pre></td>
     <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_t queue = malloc(sizeof(priorityQueueHeap));</pre></td>
     </tr>
 
@@ -400,28 +400,28 @@
     <tr>
     <td align="right" class="lineno"><pre>15</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>311</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>268</pre></td>
     <td align="left" class="src coveredLine"><pre>    queue -> prioQueue = array;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>16</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>311</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>268</pre></td>
     <td align="left" class="src coveredLine"><pre>    queue -> capacity = maxSize;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>17</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>311</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>268</pre></td>
     <td align="left" class="src coveredLine"><pre>    queue -> size = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>18</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>311</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>268</pre></td>
     <td align="left" class="src coveredLine"><pre>    return queue;</pre></td>
     </tr>
 
@@ -442,7 +442,7 @@
     <tr>
     <td align="right" class="lineno"><pre>21</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>945</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>768</pre></td>
     <td align="left" class="src coveredLine"><pre>int8_t priorityQueueHeap_add(void* v_priorityQueueHeap, task task){</pre></td>
     </tr>
 
@@ -456,7 +456,7 @@
     <tr>
     <td align="right" class="lineno"><pre>23</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>945</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>768</pre></td>
     <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_t priorityQueueHeap = v_priorityQueueHeap;</pre></td>
     </tr>
 
@@ -469,8 +469,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>25</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 10 times">&check;</span><span class="takenBranch" title="Branch 1 taken 935 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>945</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 8 times">&check;</span><span class="takenBranch" title="Branch 1 taken 760 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>768</pre></td>
     <td align="left" class="src coveredLine"><pre>    if(priorityQueueHeap -> size == priorityQueueHeap -> capacity){</pre></td>
     </tr>
 
@@ -484,7 +484,7 @@
     <tr>
     <td align="right" class="lineno"><pre>27</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>10</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
     <td align="left" class="src coveredLine"><pre>        return -1;</pre></td>
     </tr>
 
@@ -505,35 +505,35 @@
     <tr>
     <td align="right" class="lineno"><pre>30</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>935</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>760</pre></td>
     <td align="left" class="src coveredLine"><pre>    uint8_t index = priorityQueueHeap -> size;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>31</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>935</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>760</pre></td>
     <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> size++;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>32</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>935</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>760</pre></td>
     <td align="left" class="src coveredLine"><pre>    cli();</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>33</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>935</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>760</pre></td>
     <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> prioQueue[index] = task;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>34</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1651 times">&check;</span><span class="takenBranch" title="Branch 1 taken 500 times">&check;</span><span class="takenBranch" title="Branch 2 taken 1216 times">&check;</span><span class="takenBranch" title="Branch 3 taken 435 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>3086</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1324 times">&check;</span><span class="takenBranch" title="Branch 1 taken 412 times">&check;</span><span class="takenBranch" title="Branch 2 taken 976 times">&check;</span><span class="takenBranch" title="Branch 3 taken 348 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>2496</pre></td>
     <td align="left" class="src coveredLine"><pre>    while (index != 0 &amp;&amp;  priorityQueueHeap -> prioQueue[index].priority >  priorityQueueHeap -> prioQueue[(index-1)/2].priority ){</pre></td>
     </tr>
 
@@ -547,14 +547,14 @@
     <tr>
     <td align="right" class="lineno"><pre>36</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1216</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>976</pre></td>
     <td align="left" class="src coveredLine"><pre>        priorityQueueHeap_swap(index, (index-1)/2, priorityQueueHeap);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>37</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1216</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>976</pre></td>
     <td align="left" class="src coveredLine"><pre>        index = (index-1)/2;</pre></td>
     </tr>
 
@@ -575,14 +575,14 @@
     <tr>
     <td align="right" class="lineno"><pre>40</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>935</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>760</pre></td>
     <td align="left" class="src coveredLine"><pre>    sei();</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>41</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>935</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>760</pre></td>
     <td align="left" class="src coveredLine"><pre>    return 0;</pre></td>
     </tr>
 
@@ -603,7 +603,7 @@
     <tr>
     <td align="right" class="lineno"><pre>44</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>170</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>136</pre></td>
     <td align="left" class="src coveredLine"><pre>task* priorityQueueHeap_getNext(priorityQueueHeap_t priorityQueueHeap){</pre></td>
     </tr>
 
@@ -616,8 +616,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>46</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 5 times">&check;</span><span class="takenBranch" title="Branch 1 taken 165 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>170</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 4 times">&check;</span><span class="takenBranch" title="Branch 1 taken 132 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>136</pre></td>
     <td align="left" class="src coveredLine"><pre>    if(priorityQueueHeap->size &lt;= 0){</pre></td>
     </tr>
 
@@ -638,7 +638,7 @@
     <tr>
     <td align="right" class="lineno"><pre>49</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>        return 0;</pre></td>
     </tr>
 
@@ -651,8 +651,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>51</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 10 times">&check;</span><span class="takenBranch" title="Branch 1 taken 155 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>165</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 8 times">&check;</span><span class="takenBranch" title="Branch 1 taken 124 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>132</pre></td>
     <td align="left" class="src coveredLine"><pre>    if(priorityQueueHeap->size == 1){</pre></td>
     </tr>
 
@@ -666,14 +666,14 @@
     <tr>
     <td align="right" class="lineno"><pre>53</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>10</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
     <td align="left" class="src coveredLine"><pre>        priorityQueueHeap->size = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>54</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>10</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
     <td align="left" class="src coveredLine"><pre>        return &amp;priorityQueueHeap -> prioQueue[0];</pre></td>
     </tr>
 
@@ -687,197 +687,197 @@
     <tr>
     <td align="right" class="lineno"><pre>56</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>155</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task task = priorityQueueHeap -> prioQueue[0];</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>124</pre></td>
+    <td align="left" class="src coveredLine"><pre>    cli();</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>57</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>155</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> size--;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>124</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task task = priorityQueueHeap -> prioQueue[0];</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>58</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>155</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> prioQueue[0] = priorityQueueHeap -> prioQueue[priorityQueueHeap->size];</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>124</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> size--;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>59</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>155</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> prioQueue[priorityQueueHeap -> size] = task;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>124</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> prioQueue[0] = priorityQueueHeap -> prioQueue[priorityQueueHeap->size];</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>60</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>155</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_heapify(priorityQueueHeap, 0);</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>124</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> prioQueue[priorityQueueHeap -> size] = task;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>61</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>155</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return &amp;priorityQueueHeap -> prioQueue[priorityQueueHeap -> size];</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>124</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_heapify(priorityQueueHeap, 0);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>62</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>124</pre></td>
+    <td align="left" class="src coveredLine"><pre>    sei();</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>63</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>124</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return &amp;priorityQueueHeap -> prioQueue[priorityQueueHeap -> size];</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>64</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>63</pre></td>
+    <td align="right" class="lineno"><pre>65</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>64</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>46</pre></td>
-    <td align="left" class="src coveredLine"><pre>task* priorityQueueHeap_getNextReady(void* v_priorityQueueHeap){</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>65</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>46</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_t priorityQueueHeap = v_priorityQueueHeap;</pre></td>
-    </tr>
-
-    <tr>
     <td align="right" class="lineno"><pre>66</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>46</pre></td>
-    <td align="left" class="src coveredLine"><pre>    uint8_t index = 0;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
+    <td align="left" class="src coveredLine"><pre>task* priorityQueueHeap_getNextReady(void* v_priorityQueueHeap){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>67</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>46</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bool found = false;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_t priorityQueueHeap = v_priorityQueueHeap;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>68</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>46</pre></td>
-    <td align="left" class="src coveredLine"><pre>    cli();</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
+    <td align="left" class="src coveredLine"><pre>    uint8_t index = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>69</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bool found = false;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>70</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
+    <td align="left" class="src coveredLine"><pre>    cli();</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>71</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    //Search for next ready task</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>70</pre></td>
+    <td align="right" class="lineno"><pre>72</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>46</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
     <td align="left" class="src coveredLine"><pre>    uint8_t queueSize = priorityQueueHeap_size(priorityQueueHeap);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>71</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 51 times">&check;</span><span class="takenBranch" title="Branch 1 taken 10 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>61</pre></td>
+    <td align="right" class="lineno"><pre>73</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 44 times">&check;</span><span class="takenBranch" title="Branch 1 taken 8 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>52</pre></td>
     <td align="left" class="src coveredLine"><pre>    for (uint8_t i = 0; i &lt; queueSize; i++)</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>72</pre></td>
+    <td align="right" class="lineno"><pre>74</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>73</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 36 times">&check;</span><span class="takenBranch" title="Branch 1 taken 15 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>51</pre></td>
-    <td align="left" class="src coveredLine"><pre>        if((priorityQueueHeap -> prioQueue[i].isReady)){</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>74</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
-    <td align="left" class="src coveredLine"><pre>            index = i;</pre></td>
-    </tr>
-
-    <tr>
     <td align="right" class="lineno"><pre>75</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
-    <td align="left" class="src coveredLine"><pre>            found = true;</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 32 times">&check;</span><span class="takenBranch" title="Branch 1 taken 12 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>44</pre></td>
+    <td align="left" class="src coveredLine"><pre>        if((priorityQueueHeap -> prioQueue[i].isReady)){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>76</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
-    <td align="left" class="src coveredLine"><pre>            break;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>32</pre></td>
+    <td align="left" class="src coveredLine"><pre>            index = i;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>77</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>32</pre></td>
+    <td align="left" class="src coveredLine"><pre>            found = true;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>78</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>32</pre></td>
+    <td align="left" class="src coveredLine"><pre>            break;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>79</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>78</pre></td>
+    <td align="right" class="lineno"><pre>80</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>79</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 10 times">&check;</span><span class="takenBranch" title="Branch 1 taken 36 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>46</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if(!found){</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>80</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>10</pre></td>
-    <td align="left" class="src coveredLine"><pre>        return 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>81</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 8 times">&check;</span><span class="takenBranch" title="Branch 1 taken 32 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if(!found){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>82</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>        return 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>83</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task task = priorityQueueHeap -> prioQueue[index];</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
@@ -890,71 +890,71 @@
     <tr>
     <td align="right" class="lineno"><pre>85</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> size--;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>32</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task task = priorityQueueHeap -> prioQueue[index];</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>86</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> prioQueue[index] = priorityQueueHeap -> prioQueue[priorityQueueHeap->size];</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>87</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> prioQueue[priorityQueueHeap -> size] = task;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>88</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_heapify(priorityQueueHeap, index);</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>89</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    //error potential here</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>90</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
-    <td align="left" class="src coveredLine"><pre>    sei();</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>91</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return &amp;priorityQueueHeap -> prioQueue[priorityQueueHeap -> size];</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>92</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>93</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
+    <td align="right" class="lineno"><pre>87</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>32</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> size--;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>88</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>32</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> prioQueue[index] = priorityQueueHeap -> prioQueue[priorityQueueHeap->size];</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>89</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>32</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap -> prioQueue[priorityQueueHeap -> size] = task;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>90</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>32</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_heapify(priorityQueueHeap, index);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>91</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    //error potential here</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>92</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>32</pre></td>
+    <td align="left" class="src coveredLine"><pre>    sei();</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>93</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>32</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return &amp;priorityQueueHeap -> prioQueue[priorityQueueHeap -> size];</pre></td>
+    </tr>
+
+    <tr>
     <td align="right" class="lineno"><pre>94</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>623</pre></td>
-    <td align="left" class="src coveredLine"><pre>void priorityQueueHeap_heapify(priorityQueueHeap_t priorityQueueHeap, uint8_t startIndex){</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
@@ -967,99 +967,99 @@
     <tr>
     <td align="right" class="lineno"><pre>96</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>623</pre></td>
-    <td align="left" class="src coveredLine"><pre>    uint8_t left = 2*startIndex+1;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>504</pre></td>
+    <td align="left" class="src coveredLine"><pre>void priorityQueueHeap_heapify(priorityQueueHeap_t priorityQueueHeap, uint8_t startIndex){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>97</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>623</pre></td>
-    <td align="left" class="src coveredLine"><pre>    uint8_t right = 2*startIndex+2;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>98</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>623</pre></td>
-    <td align="left" class="src coveredLine"><pre>    uint8_t max = startIndex;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>99</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>623</pre></td>
-    <td align="left" class="src coveredLine"><pre>    cli();</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>100</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 450 times">&check;</span><span class="takenBranch" title="Branch 1 taken 173 times">&check;</span><span class="takenBranch" title="Branch 2 taken 400 times">&check;</span><span class="takenBranch" title="Branch 3 taken 50 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>623</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if( (left &lt; priorityQueueHeap -> size) &amp;&amp; (priorityQueueHeap->prioQueue[max].priority &lt;= priorityQueueHeap->prioQueue[left].priority)){</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>101</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>102</pre></td>
+    <td align="right" class="lineno"><pre>98</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>400</pre></td>
-    <td align="left" class="src coveredLine"><pre>        max = (uint8_t) left;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>504</pre></td>
+    <td align="left" class="src coveredLine"><pre>    uint8_t left = 2*startIndex+1;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>99</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>504</pre></td>
+    <td align="left" class="src coveredLine"><pre>    uint8_t right = 2*startIndex+2;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>100</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>504</pre></td>
+    <td align="left" class="src coveredLine"><pre>    uint8_t max = startIndex;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>101</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>504</pre></td>
+    <td align="left" class="src coveredLine"><pre>    cli();</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>102</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 360 times">&check;</span><span class="takenBranch" title="Branch 1 taken 144 times">&check;</span><span class="takenBranch" title="Branch 2 taken 320 times">&check;</span><span class="takenBranch" title="Branch 3 taken 40 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>504</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if( (left &lt; priorityQueueHeap -> size) &amp;&amp; (priorityQueueHeap->prioQueue[max].priority &lt;= priorityQueueHeap->prioQueue[left].priority)){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>103</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>104</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 425 times">&check;</span><span class="takenBranch" title="Branch 1 taken 198 times">&check;</span><span class="takenBranch" title="Branch 2 taken 160 times">&check;</span><span class="takenBranch" title="Branch 3 taken 265 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>623</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if( (right &lt; priorityQueueHeap -> size) &amp;&amp; (priorityQueueHeap->prioQueue[max].priority &lt;= priorityQueueHeap->prioQueue[right].priority)){</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>320</pre></td>
+    <td align="left" class="src coveredLine"><pre>        max = (uint8_t) left;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>105</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>106</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>160</pre></td>
-    <td align="left" class="src coveredLine"><pre>        max = (uint8_t) right;</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 340 times">&check;</span><span class="takenBranch" title="Branch 1 taken 164 times">&check;</span><span class="takenBranch" title="Branch 2 taken 128 times">&check;</span><span class="takenBranch" title="Branch 3 taken 212 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>504</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if( (right &lt; priorityQueueHeap -> size) &amp;&amp; (priorityQueueHeap->prioQueue[max].priority &lt;= priorityQueueHeap->prioQueue[right].priority)){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>107</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>108</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>128</pre></td>
+    <td align="left" class="src coveredLine"><pre>        max = (uint8_t) right;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>109</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 415 times">&check;</span><span class="takenBranch" title="Branch 1 taken 208 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>623</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if(max != startIndex){</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
@@ -1071,114 +1071,114 @@
 
     <tr>
     <td align="right" class="lineno"><pre>111</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>415</pre></td>
-    <td align="left" class="src coveredLine"><pre>        priorityQueueHeap_swap(startIndex,max, priorityQueueHeap);</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 332 times">&check;</span><span class="takenBranch" title="Branch 1 taken 172 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>504</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if(max != startIndex){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>112</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>415</pre></td>
-    <td align="left" class="src coveredLine"><pre>        priorityQueueHeap_heapify(priorityQueueHeap, max);</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>113</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>332</pre></td>
+    <td align="left" class="src coveredLine"><pre>        priorityQueueHeap_swap(startIndex,max, priorityQueueHeap);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>114</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>332</pre></td>
+    <td align="left" class="src coveredLine"><pre>        priorityQueueHeap_heapify(priorityQueueHeap, max);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>115</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>114</pre></td>
+    <td align="right" class="lineno"><pre>116</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>623</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>504</pre></td>
     <td align="left" class="src coveredLine"><pre>    sei();</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>115</pre></td>
+    <td align="right" class="lineno"><pre>117</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>623</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>504</pre></td>
     <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>116</pre></td>
+    <td align="right" class="lineno"><pre>118</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1648</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1324</pre></td>
     <td align="left" class="src coveredLine"><pre>void priorityQueueHeap_swap(uint8_t a, uint8_t b, priorityQueueHeap_t priorityQueueHeap){</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>117</pre></td>
+    <td align="right" class="lineno"><pre>119</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>118</pre></td>
+    <td align="right" class="lineno"><pre>120</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    task tmp;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>119</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1648</pre></td>
-    <td align="left" class="src coveredLine"><pre>    cli();</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>120</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1648</pre></td>
-    <td align="left" class="src coveredLine"><pre>    tmp = priorityQueueHeap->prioQueue[a];</pre></td>
-    </tr>
-
-    <tr>
     <td align="right" class="lineno"><pre>121</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1648</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap->prioQueue[a] = priorityQueueHeap->prioQueue[b];</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1324</pre></td>
+    <td align="left" class="src coveredLine"><pre>    cli();</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>122</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1648</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap->prioQueue[b] = tmp;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1324</pre></td>
+    <td align="left" class="src coveredLine"><pre>    tmp = priorityQueueHeap->prioQueue[a];</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>123</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1648</pre></td>
-    <td align="left" class="src coveredLine"><pre>    sei();</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1324</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap->prioQueue[a] = priorityQueueHeap->prioQueue[b];</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>124</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1648</pre></td>
-    <td align="left" class="src coveredLine"><pre>}</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1324</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap->prioQueue[b] = tmp;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>125</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1324</pre></td>
+    <td align="left" class="src coveredLine"><pre>    sei();</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>126</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>732</pre></td>
-    <td align="left" class="src coveredLine"><pre>task* priorityQueueHeap_peekAt(void* v_queue, uint8_t n){</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1324</pre></td>
+    <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
     <tr>
@@ -1191,85 +1191,85 @@
     <tr>
     <td align="right" class="lineno"><pre>128</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>732</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_t queue = v_queue;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>600</pre></td>
+    <td align="left" class="src coveredLine"><pre>task* priorityQueueHeap_peekAt(void* v_queue, uint8_t n){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>129</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 15 times">&check;</span><span class="takenBranch" title="Branch 1 taken 717 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>732</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if (n >= queue->size)</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>130</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    {</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>600</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_t queue = v_queue;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>131</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>15</pre></td>
-    <td align="left" class="src coveredLine"><pre>        return 0;</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 12 times">&check;</span><span class="takenBranch" title="Branch 1 taken 588 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>600</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if (n >= queue->size)</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>132</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }else{</pre></td>
+    <td align="left" class="src "><pre>    {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>133</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>        return 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>134</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>717</pre></td>
-    <td align="left" class="src coveredLine"><pre>        return &amp;queue -> prioQueue[n];</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    }else{</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>135</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>136</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>588</pre></td>
+    <td align="left" class="src coveredLine"><pre>        return &amp;queue -> prioQueue[n];</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>137</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>138</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>139</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>498</pre></td>
-    <td align="left" class="src coveredLine"><pre>uint8_t priorityQueueHeap_size(void* v_priorityQueueHeap){</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
@@ -1282,8 +1282,8 @@
     <tr>
     <td align="right" class="lineno"><pre>141</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>498</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_t priorityQueueHeap = v_priorityQueueHeap;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>428</pre></td>
+    <td align="left" class="src coveredLine"><pre>uint8_t priorityQueueHeap_size(void* v_priorityQueueHeap){</pre></td>
     </tr>
 
     <tr>
@@ -1296,29 +1296,29 @@
     <tr>
     <td align="right" class="lineno"><pre>143</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>498</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return priorityQueueHeap -> size;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>428</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_t priorityQueueHeap = v_priorityQueueHeap;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>144</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>145</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>428</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return priorityQueueHeap -> size;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>146</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>385</pre></td>
-    <td align="left" class="src coveredLine"><pre>uint8_t priorityQueueHeap_capacity(void* v_priorityQueueHeap){</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
@@ -1331,8 +1331,8 @@
     <tr>
     <td align="right" class="lineno"><pre>148</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>385</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_t priorityQueueHeap = v_priorityQueueHeap;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>320</pre></td>
+    <td align="left" class="src coveredLine"><pre>uint8_t priorityQueueHeap_capacity(void* v_priorityQueueHeap){</pre></td>
     </tr>
 
     <tr>
@@ -1345,29 +1345,29 @@
     <tr>
     <td align="right" class="lineno"><pre>150</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>385</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return priorityQueueHeap -> capacity;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>320</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_t priorityQueueHeap = v_priorityQueueHeap;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>151</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>152</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>320</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return priorityQueueHeap -> capacity;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>153</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>296</pre></td>
-    <td align="left" class="src coveredLine"><pre>void priorityQueueHeap_free(priorityQueueHeap_t queue){</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
@@ -1380,120 +1380,120 @@
     <tr>
     <td align="right" class="lineno"><pre>155</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    //free(queue->prioQueue);</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>256</pre></td>
+    <td align="left" class="src coveredLine"><pre>void priorityQueueHeap_free(priorityQueueHeap_t queue){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>156</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>296</pre></td>
-    <td align="left" class="src coveredLine"><pre>    free(queue);</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>157</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>296</pre></td>
-    <td align="left" class="src coveredLine"><pre>}</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    //free(queue->prioQueue);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>158</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>/*</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>256</pre></td>
+    <td align="left" class="src coveredLine"><pre>    free(queue);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>159</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>void priorityQueueHeap_incrementPriorityOfNonPeriodic(priorityQueueHeap_t priorityQueueHeap){</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>256</pre></td>
+    <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>160</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>/*</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>161</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    for(uint8_t i = 0; i &lt; priorityQueueHeap->size; i++)</pre></td>
+    <td align="left" class="src "><pre>void priorityQueueHeap_incrementPriorityOfNonPeriodic(priorityQueueHeap_t priorityQueueHeap){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>162</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    {</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>163</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        if (!priorityQueueHeap -> prioQueue[i].isPeriodic &amp;&amp; priorityQueueHeap -> prioQueue[i].priority != 255)</pre></td>
+    <td align="left" class="src "><pre>    for(uint8_t i = 0; i &lt; priorityQueueHeap->size; i++)</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>164</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        {</pre></td>
+    <td align="left" class="src "><pre>    {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>165</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>            priorityQueueHeap -> prioQueue[i].priority++;</pre></td>
+    <td align="left" class="src "><pre>        if (!priorityQueueHeap -> prioQueue[i].isPeriodic &amp;&amp; priorityQueueHeap -> prioQueue[i].priority != 255)</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>166</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        }</pre></td>
+    <td align="left" class="src "><pre>        {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>167</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre>            priorityQueueHeap -> prioQueue[i].priority++;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>168</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="left" class="src "><pre>        }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>169</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>*/</pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>170</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>171</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
-    <td align="left" class="src coveredLine"><pre>void priorityQueueHeap_deleteItem(void* v_priorityQueueHeap, uint8_t n){</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>*/</pre></td>
     </tr>
 
     <tr>
@@ -1507,7 +1507,7 @@
     <td align="right" class="lineno"><pre>173</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>16</pre></td>
-    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_t queue = v_priorityQueueHeap;</pre></td>
+    <td align="left" class="src coveredLine"><pre>void priorityQueueHeap_deleteItem(void* v_priorityQueueHeap, uint8_t n){</pre></td>
     </tr>
 
     <tr>
@@ -1519,9 +1519,9 @@
 
     <tr>
     <td align="right" class="lineno"><pre>175</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 4 times">&check;</span><span class="takenBranch" title="Branch 1 taken 12 times">&check;</span></td>
+    <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>16</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if (queue -> size &lt;= n){</pre></td>
+    <td align="left" class="src coveredLine"><pre>    priorityQueueHeap_t queue = v_priorityQueueHeap;</pre></td>
     </tr>
 
     <tr>
@@ -1533,76 +1533,90 @@
 
     <tr>
     <td align="right" class="lineno"><pre>177</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
-    <td align="left" class="src coveredLine"><pre>        return;</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 4 times">&check;</span><span class="takenBranch" title="Branch 1 taken 12 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if (queue -> size &lt;= n){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>178</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>179</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    else{</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>        return;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>180</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>181</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
-    <td align="left" class="src coveredLine"><pre>        priorityQueueHeap_swap(n, (queue -> size) - 1, queue);</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    else{</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>182</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
-    <td align="left" class="src coveredLine"><pre>        cli();</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>183</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>12</pre></td>
-    <td align="left" class="src coveredLine"><pre>        queue -> size--;</pre></td>
+    <td align="left" class="src coveredLine"><pre>        priorityQueueHeap_swap(n, (queue -> size) - 1, queue);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>184</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>12</pre></td>
-    <td align="left" class="src coveredLine"><pre>        priorityQueueHeap_heapify(queue, n);</pre></td>
+    <td align="left" class="src coveredLine"><pre>        cli();</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>185</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>12</pre></td>
-    <td align="left" class="src coveredLine"><pre>        sei();</pre></td>
+    <td align="left" class="src coveredLine"><pre>        queue -> size--;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>186</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>        priorityQueueHeap_heapify(queue, n);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>187</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>        sei();</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>188</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>187</pre></td>
+    <td align="right" class="lineno"><pre>189</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>}</pre></td>

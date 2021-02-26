@@ -57,7 +57,10 @@ taskHandler_t taskHandler_init(const char singleCommands[][9], const char multiC
 
 /**
  * @brief
- *  Parses the next Token in a String determining the command and its paramter
+ *  Parses the next Token in a String determining the command and its paramter.
+ *  Returns 254 if there is no free memory
+ *  Returns 255 if the parsed command is unknown
+ *  Returns 0 if command is too short
  * @param taskHandler
  *  The taskHandler
  * @param readBuffer

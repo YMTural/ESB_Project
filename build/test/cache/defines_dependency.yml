@@ -29,3 +29,5 @@ src/UART_interrupt.c:
 - TEST
 src/adc_temperature.c:
 - TEST
+src/taskHandler.c:
+- TEST

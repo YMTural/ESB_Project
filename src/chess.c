@@ -6,12 +6,13 @@
 #define lowerASCII 32
 
 
-
+#if (DEBUG == 0)
 struct Piece{
     uint8_t type;
     uint8_t color;
 };
-static Piece board[64] = { {ROOK, BLACK}, {KNIGHT, BLACK}, {BISHOP, BLACK}, {QUEEN, BLACK}, {KING, BLACK}, {BISHOP, BLACK}, {KNIGHT, BLACK}, {ROOK, BLACK},
+#endif
+Piece board[64] = { {ROOK, BLACK}, {KNIGHT, BLACK}, {BISHOP, BLACK}, {QUEEN, BLACK}, {KING, BLACK}, {BISHOP, BLACK}, {KNIGHT, BLACK}, {ROOK, BLACK},
                     {PAWN, BLACK}, {PAWN, BLACK}, {PAWN, BLACK}, {PAWN, BLACK}, {PAWN, BLACK}, {PAWN, BLACK}, {PAWN, BLACK}, {PAWN, BLACK},
                     {NONE, 128}, {NONE, 128}, {NONE, 128}, {NONE, 128}, {NONE, 128}, {NONE, 128} , {NONE, 128}, {NONE, 128},
                     {NONE, 128}, {NONE, 128}, {NONE, 128}, {NONE, 128}, {NONE, 128}, {NONE, 128} , {NONE, 128}, {NONE, 128},
@@ -209,10 +210,16 @@ bool tryToMove(Chess_t chessGame, uint8_t movingPiecePos, uint8_t replacedPieceP
         }
         return false;
     }else
-    {
+    {   //Pawn Promotion
+        if((replacedPiecePos < 8 || replacedPiecePos > 55) && movingPiece.type == PAWN){
+
+            Piece newQueen = {QUEEN, movingPiece.color}
+            board[replacedPiecePos] = newQueen;
+        }
         return true;
     }
-     
+    
+
 
 }
 bool isBishopPathFree(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2){
@@ -245,7 +252,7 @@ bool isRookPathFree(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2){
     uint8_t moveAllowed = true;
     uint8_t oldPos = x1 + y1 * 8 ;
     uint8_t newPos = x2 + y2 * 8;
-    uint8_t divisor;
+    uint8_t divisor = 8;
     bool signPos = newPos - oldPos > 0;
     if(signPos){
         if(x1 == x2){
@@ -301,21 +308,19 @@ bool isSquareObstructed(Chess_t chessGame, uint8_t pos){
 //Input as 0 - 7 
 uint8_t movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2){
     
-    UART_transmit(x1+ 0x30);
+    /*UART_transmit(x1+ 0x30);
     UART_transmit(y1+ 0x30);
     UART_transmit(x2+ 0x30);
-    UART_transmit(y2+ 0x30);
+    UART_transmit(y2+ 0x30);*/
     uint8_t moveAllowed = true;
     uint8_t oldPos = x1 + y1 * 8 ;
     uint8_t newPos = x2 + y2 * 8;
-    uint8_t divisor;
-    bool signPos = newPos - oldPos > 0;
     bool legalRookMove = (((newPos % 8 == oldPos % 8) && (x1 == x2 && (y1 > y2 || y1 < y2)))    ||  ((newPos / 8 == oldPos / 8) && ((y1 == y2) && (x1 > x2 || x1 < x2))));
     bool legalBishopMove = (((newPos % 7 == oldPos % 7) && ((x1 < x2 && y1 > y2) || (x1 > x2 && y1 < y2)))   ||   ((newPos % 9 == oldPos % 9) && ((x1 > x2 && y1 > y2) || (x1 < x2 && y1 < y2))));
     //Get Piece
     Piece_t currentPiece = &board[oldPos];
-    UART_transmit(currentPiece->type);
-    UART_transmit('\n');
+    /*UART_transmit(currentPiece->type);
+    UART_transmit('\n');*/
 
     //Check Input
     if(x1 > 7 || x2 > 7 || y1 > 7 || y2 > 7){
@@ -443,9 +448,9 @@ uint8_t movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t
         if(tryToMove(chessGame, y1 * 8 + x1, y2 * 8 + x2)){     
             return (chessGame -> playerTurn ? BLACKSTURN : WHITESTURN);
         }
-    }else{
-        return NOTPOSSIBLE;
     }
+        return NOTPOSSIBLE;
+
 }
 
 

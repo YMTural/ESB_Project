@@ -36,6 +36,21 @@ char OCIE1A = 0;
 char OCIE1B = 0;
 char CS12 = 0;
 char CS11 = 0;
+
+char CS20 = 0;
+char WGM22 = 0;
+char TCNT2 = 0;
+char TCCR2B = 0;
+char TIMSK2 = 0;
+short OCR2B = 0;
+short OCR2A = 0;
+char OCIE2A = 0;
+char OCIE2B = 0;
+char CS22 = 0;
+char CS21 = 0;
+
+char TCCR2A = 0;
+char WGM21 = 0;
 void sei(void){
 
     //no-op

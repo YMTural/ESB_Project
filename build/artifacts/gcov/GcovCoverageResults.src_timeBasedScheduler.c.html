@@ -269,18 +269,18 @@
             <td class="headerValue">src/timeBasedScheduler.c</td>
             <td></td>
             <td class="headerName">Lines:</td>
-            <td class="headerTableEntry">144</td>
-            <td class="headerTableEntry">153</td>
-            <td class="headerTableEntry" style="background-color:LightGreen">94.1 %</td>
+            <td class="headerTableEntry">145</td>
+            <td class="headerTableEntry">155</td>
+            <td class="headerTableEntry" style="background-color:LightGreen">93.5 %</td>
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2021-02-24 19:24:07</td>
+            <td class="headerValue">2021-02-26 13:45:43</td>
             <td></td>
             <td class="headerName">Branches:</td>
-            <td class="headerTableEntry">32</td>
+            <td class="headerTableEntry">31</td>
             <td class="headerTableEntry">42</td>
-            <td class="headerTableEntry" style="background-color:#FFFF55">76.2 %</td>
+            <td class="headerTableEntry" style="background-color:LightPink">73.8 %</td>
           </tr>
         </table>
       </td>
@@ -456,7 +456,7 @@
     <tr>
     <td align="right" class="lineno"><pre>23</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>void timeBasedScheduler_free(timeBasedScheduler_t tBScheduler){</pre></td>
     </tr>
 
@@ -470,14 +470,14 @@
     <tr>
     <td align="right" class="lineno"><pre>25</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    free(tBScheduler);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>26</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
@@ -498,7 +498,7 @@
     <tr>
     <td align="right" class="lineno"><pre>29</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>timeBasedScheduler_t timeBasedScheduler_init(uint16_t* currentTime, void* queue, uint8_t (*queueSize)(void* queue),</pre></td>
     </tr>
 
@@ -547,77 +547,77 @@
     <tr>
     <td align="right" class="lineno"><pre>36</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    timeBasedScheduler_t tBScheduler = malloc(sizeof(timeBasedScheduler));</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>37</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> overflow = false;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>38</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> queue = queue;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>39</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> queueSize = queueSize;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>40</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> queueCapacity = queueCapacity;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>41</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> queueAdd = queueAdd;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>42</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> queuePeekAt = queuePeekAt;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>43</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> queueGetNextReady = queueGetNextReady;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>44</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> queueDelete = queueDelete;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>45</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> availableIDs = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>46</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> currentTime = currentTime;</pre></td>
     </tr>
 
@@ -638,7 +638,7 @@
     <tr>
     <td align="right" class="lineno"><pre>49</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    timeBasedScheduler_timer(1,1);</pre></td>
     </tr>
 
@@ -652,7 +652,7 @@
     <tr>
     <td align="right" class="lineno"><pre>51</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    sei();</pre></td>
     </tr>
 
@@ -673,7 +673,7 @@
     <tr>
     <td align="right" class="lineno"><pre>54</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    return tBScheduler;</pre></td>
     </tr>
 
@@ -694,7 +694,7 @@
     <tr>
     <td align="right" class="lineno"><pre>57</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>94</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>bool timeBasedScheduler_addTask(timeBasedScheduler_t tBScheduler, void (*function)(void), uint8_t priority, uint16_t start_time){</pre></td>
     </tr>
 
@@ -707,8 +707,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>59</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 5 times">&check;</span><span class="takenBranch" title="Branch 3 taken 89 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>94</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 4 times">&check;</span><span class="takenBranch" title="Branch 3 taken 68 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>    if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){</pre></td>
     </tr>
 
@@ -722,7 +722,7 @@
     <tr>
     <td align="right" class="lineno"><pre>61</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>        return false;</pre></td>
     </tr>
 
@@ -757,7 +757,7 @@
     <tr>
     <td align="right" class="lineno"><pre>66</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>89</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>68</pre></td>
     <td align="left" class="src coveredLine"><pre>    startTime = *(tBScheduler -> currentTime) + start_time;</pre></td>
     </tr>
 
@@ -777,16 +777,16 @@
 
     <tr>
     <td align="right" class="lineno"><pre>69</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 87 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>89</pre></td>
+    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 68 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>68</pre></td>
     <td align="left" class="src coveredLine"><pre>    if(startTime &lt; *(tBScheduler -> currentTime)){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>70</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>        task.overflow = !tBScheduler -> overflow;</pre></td>
+    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
+    <td align="left" class="src uncoveredLine"><pre>        task.overflow = !tBScheduler -> overflow;</pre></td>
     </tr>
 
     <tr>
@@ -806,7 +806,7 @@
     <tr>
     <td align="right" class="lineno"><pre>73</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>87</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>68</pre></td>
     <td align="left" class="src coveredLine"><pre>        task.overflow = tBScheduler ->overflow;</pre></td>
     </tr>
 
@@ -820,63 +820,63 @@
     <tr>
     <td align="right" class="lineno"><pre>75</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>89</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>68</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.id = 33;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>76</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>89</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>68</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.functions.voidfunction = function;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>77</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>89</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>68</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.param = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>78</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>89</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>68</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.priority = priority;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>79</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>89</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>68</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.isPeriodic = false;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>80</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>89</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>68</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.period = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>81</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>89</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>68</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.isReady = false;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>82</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>89</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>68</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.startTime = startTime;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>83</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>89</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>68</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> queueAdd((tBScheduler->queue), task);</pre></td>
     </tr>
 
@@ -890,7 +890,7 @@
     <tr>
     <td align="right" class="lineno"><pre>85</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>89</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>68</pre></td>
     <td align="left" class="src coveredLine"><pre>    return true;</pre></td>
     </tr>
 
@@ -911,7 +911,7 @@
     <tr>
     <td align="right" class="lineno"><pre>88</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>116</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>96</pre></td>
     <td align="left" class="src coveredLine"><pre>bool timeBasedScheduler_addPeriodicTask(timeBasedScheduler_t tBScheduler, void (*function)(void), uint8_t priority, uint16_t period, uint16_t startTime, bool overflow){</pre></td>
     </tr>
 
@@ -931,8 +931,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>91</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 5 times">&check;</span><span class="takenBranch" title="Branch 3 taken 111 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>116</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 4 times">&check;</span><span class="takenBranch" title="Branch 3 taken 92 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>96</pre></td>
     <td align="left" class="src coveredLine"><pre>    if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){</pre></td>
     </tr>
 
@@ -946,7 +946,7 @@
     <tr>
     <td align="right" class="lineno"><pre>93</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>        return false;</pre></td>
     </tr>
 
@@ -974,70 +974,70 @@
     <tr>
     <td align="right" class="lineno"><pre>97</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>111</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>92</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.id = 33;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>98</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>111</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>92</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.functions.voidfunction = function;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>99</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>111</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>92</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.param = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>100</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>111</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>92</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.priority = priority;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>101</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>111</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>92</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.isPeriodic = true;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>102</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>111</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>92</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.period = period;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>103</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>111</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>92</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.startTime = startTime;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>104</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>111</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>92</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.isReady = false;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>105</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>111</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>92</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.overflow = overflow;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>106</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>111</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>92</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> queueAdd((tBScheduler->queue), task);</pre></td>
     </tr>
 
@@ -1051,7 +1051,7 @@
     <tr>
     <td align="right" class="lineno"><pre>108</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>111</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>92</pre></td>
     <td align="left" class="src coveredLine"><pre>    return true;</pre></td>
     </tr>
 
@@ -1072,7 +1072,7 @@
     <tr>
     <td align="right" class="lineno"><pre>111</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
     <td align="left" class="src coveredLine"><pre>bool timeBasedScheduler_addPeriodicTaskID(timeBasedScheduler_t tBScheduler, void (*function)(void), uint8_t priority, uint16_t period, uint16_t start_time, bool overflow, uint8_t id){</pre></td>
     </tr>
 
@@ -1085,226 +1085,226 @@
 
     <tr>
     <td align="right" class="lineno"><pre>113</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    //UART_transmit(0xCC);</pre></td>
+    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 3 taken 12 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>114</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    //UART_transmit(id);</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>115</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 3 taken 11 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>116</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>117</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>118</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount uncoveredLine"><pre></pre></td>
     <td align="left" class="src uncoveredLine"><pre>        return false;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>119</pre></td>
+    <td align="right" class="lineno"><pre>117</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>120</pre></td>
+    <td align="right" class="lineno"><pre>118</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>121</pre></td>
+    <td align="right" class="lineno"><pre>119</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    task task;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>122</pre></td>
+    <td align="right" class="lineno"><pre>120</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    uint16_t startTime;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>123</pre></td>
+    <td align="right" class="lineno"><pre>121</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    //Use pointer to get most accurate currentTime</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>124</pre></td>
+    <td align="right" class="lineno"><pre>122</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
     <td align="left" class="src coveredLine"><pre>    startTime = *(tBScheduler -> currentTime) + start_time;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>125</pre></td>
+    <td align="right" class="lineno"><pre>123</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    //If overflow occured add with flipped overflow bit</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>126</pre></td>
+    <td align="right" class="lineno"><pre>124</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    //This prevents timer overflow scheduling errors</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>127</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 6 times">&check;</span><span class="takenBranch" title="Branch 1 taken 5 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
+    <td align="right" class="lineno"><pre>125</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 8 times">&check;</span><span class="takenBranch" title="Branch 1 taken 4 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
     <td align="left" class="src coveredLine"><pre>    if(startTime &lt; *(tBScheduler -> currentTime)){</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>128</pre></td>
+    <td align="right" class="lineno"><pre>126</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
     <td align="left" class="src coveredLine"><pre>        task.overflow = !tBScheduler -> overflow;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>129</pre></td>
+    <td align="right" class="lineno"><pre>127</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }else</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>130</pre></td>
+    <td align="right" class="lineno"><pre>128</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>131</pre></td>
+    <td align="right" class="lineno"><pre>129</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>        task.overflow = tBScheduler ->overflow;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>132</pre></td>
+    <td align="right" class="lineno"><pre>130</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
+    <td align="right" class="lineno"><pre>131</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.id = id;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>132</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.functions.voidfunction = function;</pre></td>
+    </tr>
+
+    <tr>
     <td align="right" class="lineno"><pre>133</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.id = id;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.param = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>134</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.functions.voidfunction = function;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.priority = priority;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>135</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.param = 0;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.isPeriodic = true;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>136</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.priority = priority;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.period = period;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>137</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.isPeriodic = true;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.startTime = startTime;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>138</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.period = period;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.isReady = false;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>139</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.startTime = startTime;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>140</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.isReady = false;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>141</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> queueAdd((tBScheduler->queue), task);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>142</pre></td>
+    <td align="right" class="lineno"><pre>140</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
+    <td align="right" class="lineno"><pre>141</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return true;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>142</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
+    </tr>
+
+    <tr>
     <td align="right" class="lineno"><pre>143</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return true;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>144</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>bool timeBasedScheduler_addPeriodicTaskWithParam(timeBasedScheduler_t tBScheduler, void (*function)(char*), uint8_t priority, uint16_t period, uint16_t start_time, bool overflow, char* param, uint8_t id){</pre></td>
     </tr>
 
     <tr>
@@ -1317,15 +1317,15 @@
     <tr>
     <td align="right" class="lineno"><pre>146</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>bool timeBasedScheduler_addPeriodicTaskWithParam(timeBasedScheduler_t tBScheduler, void (*function)(char*), uint8_t priority, uint16_t period, uint16_t start_time, bool overflow, char* param, uint8_t id){</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>147</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 3 taken 4 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){</pre></td>
     </tr>
 
     <tr>
@@ -1337,191 +1337,191 @@
 
     <tr>
     <td align="right" class="lineno"><pre>149</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 3 taken 2 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>150</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>151</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount uncoveredLine"><pre></pre></td>
     <td align="left" class="src uncoveredLine"><pre>        return false;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>152</pre></td>
+    <td align="right" class="lineno"><pre>150</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>153</pre></td>
+    <td align="right" class="lineno"><pre>151</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    uint16_t startTime;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>154</pre></td>
+    <td align="right" class="lineno"><pre>152</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    task task;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>155</pre></td>
+    <td align="right" class="lineno"><pre>153</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>    task.id = id;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>156</pre></td>
+    <td align="right" class="lineno"><pre>154</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    //Use pointer to get most accurate currentTime</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>157</pre></td>
+    <td align="right" class="lineno"><pre>155</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>    startTime = *(tBScheduler -> currentTime) + start_time;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>158</pre></td>
+    <td align="right" class="lineno"><pre>156</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    //If overflow occured add with flipped overflow bit</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>159</pre></td>
+    <td align="right" class="lineno"><pre>157</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    //This prevents timer overflow scheduling errors</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>160</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 2 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="lineno"><pre>158</pre></td>
+    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 4 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>    if(startTime &lt; *(tBScheduler -> currentTime)){</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>161</pre></td>
+    <td align="right" class="lineno"><pre>159</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount uncoveredLine"><pre></pre></td>
     <td align="left" class="src uncoveredLine"><pre>        task.overflow = !tBScheduler -> overflow;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>162</pre></td>
+    <td align="right" class="lineno"><pre>160</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }else</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>163</pre></td>
+    <td align="right" class="lineno"><pre>161</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>164</pre></td>
+    <td align="right" class="lineno"><pre>162</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>        task.overflow = tBScheduler ->overflow;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>165</pre></td>
+    <td align="right" class="lineno"><pre>163</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
+    <td align="right" class="lineno"><pre>164</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.functions.charfunction = function;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>165</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.param = param;</pre></td>
+    </tr>
+
+    <tr>
     <td align="right" class="lineno"><pre>166</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.functions.charfunction = function;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.priority = priority;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>167</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.param = param;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.isPeriodic = true;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>168</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.priority = priority;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.period = period;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>169</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.isPeriodic = true;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.startTime = startTime;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>170</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.period = period;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.isReady = false;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>171</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.startTime = startTime;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    tBScheduler -> queueAdd((tBScheduler->queue), task);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>172</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.isReady = false;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return true;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>173</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    tBScheduler -> queueAdd((tBScheduler->queue), task);</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>174</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return true;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>175</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>bool timeBasedScheduler_addTaskWithParam(timeBasedScheduler_t tBScheduler, void (*function)(char*), uint8_t priority, uint16_t start_time, char* param){</pre></td>
     </tr>
 
     <tr>
@@ -1534,15 +1534,15 @@
     <tr>
     <td align="right" class="lineno"><pre>177</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>bool timeBasedScheduler_addTaskWithParam(timeBasedScheduler_t tBScheduler, void (*function)(char*), uint8_t priority, uint16_t start_time, char* param){</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>178</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 3 taken 8 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){</pre></td>
     </tr>
 
     <tr>
@@ -1554,198 +1554,198 @@
 
     <tr>
     <td align="right" class="lineno"><pre>180</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 3 taken 2 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if(tBScheduler->queueSize(tBScheduler -> queue) >= tBScheduler->queueCapacity(tBScheduler -> queue)){</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>181</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>182</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount uncoveredLine"><pre></pre></td>
     <td align="left" class="src uncoveredLine"><pre>        return false;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>183</pre></td>
+    <td align="right" class="lineno"><pre>181</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>184</pre></td>
+    <td align="right" class="lineno"><pre>182</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    uint16_t startTime;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>185</pre></td>
+    <td align="right" class="lineno"><pre>183</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    task task;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>186</pre></td>
+    <td align="right" class="lineno"><pre>184</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    //Use pointer to get most accurate currentTime</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>187</pre></td>
+    <td align="right" class="lineno"><pre>185</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
     <td align="left" class="src coveredLine"><pre>    startTime = (*(tBScheduler -> currentTime) + start_time);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>188</pre></td>
+    <td align="right" class="lineno"><pre>186</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    //If overflow occured add with flipped overflow bit</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>189</pre></td>
+    <td align="right" class="lineno"><pre>187</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    //This prevents timer overflow scheduling errors</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>190</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1 times">&check;</span><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="lineno"><pre>188</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 4 times">&check;</span><span class="takenBranch" title="Branch 1 taken 4 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
     <td align="left" class="src coveredLine"><pre>    if(startTime &lt; *(tBScheduler -> currentTime)){</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>191</pre></td>
+    <td align="right" class="lineno"><pre>189</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>        task.overflow = !tBScheduler -> overflow;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>192</pre></td>
+    <td align="right" class="lineno"><pre>190</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }else</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>193</pre></td>
+    <td align="right" class="lineno"><pre>191</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>194</pre></td>
+    <td align="right" class="lineno"><pre>192</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>        task.overflow = tBScheduler ->overflow;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>195</pre></td>
+    <td align="right" class="lineno"><pre>193</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
+    <td align="right" class="lineno"><pre>194</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.id = 33;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>195</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.functions.charfunction = function;</pre></td>
+    </tr>
+
+    <tr>
     <td align="right" class="lineno"><pre>196</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.id = 33;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.param = param;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>197</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.functions.charfunction = function;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.priority = priority;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>198</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.param = param;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.isPeriodic = false;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>199</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.priority = priority;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.period = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>200</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.isPeriodic = false;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.isReady = false;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>201</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.period = 0;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>    task.startTime = startTime;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>202</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.isReady = false;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>203</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    task.startTime = startTime;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>204</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
     <td align="left" class="src coveredLine"><pre>    tBScheduler -> queueAdd((tBScheduler->queue), task);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>205</pre></td>
+    <td align="right" class="lineno"><pre>203</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
+    <td align="right" class="lineno"><pre>204</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return true;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>205</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
+    </tr>
+
+    <tr>
     <td align="right" class="lineno"><pre>206</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return true;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>207</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>160</pre></td>
+    <td align="left" class="src coveredLine"><pre>uint8_t timeBasedScheduler_findNextAvailableId(timeBasedScheduler_t tBScheduler){</pre></td>
     </tr>
 
     <tr>
@@ -1757,86 +1757,86 @@
 
     <tr>
     <td align="right" class="lineno"><pre>209</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>48</pre></td>
-    <td align="left" class="src coveredLine"><pre>uint8_t timeBasedScheduler_findNextAvailableId(timeBasedScheduler_t tBScheduler){</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2152 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2152</pre></td>
+    <td align="left" class="src coveredLine"><pre>    for (uint8_t i = 0; i &lt; 32; i++)</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>210</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>211</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 548 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>548</pre></td>
-    <td align="left" class="src coveredLine"><pre>    for (uint8_t i = 0; i &lt; 32; i++)</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>212</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>213</pre></td>
+    <td align="right" class="lineno"><pre>211</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        //Check if nth bit is set</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>214</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 48 times">&check;</span><span class="takenBranch" title="Branch 1 taken 500 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>548</pre></td>
+    <td align="right" class="lineno"><pre>212</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 160 times">&check;</span><span class="takenBranch" title="Branch 1 taken 1992 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2152</pre></td>
     <td align="left" class="src coveredLine"><pre>        if( !(  ((tBScheduler -> availableIDs) >> i) &amp; 1)  ){</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>215</pre></td>
+    <td align="right" class="lineno"><pre>213</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>48</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>160</pre></td>
     <td align="left" class="src coveredLine"><pre>            tBScheduler -> availableIDs  |= (1 &lt;&lt; i);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>216</pre></td>
+    <td align="right" class="lineno"><pre>214</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>48</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>160</pre></td>
     <td align="left" class="src coveredLine"><pre>            return i;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>217</pre></td>
+    <td align="right" class="lineno"><pre>215</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>218</pre></td>
+    <td align="right" class="lineno"><pre>216</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>219</pre></td>
+    <td align="right" class="lineno"><pre>217</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount uncoveredLine"><pre></pre></td>
     <td align="left" class="src uncoveredLine"><pre>    return 255;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>220</pre></td>
+    <td align="right" class="lineno"><pre>218</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>}</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>219</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>220</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>76</pre></td>
+    <td align="left" class="src coveredLine"><pre>void timeBasedScheduler_freeID(timeBasedScheduler_t tBScheduler, uint8_t n){</pre></td>
     </tr>
 
     <tr>
@@ -1849,36 +1849,36 @@
     <tr>
     <td align="right" class="lineno"><pre>222</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
-    <td align="left" class="src coveredLine"><pre>void timeBasedScheduler_freeID(timeBasedScheduler_t tBScheduler, uint8_t n){</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>76</pre></td>
+    <td align="left" class="src coveredLine"><pre>    tBScheduler -> availableIDs &amp;= (~ (1 &lt;&lt; n));</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>223</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    //UART_transmit(0xD0);</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>76</pre></td>
+    <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>224</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    //UART_transmit(n);</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>225</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
-    <td align="left" class="src coveredLine"><pre>    tBScheduler -> availableIDs &amp;= (~ (1 &lt;&lt; n));</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>226</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
-    <td align="left" class="src coveredLine"><pre>}</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
+    <td align="left" class="src coveredLine"><pre>void timeBasedScheduler_timer(uint8_t timer, uint16_t intervall){</pre></td>
     </tr>
 
     <tr>
@@ -1898,8 +1898,8 @@
     <tr>
     <td align="right" class="lineno"><pre>229</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
-    <td align="left" class="src coveredLine"><pre>void timeBasedScheduler_timer(uint8_t timer, uint16_t intervall){</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
+    <td align="left" class="src coveredLine"><pre>    arduinoArch_setTimer();</pre></td>
     </tr>
 
     <tr>
@@ -1912,120 +1912,120 @@
     <tr>
     <td align="right" class="lineno"><pre>231</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
+    <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>232</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
-    <td align="left" class="src coveredLine"><pre>    arduinoArch_setTimer();</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>233</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="left" class="src coveredLine"><pre>bool timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>234</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>67</pre></td>
-    <td align="left" class="src coveredLine"><pre>}</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bool taskReady = false;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>235</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="left" class="src coveredLine"><pre>    uint8_t size = tBScheduler->queueSize(tBScheduler->queue);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>236</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
-    <td align="left" class="src coveredLine"><pre>void timeBasedScheduler_markIfReady(timeBasedScheduler_t tBScheduler){</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 32 times">&check;</span><span class="takenBranch" title="Branch 1 taken 20 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>52</pre></td>
+    <td align="left" class="src coveredLine"><pre>    for (uint8_t i = 0; i &lt; size; i++)</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>237</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>238</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
-    <td align="left" class="src coveredLine"><pre>    uint8_t size = tBScheduler->queueSize(tBScheduler->queue);</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>239</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 36 times">&check;</span><span class="takenBranch" title="Branch 1 taken 21 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>57</pre></td>
-    <td align="left" class="src coveredLine"><pre>    for (uint8_t i = 0; i &lt; size; i++)</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>240</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>241</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 21 times">&check;</span><span class="takenBranch" title="Branch 2 taken 15 times">&check;</span><span class="takenBranch" title="Branch 4 taken 21 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
+    <td align="right" class="lineno"><pre>238</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 20 times">&check;</span><span class="takenBranch" title="Branch 2 taken 12 times">&check;</span><span class="takenBranch" title="Branch 4 taken 20 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>32</pre></td>
     <td align="left" class="src coveredLine"><pre>        if ( (tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->startTime &lt;= *(tBScheduler -> currentTime)) &amp;&amp; ((tBScheduler -> overflow == tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->overflow)) )</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>242</pre></td>
+    <td align="right" class="lineno"><pre>239</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>243</pre></td>
+    <td align="right" class="lineno"><pre>240</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
     <td align="left" class="src coveredLine"><pre>            tBScheduler -> queuePeekAt(tBScheduler -> queue, i)->isReady = true;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>244</pre></td>
+    <td align="right" class="lineno"><pre>241</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="left" class="src coveredLine"><pre>            taskReady = true;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>242</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>245</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>246</pre></td>
+    <td align="right" class="lineno"><pre>243</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>247</pre></td>
+    <td align="right" class="lineno"><pre>244</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return taskReady;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>245</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>246</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>247</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="left" class="src coveredLine"><pre>void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler){</pre></td>
     </tr>
 
     <tr>
@@ -2038,351 +2038,351 @@
     <tr>
     <td align="right" class="lineno"><pre>249</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
-    <td align="left" class="src coveredLine"><pre>}</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    task nextTask;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>250</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>    task* pTask;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>251</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
-    <td align="left" class="src coveredLine"><pre>void timeBasedScheduler_schedule(timeBasedScheduler_t tBScheduler){</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="left" class="src coveredLine"><pre>        cli();</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>252</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="left" class="src coveredLine"><pre>        pTask = tBScheduler -> queueGetNextReady(tBScheduler->queue);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>253</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    task nextTask;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>254</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    task* pTask;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>255</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
-    <td align="left" class="src coveredLine"><pre>        cli();</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>256</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
-    <td align="left" class="src coveredLine"><pre>        pTask = tBScheduler -> queueGetNextReady(tBScheduler->queue);</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>257</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
     <td align="left" class="src coveredLine"><pre>        sei();</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>258</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 16 times">&check;</span><span class="takenBranch" title="Branch 1 taken 5 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
+    <td align="right" class="lineno"><pre>254</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 16 times">&check;</span><span class="takenBranch" title="Branch 1 taken 4 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
     <td align="left" class="src coveredLine"><pre>        if(pTask != 0){</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>259</pre></td>
+    <td align="right" class="lineno"><pre>255</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>16</pre></td>
     <td align="left" class="src coveredLine"><pre>            nextTask = *pTask;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>260</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>            //UART_transmit(nextTask.priority);</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>261</pre></td>
+    <td align="right" class="lineno"><pre>256</pre></td>
     <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 16 times">&check;</span></td>
     <td align="right" class="linecount coveredLine"><pre>16</pre></td>
     <td align="left" class="src coveredLine"><pre>            if(nextTask.param){</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>262</pre></td>
+    <td align="right" class="lineno"><pre>257</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount uncoveredLine"><pre></pre></td>
     <td align="left" class="src uncoveredLine"><pre>                nextTask.functions.charfunction(nextTask.param);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>263</pre></td>
+    <td align="right" class="lineno"><pre>258</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>            }else{</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>264</pre></td>
+    <td align="right" class="lineno"><pre>259</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>16</pre></td>
     <td align="left" class="src coveredLine"><pre>                nextTask.functions.voidfunction();</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>265</pre></td>
+    <td align="right" class="lineno"><pre>260</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>            }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>266</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 11 times">&check;</span><span class="takenBranch" title="Branch 1 taken 5 times">&check;</span></td>
+    <td align="right" class="lineno"><pre>261</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 12 times">&check;</span><span class="takenBranch" title="Branch 1 taken 4 times">&check;</span></td>
     <td align="right" class="linecount coveredLine"><pre>16</pre></td>
     <td align="left" class="src coveredLine"><pre>            if(nextTask.isPeriodic){</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>267</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 11 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
+    <td align="right" class="lineno"><pre>262</pre></td>
+    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 12 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
     <td align="left" class="src coveredLine"><pre>                    if(nextTask.param){</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>268</pre></td>
+    <td align="right" class="lineno"><pre>263</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount uncoveredLine"><pre></pre></td>
     <td align="left" class="src uncoveredLine"><pre>                        timeBasedScheduler_addPeriodicTaskWithParam(tBScheduler, nextTask.functions.charfunction, nextTask.priority, nextTask.period, nextTask.period, tBScheduler -> overflow, nextTask.param, nextTask.id);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>269</pre></td>
+    <td align="right" class="lineno"><pre>264</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>                    }else</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>270</pre></td>
+    <td align="right" class="lineno"><pre>265</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>                    {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>271</pre></td>
+    <td align="right" class="lineno"><pre>266</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
     <td align="left" class="src coveredLine"><pre>                        timeBasedScheduler_addPeriodicTaskID(tBScheduler, nextTask.functions.voidfunction, nextTask.priority, nextTask.period, nextTask.period, tBScheduler -> overflow, nextTask.id);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>272</pre></td>
+    <td align="right" class="lineno"><pre>267</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>                    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>273</pre></td>
+    <td align="right" class="lineno"><pre>268</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>                //priorityQueueHeap_incrementPriorityOfNonPeriodic(tBScheduler->queue);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>274</pre></td>
+    <td align="right" class="lineno"><pre>269</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>            }else{</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>275</pre></td>
+    <td align="right" class="lineno"><pre>270</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>                //Free param if task is non-periodic</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>276</pre></td>
+    <td align="right" class="lineno"><pre>271</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>                free(nextTask.param);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>277</pre></td>
+    <td align="right" class="lineno"><pre>272</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>278</pre></td>
+    <td align="right" class="lineno"><pre>273</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>279</pre></td>
+    <td align="right" class="lineno"><pre>274</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
     <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>280</pre></td>
+    <td align="right" class="lineno"><pre>275</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>281</pre></td>
+    <td align="right" class="lineno"><pre>276</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>void timeBasedScheduler_deleteTask(timeBasedScheduler_t tBScheduler, uint8_t id){</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>282</pre></td>
+    <td align="right" class="lineno"><pre>277</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    //UART_transmit(0xD1);</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>283</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    //UART_transmit(id);</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>284</pre></td>
+    <td align="right" class="lineno"><pre>278</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    //Receive Interrupt could interfere by adding receive task</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>285</pre></td>
+    <td align="right" class="lineno"><pre>279</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>    cli();</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>286</pre></td>
+    <td align="right" class="lineno"><pre>280</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    uint8_t n;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>287</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="lineno"><pre>281</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 4 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>    for (uint8_t i = 0; i &lt; tBScheduler -> queueSize(tBScheduler -> queue); i++)</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>288</pre></td>
+    <td align="right" class="lineno"><pre>282</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>289</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="lineno"><pre>283</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 4 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>        if(tBScheduler -> queuePeekAt(tBScheduler -> queue, i) -> id == id){</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>290</pre></td>
+    <td align="right" class="lineno"><pre>284</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>            n = i;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>291</pre></td>
+    <td align="right" class="lineno"><pre>285</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>            free(tBScheduler -> queuePeekAt(tBScheduler -> queue, i) -> param);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>292</pre></td>
+    <td align="right" class="lineno"><pre>286</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>            break;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>293</pre></td>
+    <td align="right" class="lineno"><pre>287</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>294</pre></td>
+    <td align="right" class="lineno"><pre>288</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
+    <td align="right" class="lineno"><pre>289</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    tBScheduler -> queueDelete(tBScheduler -> queue, n);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>290</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    sei();</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>291</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    timeBasedScheduler_freeID(tBScheduler, id);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>292</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>}</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>293</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>294</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
     <td align="right" class="lineno"><pre>295</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    tBScheduler -> queueDelete(tBScheduler -> queue, n);</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>uint32_t timeBasedScheduler_getUsedIDsInt(timeBasedScheduler_t tBScheduler){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>296</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    sei();</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>297</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    timeBasedScheduler_freeID(tBScheduler, id);</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return tBScheduler -> availableIDs;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>298</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>}</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
@@ -2395,131 +2395,89 @@
     <tr>
     <td align="right" class="lineno"><pre>300</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
+    <td align="left" class="src coveredLine"><pre>void timeBasedScheduler_incrementTimer(timeBasedScheduler_t tBScheduler){</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>301</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>uint32_t timeBasedScheduler_getUsedIDsInt(timeBasedScheduler_t tBScheduler){</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>302</pre></td>
-    <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>303</pre></td>
+    <td align="right" class="lineno"><pre>302</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return tBScheduler -> availableIDs;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
+    <td align="left" class="src coveredLine"><pre>    *(tBScheduler -> currentTime) = *(tBScheduler -> currentTime) + 1;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>303</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 4 times">&check;</span><span class="takenBranch" title="Branch 1 taken 20 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if (*(tBScheduler -> currentTime) &lt; 1)</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>304</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
+    <td align="left" class="src "><pre>    {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>305</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>306</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>30</pre></td>
-    <td align="left" class="src coveredLine"><pre>void timeBasedScheduler_incrementTimer(timeBasedScheduler_t tBScheduler){</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>307</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>308</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>30</pre></td>
-    <td align="left" class="src coveredLine"><pre>    *(tBScheduler -> currentTime) = *(tBScheduler -> currentTime) + 1;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>309</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 5 times">&check;</span><span class="takenBranch" title="Branch 1 taken 25 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>30</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if (*(tBScheduler -> currentTime) &lt; 1)</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>310</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    {</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>311</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>       tBScheduler -> overflow = !tBScheduler -> overflow;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>312</pre></td>
+    <td align="right" class="lineno"><pre>306</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>313</pre></td>
+    <td align="right" class="lineno"><pre>307</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>30</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
     <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>314</pre></td>
+    <td align="right" class="lineno"><pre>308</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>315</pre></td>
+    <td align="right" class="lineno"><pre>309</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount uncoveredLine"><pre></pre></td>
     <td align="left" class="src uncoveredLine"><pre>bool timeBasedScheduler_getOverflowBit(timeBasedScheduler_t tBScheduler){</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>316</pre></td>
+    <td align="right" class="lineno"><pre>310</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>317</pre></td>
+    <td align="right" class="lineno"><pre>311</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount uncoveredLine"><pre></pre></td>
     <td align="left" class="src uncoveredLine"><pre>    return tBScheduler -> overflow;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>318</pre></td>
+    <td align="right" class="lineno"><pre>312</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>}</pre></td>

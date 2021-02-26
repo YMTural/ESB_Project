@@ -538,8 +538,6 @@ void test_timeBasedScheduler_addTaskWithTimeOverflow(void){
 
     priorityQueueHeap_free(queue);
 
-
-
 }
 
 
@@ -574,7 +572,7 @@ void test_timeBasedScheduler_deleteTask(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(255), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(254), UNITY_DISPLAY_STYLE_UINT8);
 
     timeBasedScheduler_free(tBScheduler);
 
@@ -606,7 +604,7 @@ void test_timeBasedScheduler_getAvailableIdWhenNoneTaken(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(269), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(268), UNITY_DISPLAY_STYLE_UINT8);
 
 
 
@@ -644,7 +642,7 @@ void test_timeBasedScheduler_getAvailableIdWhenOneTaken(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(286), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(285), UNITY_DISPLAY_STYLE_UINT8);
 
 
 
@@ -686,7 +684,7 @@ void test_timeBasedScheduler_getAvailableIdWhenFirstFreeSecondTaken(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(305), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(304), UNITY_DISPLAY_STYLE_UINT8);
 
 
 
@@ -726,7 +724,7 @@ void test_timeBasedScheduler_getAvailableIdFreeId(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(323), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(322), UNITY_DISPLAY_STYLE_UINT8);
 
 
 
@@ -786,7 +784,7 @@ void test_timeBasedScheduler_getUsedIds(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(351), UNITY_DISPLAY_STYLE_UINT8);
+   ), (UNITY_UINT)(350), UNITY_DISPLAY_STYLE_UINT8);
 
 
 
