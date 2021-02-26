@@ -193,13 +193,17 @@ bool tryToMove(Chess_t chessGame, uint8_t movingPiecePos, uint8_t replacedPieceP
             chessGame -> blackKing = replacedPiecePos;
         }
     }
+    //PlayMove
     board[replacedPiecePos] = movingPiece;
     board[movingPiecePos] = none;
     chessGame ->playerTurn ^= 1;
+
     if(canTheKingBeCaptured(chessGame) == true){
+        //UndoMove
         board[replacedPiecePos] = replacedPiece;
         board[movingPiecePos] = movingPiece;
         chessGame ->playerTurn ^= 1;
+
         if(movingPiece.type == KING){
             if(movingPiece.color == WHITE){
                 chessGame -> whiteKing = movingPiecePos;
@@ -209,18 +213,14 @@ bool tryToMove(Chess_t chessGame, uint8_t movingPiecePos, uint8_t replacedPieceP
             }
         }
         return false;
-    }else
-    {   //Pawn Promotion
+    }
+    //Pawn Promotion
         if((replacedPiecePos < 8 || replacedPiecePos > 55) && movingPiece.type == PAWN){
 
-            Piece newQueen = {QUEEN, movingPiece.color}
+            Piece newQueen = {QUEEN, movingPiece.color};
             board[replacedPiecePos] = newQueen;
         }
-        return true;
-    }
-    
-
-
+    return true;
 }
 bool isBishopPathFree(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2){
     uint8_t moveAllowed = true;
@@ -328,6 +328,7 @@ uint8_t movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t
     } 
     //Check Right Color to Move
     if(currentPiece -> color != chessGame -> playerTurn){
+        printf("WTF: %d\n", currentPiece -> color);
         return NOPIECESELECTED;
     }
 
@@ -448,6 +449,7 @@ uint8_t movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t
         if(tryToMove(chessGame, y1 * 8 + x1, y2 * 8 + x2)){     
             return (chessGame -> playerTurn ? BLACKSTURN : WHITESTURN);
         }
+    printf("NotAllowed: %d, %d, %d, %d\n", x1,y1,x2,y2);
     }
         return NOTPOSSIBLE;
 

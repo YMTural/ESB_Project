@@ -31,3 +31,5 @@ src/adc_temperature.c:
 - TEST
 src/taskHandler.c:
 - TEST
+src/chess.c:
+- TEST

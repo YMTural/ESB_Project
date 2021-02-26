@@ -27,7 +27,7 @@ void test_UART_buffer_init(void){
     circularBuffer_free(test_cRBuffer);
 
     free(test_rBuffer);
-    free(test_tBuffer);
+   // free(test_tBuffer);
 }
 
 void test_UART_buffer_receiveOne(void){
@@ -244,7 +244,7 @@ void test_UART_buffer_transmitMultipleFromEmpty(void){
     
     UART_buffer_free(uBuf);
 
-    circularBuffer_free(test_cTBuffer);
+    //circularBuffer_free(test_cTBuffer);
     circularBuffer_free(test_cRBuffer);
 
     free(test_rBuffer);
