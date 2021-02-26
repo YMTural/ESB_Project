@@ -3,12 +3,11 @@
 #define CHESS_H
 
 
-#if(DEBUG == 1)
 struct Piece{
     uint8_t type;
     uint8_t color;
 };
-#endif
+
 
 typedef struct Piece Piece;
 

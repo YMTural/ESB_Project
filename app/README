@@ -1,6 +1,3 @@
-
-
-
 Jedes main_* ist ein Integration Test, wobei ich die Ausgabe mit dem Programm "moserial" überprüft habe. Für "main_UART.c" und "main_UART_buffer.c" gibt es nun automatisierte Tests.
 Port-Settings:
                 - Gerät: /dev/ttyACM0 
@@ -24,9 +21,48 @@ UPDATE:
     -UART_lib funktioniert nun wie vorgesehen
     -"main_UART_interrupt.c“ und „–buffer.c" provozieren Testfälle, in denen nebenläufig Daten gesendet und empfangen werden.
     -Unit Test für "adc_temperature.c" hinzugefügt
-    -Main Application funktionier nun wie vorgesehen und enthält einen Counter
+    -myApplication funktioniert nun wie vorgesehen und enthält einen Counter
     -Im Unit Test test_priorityQueueHeap_swapOnce Assertion ergänzt
+    -Timer Overflow handling test hinzugefügt
+    -adc_temperature Unit Test hinzugefügt
+
 
 Die Main Application sendet alle paar Sekunden die aktuelle Chip Temperatur und berechnet den Sinus der eingeben Zahl (als ASCII z.B 090.00 oder 123.12). Übertragen muss mit carriage return und new line am Ende.
 Dies geschieht mit moserial, insofern der ASCII Modus ausgewählt wurde, automatisch.
 
+//Da Moserial aufgrund eines bugs nur 20 ASCII Zeichen auf einmal senden kann, muss dass Endzeichen (0x0A) manuell am Ende einer Eingabe hinzugefügt werden!
+
+CLI Programm:
+    
+    Features:
+        -Empfängt und Sendet Strings bis zu einer Länge von 128 Zeichen
+        -Gibt Feedback wenn "Exceptions" geworfen werden (Unbekannter Command, Falscher Typ, Task queue voll und kein freier Speicher)
+        -Kann periodische Task ausführen mit periodic <Zeit in s> <command> <param -Optional>. z.B "periodic 3 echo Hallo Welt!" 
+        -Sine ist abhängig vom aktuellen Status der LED
+        -Interrupt Based UART
+        -Geht in einen Sleepmode wenn im IDLE Modus und hat nur die aktuell benötigten Module aktiv
+        -List gibt alle Periodischen Task mit ihrer zugehörigen id und parameter zurück
+        -Task erhalten abhängig ihres Typ's verschiedene Prioritäten, wobei non-periodic tasks bevorzugt werden
+        -Bis zu 28 Nutzer gesteuerte Task möglich*
+        -Schach
+            -Alle Regeln implementiert**
+            -Feedback zur Zugreihenfolge
+            -Feedback falls Zug nicht möglich
+            -Über MQTT Client nutzbar*** 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*Falls zu viele Commands mit Output gleichzeitig ausführt werden sollen, läuft der Buffer über
+**Ausgenommen Rochade, en passent und die Umwandlung eines Bauerns ist immer zur Dame
+***Theoretisch ja, aber Implementierung hängt davon ob ich noch die Zeit dazu noch finde

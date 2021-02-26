@@ -79,7 +79,7 @@ const char chess_blacksTurn[16] PROGMEM = {"Schwarz am Zug\n"};
 
 
 const char greetingMessage[128] PROGMEM = {"ESB - Arduino Command-Line Interface - Willkommen!\nGeben Sie help ein um alle verfuegbaren Commands zu sehen.\n"};
-const char helpMessage[128] PROGMEM = {"Commands: help, echo <string>, led <bit>, flash <uint8>, sine <uint8>, inc, counter, temp, periodic, kill <uint8>, list \n"};
+const char helpMessage[128] PROGMEM = {"Commands: help, echo <string>, led <bit>, flash <uint8>, sine <uint8>, inc, counter, temp, periodic, kill <uint8>, list\n"};
 const char counterMessage[32] PROGMEM = {"Der Counter liegt aktuell bei: "};
 const char temperatureMessage[64] PROGMEM = {"Die aktuelle Temperatur des Chips betraegt: "};
 const char listMessage[64] PROGMEM = {"Folgende IDs sind aktuell vergeben: "};
@@ -592,10 +592,10 @@ int main() {
   timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, STARTIMMEDIATELY);
 
   //Welcome Message
-  //timeBasedScheduler_addTask(tBScheduler, &sendWelcomeMessage, 127, STARTIMMEDIATELY);
+  timeBasedScheduler_addTask(tBScheduler, &sendWelcomeMessage, 127, STARTIMMEDIATELY);
 
   //Debug
-  timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 250, 1000, STARTIMMEDIATELY, 0);
+  //timeBasedScheduler_addPeriodicTask(tBScheduler, &freeRam, 250, 1000, STARTIMMEDIATELY, 0);
 
   //Disable all Modules
   power_all_disable();

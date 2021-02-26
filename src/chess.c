@@ -6,12 +6,8 @@
 #define lowerASCII 32
 
 
-#if (DEBUG == 0)
-struct Piece{
-    uint8_t type;
-    uint8_t color;
-};
-#endif
+
+
 Piece board[64] = { {ROOK, BLACK}, {KNIGHT, BLACK}, {BISHOP, BLACK}, {QUEEN, BLACK}, {KING, BLACK}, {BISHOP, BLACK}, {KNIGHT, BLACK}, {ROOK, BLACK},
                     {PAWN, BLACK}, {PAWN, BLACK}, {PAWN, BLACK}, {PAWN, BLACK}, {PAWN, BLACK}, {PAWN, BLACK}, {PAWN, BLACK}, {PAWN, BLACK},
                     {NONE, 128}, {NONE, 128}, {NONE, 128}, {NONE, 128}, {NONE, 128}, {NONE, 128} , {NONE, 128}, {NONE, 128},
@@ -328,7 +324,6 @@ uint8_t movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t
     } 
     //Check Right Color to Move
     if(currentPiece -> color != chessGame -> playerTurn){
-        printf("WTF: %d\n", currentPiece -> color);
         return NOPIECESELECTED;
     }
 
@@ -449,7 +444,6 @@ uint8_t movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t
         if(tryToMove(chessGame, y1 * 8 + x1, y2 * 8 + x2)){     
             return (chessGame -> playerTurn ? BLACKSTURN : WHITESTURN);
         }
-    printf("NotAllowed: %d, %d, %d, %d\n", x1,y1,x2,y2);
     }
         return NOTPOSSIBLE;
 

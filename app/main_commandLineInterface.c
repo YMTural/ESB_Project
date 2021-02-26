@@ -73,13 +73,13 @@ uint8_t errorCode = 1;
 const char const multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill", ""};
 const char const singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list", "chess"};                                                   
 
-const char chess_illegalMove[64] PROGMEM = {"Dieser Zug ist nicht moeglich!\n”"};
-const char chess_whitesTurn[32] PROGMEM = {"Weiss am Zug\n"};
-const char chess_blacksTurn[32] PROGMEM = {"Schwarz am Zug\n"};
+const char chess_illegalMove[32] PROGMEM = {"Dieser Zug ist nicht moeglich!\n"};
+const char chess_whitesTurn[16] PROGMEM = {"Weiss am Zug\n"};
+const char chess_blacksTurn[16] PROGMEM = {"Schwarz am Zug\n"};
 
 
 const char greetingMessage[128] PROGMEM = {"ESB - Arduino Command-Line Interface - Willkommen!\nGeben Sie help ein um alle verfuegbaren Commands zu sehen.\n"};
-const char helpMessage[128] PROGMEM = {"Commands: help, echo <string>, led <bit>, flash <uint8>, sine <uint8>, inc, counter, temp, periodic, kill <uint8>, list \n"};
+const char helpMessage[128] PROGMEM = {"Commands: help, echo <string>, led <bit>, flash <uint8>, sine <uint8>, inc, counter, temp, periodic, kill <uint8>, list\n"};
 const char counterMessage[32] PROGMEM = {"Der Counter liegt aktuell bei: "};
 const char temperatureMessage[64] PROGMEM = {"Die aktuelle Temperatur des Chips betraegt: "};
 const char listMessage[64] PROGMEM = {"Folgende IDs sind aktuell vergeben: "};
@@ -396,14 +396,14 @@ void determineTask(void){
     outcome = movePiece(chessGame, (receivedCommand[0] - 'a'), 7 - (receivedCommand[1] - '1'), (receivedCommand[2] - 'a'), 7 - (receivedCommand[3] - '1'));
     timeBasedScheduler_addTask(tBScheduler, &chess, 200,0);
     if(outcome == WHITESTURN){
-      sendMessage_P(chess_whitesTurn, 32);
+      sendMessage_P(chess_whitesTurn, strlen(chess_whitesTurn));
 
     }else if (outcome == BLACKSTURN)
     {
-      sendMessage_P(chess_blacksTurn, 32);
+      sendMessage_P(chess_blacksTurn, strlen(chess_blacksTurn));
     }else
     {
-      sendMessage_P(chess_illegalMove, 64);
+      sendMessage_P(chess_illegalMove, strlen(chess_illegalMove));
     }
     
     
@@ -592,10 +592,10 @@ int main() {
   timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, STARTIMMEDIATELY);
 
   //Welcome Message
-  //timeBasedScheduler_addTask(tBScheduler, &sendWelcomeMessage, 127, STARTIMMEDIATELY);
+  timeBasedScheduler_addTask(tBScheduler, &sendWelcomeMessage, 127, STARTIMMEDIATELY);
 
   //Debug
-  timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 250, 1000, STARTIMMEDIATELY, 0);
+  //timeBasedScheduler_addPeriodicTask(tBScheduler, &freeRam, 250, 1000, STARTIMMEDIATELY, 0);
 
   //Disable all Modules
   power_all_disable();
