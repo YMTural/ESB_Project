@@ -57,20 +57,55 @@ uint8_t UART_receive(void);
  */
 void UART_flush(void);
 
+/**
+ * @brief  Enables the UDRE Transmit Interrput by setting the bits in the register
+ * 
+ */
 
 void UART_enableTransmitInterrupt(void);
-
+/** 
+ * @brief   Disables the UDRE Transmit Interrupt by setting the bits in the register
+ * 
+ * 
+ * 
+ */
 void UART_disableTransmitInterrupt(void);
-
+/**
+ * @brief Enables the RX_VECT Receive Interrupt by settings the bits in the register 
+ * 
+ * 
+ */
 void UART_enableReceiveInterrupt(void);
-
+/**
+ * @brief Disables the RX_VECT Receive Interrupt by settings the bits in the register 
+ * 
+ * 
+ */
 void UART_disableReceiveInterrupt(void);
-
+/**
+ * @brief Enables the TX_VECT Transmit Complete Interrupt by settings the bits in the register 
+ * 
+ * 
+ */
 void UART_enableTransmitCompleteInterrupt(void);
-
+/**
+ * @brief Disables the TX_VECT Transmit Complete Interrupt by settings the bits in the register 
+ * 
+ * 
+ */
 void UART_disableTransmitCompleteInterrupt(void);
 
+/**
+ * @brief Overwrites the transmit buffer register
+ * 
+ * @param data
+ * Data which is to be transferred
+ */
 void UART_overwriteRegister(uint8_t data);
-
+/**
+ * @brief Reads the receive buffer register 
+ * 
+ * @return Content of the receive buffer register
+ */ 
 uint8_t UART_forceReadData(void);
 #endif

@@ -18,8 +18,9 @@
 #include "bootcamp/adc_temperature.h"
 #include "bootcamp/priorityQueueHeap.h"
 #include "bootcamp/sinusFunctions/sinusFunction.h"
-#include "bootcamp/taskHandler.h"
 #include "bootcamp/chess.h"
+#include "bootcamp/taskHandler.h"
+
 /*
 
 Commands:
@@ -71,6 +72,11 @@ uint8_t errorCode = 1;
 
 const char const multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill", ""};
 const char const singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list", "chess"};                                                   
+
+const char chess_illegalMove[32] PROGMEM = {"Dieser Zug ist nicht moeglich!\n"};
+const char chess_whitesTurn[16] PROGMEM = {"Weiss am Zug\n"};
+const char chess_blacksTurn[16] PROGMEM = {"Schwarz am Zug\n"};
+
 
 const char greetingMessage[128] PROGMEM = {"ESB - Arduino Command-Line Interface - Willkommen!\nGeben Sie help ein um alle verfuegbaren Commands zu sehen.\n"};
 const char helpMessage[128] PROGMEM = {"Commands: help, echo <string>, led <bit>, flash <uint8>, sine <uint8>, inc, counter, temp, periodic, kill <uint8>, list \n"};
@@ -381,8 +387,26 @@ void determineTask(void){
       raiseError(UNKNOWNCOMMAND);
       return;
     }
-    movePiece(chessGame, (receivedCommand[0] - 'a'), 7 - (receivedCommand[1] - '1'), (receivedCommand[2] - 'a'), 7 - (receivedCommand[3] - '1'));
+    if(strncmp(receivedCommand,"exit", 4) == 0){
+      chessMode = false;
+      commandLength = 0;
+      return;
+    }
+    uint8_t outcome;
+    outcome = movePiece(chessGame, (receivedCommand[0] - 'a'), 7 - (receivedCommand[1] - '1'), (receivedCommand[2] - 'a'), 7 - (receivedCommand[3] - '1'));
     timeBasedScheduler_addTask(tBScheduler, &chess, 200,0);
+    if(outcome == WHITESTURN){
+      sendMessage_P(chess_whitesTurn, strlen(chess_whitesTurn));
+
+    }else if (outcome == BLACKSTURN)
+    {
+      sendMessage_P(chess_blacksTurn, strlen(chess_blacksTurn));
+    }else
+    {
+      sendMessage_P(chess_illegalMove, strlen(chess_illegalMove));
+    }
+    
+    
     commandLength = 0;
     return;
   }
@@ -482,7 +506,6 @@ void sendTemperature(void){
 }
 
 void sendMessage(char *msg){
-  UART_transmit(0xac);
   for(uint8_t i = 0; i < strlen(msg); i++){
     circularBuffer_overwrite(cTransmitbuffer, msg[i]);
   }

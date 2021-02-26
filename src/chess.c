@@ -5,20 +5,7 @@
 
 #define lowerASCII 32
 
-enum Type {
-    NONE = 0,
-    PAWN = 'p',
-    KNIGHT = 'n',
-    BISHOP = 'b',
-    ROOK = 'r',
-    QUEEN = 'q',
-    KING = 'k',
-};
 
-enum Color {
-    WHITE,
-    BLACK
-};
 
 struct Piece{
     uint8_t type;
@@ -32,12 +19,12 @@ static Piece board[64] = { {ROOK, BLACK}, {KNIGHT, BLACK}, {BISHOP, BLACK}, {QUE
                     {NONE, 128}, {NONE, 128}, {NONE, 128}, {NONE, 128}, {NONE, 128}, {NONE, 128} , {NONE, 128}, {NONE, 128},
                     {PAWN, WHITE}, {PAWN, WHITE}, {PAWN, WHITE}, {PAWN, WHITE}, {PAWN, WHITE}, {PAWN, WHITE}, {PAWN, WHITE}, {PAWN, WHITE},
                     {ROOK, WHITE}, {KNIGHT, WHITE}, {BISHOP, WHITE}, {QUEEN, WHITE}, {KING, WHITE}, {BISHOP, WHITE}, {KNIGHT, WHITE}, {ROOK, WHITE}};
-int knightMoves[8] = {-17, -15, -10, -6, 6, 10, 15, 17}; 
+int knightMoves[8] = {6, 10, 15, 17}; 
 struct Chess
 {
 
     uint8_t playerTurn;
-    char boardString[73];
+    char boardString[74];
     uint8_t whiteKing;
     uint8_t blackKing; 
 };
@@ -90,20 +77,34 @@ char* getBoard(Chess_t Chess){
         }
         Chess->boardString[u * 9 + 8] = '\n';
     }
-    Chess -> boardString[72] = '\0';
+    Chess -> boardString[72] = '\n';
+    Chess -> boardString[73] = '\0';
     return Chess -> boardString;
 }
+bool isOutOfBounds(int8_t x){
 
+    return (x > 63) || (x < 0);
+}
 bool canTheKingBeCaptured(Chess_t chessGame){
 
 
     uint8_t currentColor = !chessGame ->playerTurn;
     uint8_t currentKing =  currentColor == WHITE ? chessGame ->whiteKing : chessGame->blackKing;
+
     //Check if a Knight can capture King
-    for (uint8_t i = 0; i < 8; i++)
+    for (uint8_t i = 0; i < 4; i++)
     {
-        if((board[currentKing + knightMoves[i]].type == KNIGHT) && (board[currentKing + knightMoves[i]].color != currentColor)) return true;
+            if(currentKing + knightMoves[i] < 64){ 
+                if((board[currentKing + knightMoves[i]].type == KNIGHT) && (board[currentKing + knightMoves[i]].color != currentColor)) return true;
+            }
     }
+    for (uint8_t i = 0; i < 4; i++)
+    {
+            if(currentKing >= knightMoves[i]){
+                if((board[currentKing - knightMoves[i]].type == KNIGHT) && (board[currentKing - knightMoves[i]].color != currentColor)) return true;
+            }
+    }
+
     uint8_t y = currentKing / 8;
     uint8_t x = currentKing % 8;
     //Backtracing from Kings position
@@ -298,7 +299,8 @@ bool isSquareObstructed(Chess_t chessGame, uint8_t pos){
 }
 
 //Input as 0 - 7 
-void movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2){
+uint8_t movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2){
+    
     UART_transmit(x1+ 0x30);
     UART_transmit(y1+ 0x30);
     UART_transmit(x2+ 0x30);
@@ -314,16 +316,15 @@ void movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2
     Piece_t currentPiece = &board[oldPos];
     UART_transmit(currentPiece->type);
     UART_transmit('\n');
-    //Check Right Color to Move
-    if(currentPiece -> color != chessGame -> playerTurn){
-        //ERROR
-        return;
-    }
+
     //Check Input
     if(x1 > 7 || x2 > 7 || y1 > 7 || y2 > 7){
-        //ERROR
-        return;
+        return NOPIECESELECTED;
     } 
+    //Check Right Color to Move
+    if(currentPiece -> color != chessGame -> playerTurn){
+        return NOPIECESELECTED;
+    }
 
     switch (currentPiece->type)
             {
@@ -349,10 +350,6 @@ void movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2
                         break;
                     }
                 }
-                //Not Pinned
-                
-
-
                 break;
 
             case KNIGHT:
@@ -362,9 +359,17 @@ void movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2
                 }
     
                 bool isknightSquare = false;
-                for (uint8_t i = 0; i < 8; i++)
+
+                for (uint8_t i = 0; i < 4; i++)
                 {
-                    if (newPos == (oldPos) + knightMoves[i])
+                    if (newPos == (oldPos + knightMoves[i]))
+                    {
+                        isknightSquare = true;
+                    }
+                }
+                for (uint8_t i = 0; i < 4; i++)
+                {
+                    if (newPos == (oldPos - knightMoves[i]))
                     {
                         isknightSquare = true;
                     }
@@ -374,14 +379,10 @@ void movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2
 
             case BISHOP:
                 if(isSquareObstructed(chessGame, newPos )){
-                    UART_transmit(0x40);
                     moveAllowed = false;
                     break;
                 }
                 if(!legalBishopMove){
-
-                    UART_transmit(0x30 + newPos % 9);
-                    UART_transmit(0x30 + oldPos % 9);
                     moveAllowed = false;
                     break;
                 }
@@ -390,14 +391,10 @@ void movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2
 
             case ROOK:
                 if(isSquareObstructed(chessGame, newPos )){
-                    UART_transmit(0x40);
                     moveAllowed = false;
                     break;
                 }
                 if(!legalRookMove){
-
-                    UART_transmit(0x30 + newPos % 8);
-                    UART_transmit(0x30 + newPos / 8);
                     moveAllowed = false;
                     break;
                 }
@@ -406,16 +403,11 @@ void movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2
 
             case QUEEN:
                 if( isSquareObstructed(chessGame, newPos )){
-                    UART_transmit(0x40);
                     moveAllowed = false;
                     break;
                 }
                 //Both cant be true simultaneously
                 if((legalBishopMove == legalRookMove)){
-                    UART_transmit(0x30 + legalBishopMove);
-                    UART_transmit(0x30 + legalRookMove);
-                    UART_transmit(0x30 + newPos % 8);
-                    UART_transmit(0x30 + newPos / 8);
                     moveAllowed = false;
                     break;
                 }
@@ -431,7 +423,6 @@ void movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2
 
             case KING:
                 if( isSquareObstructed(chessGame, newPos)){
-                    UART_transmit(0x40);
                     moveAllowed = false;
                     break;
                 }
@@ -442,17 +433,18 @@ void movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2
                 break;
 
             default:
-                //ERROR MESSAGE HERE
-                UART_transmit(0x60);
+                //ERROR MESSAGE HERE, SHOULDNT BE REACHED
+                return NOPIECESELECTED;
                 break;
             }
     if (moveAllowed)
     {
-        UART_transmit(0x30 + tryToMove(chessGame, y1 * 8 + x1, y2 * 8 + x2));
-        /*Piece none = {NONE, 128};
-        board[y2 * 8 + x2] = board[y1 * 8 + x1];
-        board[y1 * 8 + x1] = none;
-        chessGame ->playerTurn ^= 1; */
+
+        if(tryToMove(chessGame, y1 * 8 + x1, y2 * 8 + x2)){     
+            return (chessGame -> playerTurn ? BLACKSTURN : WHITESTURN);
+        }
+    }else{
+        return NOTPOSSIBLE;
     }
 }
 
@@ -461,6 +453,8 @@ Chess_t chessGameInit(void){
 
     Chess_t chessGame = malloc(sizeof(Chess)); 
     chessGame -> playerTurn = WHITE;
+    chessGame -> blackKing = 4;
+    chessGame -> whiteKing = 60;
 
     return chessGame;
 }

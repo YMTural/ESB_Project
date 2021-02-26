@@ -35,7 +35,7 @@ typedef struct UART_interrupt UART_interrupt;
 
 
 /**
- * @typedef UART_buffer_t
+ * @typedef UART_interrupt_t
  * @brief  UART_buffer abstract data type interface.
  */
 
@@ -46,18 +46,34 @@ typedef UART_interrupt* UART_interrupt_t;
  *          enableling Interrupts 
  *           
  * @param   ubuf
- *  8 bit data which is to be transmitted
+ *  Uart_interrupt handler
+ * @param count
+ *  Amount of planned transmits
  */
 
 void UART_interrupt_transmitFromBufferInit(UART_interrupt_t ubuf, uint8_t count);
 
 /**
- *          The receiver starts data reception when
- *          it detects a valid start bit and stops when
- *          the first stop bit of a frame is received.
- *          The data will be shifted into the register and returned
+ * @brief A data reception is initiated by enableing the receive interrupt
+ * 
+ * @param ubuf
+ * Uart_interrupt handler
+ * @param
+ * Amount of expected receives
 */
 void UART_interrupt_receiveToBufferInit(UART_interrupt_t ubuf, uint8_t count);
+
+/**
+ * @brief
+ *  If the RX_VECT interrupt has been called, the contents of the receive buffer register are 
+ *  read and pushed/overwritten into the buffer
+ * @param ubuf
+ * Uart_interrupt handler
+ * @param mode
+ * Type of Buffer Operation (Push / Override)
+ * 
+ * 
+ */
 
 void UART_interrupt_receiveToBuffer(UART_interrupt_t ubuf, bool mode);
 
@@ -90,18 +106,65 @@ UART_interrupt_t UART_interrupt_init(void* receiveBuffer, void* transmitBuffer,
                             int8_t (*circularBuffer_push)(void* cbuf, uint8_t data),
                             int8_t (*circularBuffer_read)(void* cbuf, uint8_t* data) );
 
-
-
+/**
+ * @brief
+ *  If the UDRE_Vect interrupt has been called before the next Element of the Buffer is read
+ *  and is written into transmit buffer register
+ * @param ubuf
+ *  Uart_interrupt handler
+ */
 void UART_interrupt_transmitFromBuffer(UART_interrupt_t ubuf);
 
+/**
+ * @brief
+ *  Sets the flag that indicates if the transmit buffer register is ready to be written
+ * @param ubuf
+ *  Uart_interrupt handler
+ * @param status
+ *  Status of the flag
+ * 
+ */
 void UART_interrupt_setTransmitFlag(UART_interrupt_t ubuf, bool status);
+
+/**
+ * @brief
+ *  Checks if the scheduled transmission is completed
+ * @param ubuf
+ *  Uart_interrupt handler
+ * 
+ */ 
 
 bool UART_interrupt_isTransmitComplete(UART_interrupt_t ubuf);
 
-bool UART_interrupt_isReceiveComplete(UART_interrupt_t ubuf);
+/**
+ * @brief
+ *  Checks if the scheduled reception is completed
+ * @param ubuf
+ *  Uart_interrupt handler
+ * 
+ */ 
 
+bool UART_interrupt_isReceiveComplete(UART_interrupt_t ubuf);
+/**
+ * @brief
+ *  Sets the flag that indicates if the receive buffer register is ready to be read
+ * @param ubuf
+ *  UART_interrupt handler
+ * @param status
+ *  Status of the flag
+ * 
+ */ 
 void UART_interrupt_setReceiveFlag(UART_interrupt_t ubuf, bool status);
 
+
+/**
+ * @brief
+ *  Frees the UART_interrupt handler
+ * @param ubuf
+ *  UART_interrupt handler
+ * 
+ * 
+ */ 
 void UART_interrupt_free(UART_interrupt_t ubuf);
 
 uint8_t getCountRec(UART_interrupt_t ubuf);

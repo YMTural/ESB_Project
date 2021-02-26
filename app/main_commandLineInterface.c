@@ -18,6 +18,7 @@
 #include "bootcamp/adc_temperature.h"
 #include "bootcamp/priorityQueueHeap.h"
 #include "bootcamp/sinusFunctions/sinusFunction.h"
+#include "bootcamp/chess.h"
 #include "bootcamp/taskHandler.h"
 
 /*
@@ -57,9 +58,9 @@ Commands:
 #define MAXCOMMANDLENGTH 128
 
 #define LONGESTCOMMAND 9
-#define NUMBEROFMULTICOMMANDS 6
-#define NUMBEROFSINGLECOMMANDS 6
-#define NUMBEROFCOMMANDS 12
+#define NUMBEROFMULTICOMMANDS 7
+#define NUMBEROFSINGLECOMMANDS 7
+#define NUMBEROFCOMMANDS 14
 
 uint16_t currentTime = 0;
 uint8_t sineCounter = 0;
@@ -69,8 +70,13 @@ uint8_t user_counter = 0;
 
 uint8_t errorCode = 1;
 
-const char const multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill"};
-const char const singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list"};                                             
+const char const multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill", ""};
+const char const singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list", "chess"};                                                   
+
+const char chess_illegalMove[64] PROGMEM = {"Dieser Zug ist nicht moeglich!\n”"};
+const char chess_whitesTurn[32] PROGMEM = {"Weiss am Zug\n"};
+const char chess_blacksTurn[32] PROGMEM = {"Schwarz am Zug\n"};
+
 
 const char greetingMessage[128] PROGMEM = {"ESB - Arduino Command-Line Interface - Willkommen!\nGeben Sie help ein um alle verfuegbaren Commands zu sehen.\n"};
 const char helpMessage[128] PROGMEM = {"Commands: help, echo <string>, led <bit>, flash <uint8>, sine <uint8>, inc, counter, temp, periodic, kill <uint8>, list \n"};
@@ -118,8 +124,8 @@ UART_interrupt_t uBuf;
 timeBasedScheduler_t tBScheduler;
 task* taskArray;
 taskHandler_t tHandler;
-
-
+Chess_t chessGame;
+bool chessMode = false;
 
 //Declare here for determine task
 void receive(void);
@@ -130,6 +136,7 @@ void returnCounter(void);
 void sendTemperature(void);
 void incrementCounter(void);
 void task_help(void);
+void chess(void);
 void listTasks(void);
 void raiseError(uint8_t eCode);
 void led(char *param);
@@ -144,7 +151,7 @@ void sendPreview(char *param);
 void sendMessage_P(const char *param, int length);
 
            
-void (*singleCommandList[])(void) = {task_help, toggleLed, incrementCounter, returnCounter, prepareTemp, listTasks};
+void (*singleCommandList[])(void) = {task_help, toggleLed, incrementCounter, returnCounter, prepareTemp, listTasks, chess};
 void (*multiCommandList[])(char*) = {echo, led, flash, sineInit, periodic, kill}; 
 
 //help func
@@ -155,6 +162,7 @@ void clearLastCommand(uint8_t length){
     circularBuffer_read(cReceivebuffer, 0);  
   }
 }
+
 void freeRam () {
   extern int __heap_start, *__brkval;
   int v;
@@ -163,6 +171,7 @@ void freeRam () {
   sprintf(m,"%d",z);
   sendMessage(m);
 }
+
 void raiseError(uint8_t eCode){
 
   errorCode = eCode;
@@ -277,6 +286,12 @@ void periodic(char *param){
 }
 
 //SingleCommands
+
+void chess(void){
+  chessMode = true;
+  sendMessage(getBoard(chessGame));
+}
+
 void task_help(void){
 
   sendMessage_P(helpMessage, strlen(helpMessage));
@@ -366,6 +381,37 @@ void determineTask(void){
     circularBuffer_read(cReceivebuffer, &receivedCommand[i]);
   }
 
+  if(chessMode == true){
+
+    if(commandLength > 5){
+      raiseError(UNKNOWNCOMMAND);
+      return;
+    }
+    if(strncmp(receivedCommand,"exit", 4) == 0){
+      chessMode = false;
+      commandLength = 0;
+      return;
+    }
+    uint8_t outcome;
+    outcome = movePiece(chessGame, (receivedCommand[0] - 'a'), 7 - (receivedCommand[1] - '1'), (receivedCommand[2] - 'a'), 7 - (receivedCommand[3] - '1'));
+    timeBasedScheduler_addTask(tBScheduler, &chess, 200,0);
+    if(outcome == WHITESTURN){
+      sendMessage_P(chess_whitesTurn, 32);
+
+    }else if (outcome == BLACKSTURN)
+    {
+      sendMessage_P(chess_blacksTurn, 32);
+    }else
+    {
+      sendMessage_P(chess_illegalMove, 64);
+    }
+    
+    
+    commandLength = 0;
+    return;
+  }
+
+
   uint8_t nextTokenIndex = taskHandler_parseNextToken(tHandler, receivedCommand, commandLength);
   uint8_t commandNumber = taskHandler_getCommandNumber(tHandler);
 
@@ -425,7 +471,6 @@ void awaitNextCommand(void){
 }
 
 void receive(void){
-
   UART_interrupt_receiveToBuffer(uBuf, PUSH);
   if(circularBuffer_full(cReceivebuffer)){
     raiseError(NOTSUPPORTED);
@@ -445,7 +490,7 @@ void transmit(void){
 }
 
 void prepareTemp(void){
-
+  power_adc_enable();
   adc_temperature_fetchTemperature();
 }
 
@@ -457,10 +502,10 @@ void sendTemperature(void){
   sendMessage_P(temperatureMessage, strlen(temperatureMessage));
   sendMessage(tempStr);
   sendMessage_P(celsiusNewLine, strlen(celsiusNewLine));
+  power_adc_disable();
 }
 
 void sendMessage(char *msg){
-
   for(uint8_t i = 0; i < strlen(msg); i++){
     circularBuffer_overwrite(cTransmitbuffer, msg[i]);
   }
@@ -534,24 +579,27 @@ int main() {
   uBuf = UART_interrupt_init(cReceivebuffer, cTransmitbuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
   tHandler = taskHandler_init(singleCommands, multiCommands);
 
+  chessGame = chessGameInit();
+
   DDRB = 0xFF;
   PORTB ^= _BV(5);
-  sei();
+  UART_init(MYUBRR);
   adc_temperature_init();
+  sei();
+
 
   //Await first command
-  //timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, STARTIMMEDIATELY);
+  timeBasedScheduler_addTask(tBScheduler, &awaitNextCommand, 128, STARTIMMEDIATELY);
 
   //Welcome Message
-  timeBasedScheduler_addTask(tBScheduler, &sendWelcomeMessage, 127, STARTIMMEDIATELY);
+  //timeBasedScheduler_addTask(tBScheduler, &sendWelcomeMessage, 127, STARTIMMEDIATELY);
 
   //Debug
-  //timeBasedScheduler_addPeriodicTask(tBScheduler, &freeRam, 250, 1000, STARTIMMEDIATELY, 0);
+  timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 250, 1000, STARTIMMEDIATELY, 0);
 
   //Disable all Modules
-  //power_all_disable();
+  power_all_disable();
   //Reactive needed modules
-  power_adc_enable();
   power_timer2_enable();
   power_timer1_enable();
   power_usart0_enable();
@@ -562,9 +610,8 @@ int main() {
   while(true){
     timeBasedScheduler_schedule(tBScheduler);
 
-    //Goes to sleep until Interrupt wake up
+    //Goes to sleep when there is no available Task
     if(isSleepTime){
-      _delay_ms(1);
       sleep_mode();
     } 
   }
