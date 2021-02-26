@@ -2,14 +2,10 @@
 
 void arduinoArch_setTimer(){
     TCNT2 = 0;
-    //Sets CTC mode
-    TCCR2A = (1<<WGM21);
-    //Sets top value for output compare 
-    OCR2A = 250;
-    //Enable interrupt for output compare 
-    TIMSK2 = (1<<OCIE2A);
-    //Selects Prescaler 64 and start timer0
-    TCCR2B = (1<<CS21)|(1<<CS20);
+    OCR2A  = 125 -1;
+    TCCR2A = (1 << WGM21);
+    TIMSK2 = (1 << OCIE2A);
+    TCCR2B = (1 << CS20) | (1 << CS22);
 }
 
 void arduinoArch_PWMTimerinit(void){

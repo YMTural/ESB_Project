@@ -18,7 +18,7 @@ def on_connect(client, userdata, flags, rc):
 
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    client.subscribe("yusuf/commands",0)
+    client.subscribe("yusuf/commands",2)
     client.subscribe("enableThermostat",0)
     client.subscribe("+/temp")
     client.subscribe("averageTemps",2)
@@ -49,13 +49,13 @@ def on_averageTemps(client, userdata, msg):
     global ledStatus
     temp = float(msg.payload.decode('UTF-8'))
     if(temp >= maxTemp):
-        if(ledStatus == 1):
-            sendToArduino("led 0")
-            ledStatus = 0
-    else:
         if(ledStatus == 0):
             sendToArduino("led 1")
             ledStatus = 1
+    else:
+        if(ledStatus == 1):
+            sendToArduino("led 0")
+            ledStatus = 0
 
 
 # The callback for when a PUBLISH message is received from the server and passed all filters above.
@@ -82,8 +82,11 @@ def sendToArduino(msg):
         message = ser.write(msg.encode('UTF-8'))
         ser.write(b'\n')
 
+def publishMQTT():
+    client.publish("yusuf/commands", input().encode('UTF8'))
 try:
     thread_receiveFromArduino = threading.Thread(target = receiveFromArduino)
+    thread_publichMQTT = threading.Thread(target = publishMQTT)
     thread_receiveFromArduino.start()
     
 except Exception as e:
