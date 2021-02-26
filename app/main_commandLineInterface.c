@@ -69,7 +69,7 @@ uint8_t commandLength = 0;
 uint8_t user_counter = 0;
 
 uint8_t errorCode = 1;
-
+volatile bool sleep_sineExcept = false;
 const char const multiCommands[NUMBEROFMULTICOMMANDS][LONGESTCOMMAND] = {"echo", "led", "flash", "sine", "periodic", "kill", ""};
 const char const singleCommands[NUMBEROFSINGLECOMMANDS][LONGESTCOMMAND] = {"help", "toggle", "inc", "counter", "temp", "list", "chess"};                                                   
 
@@ -220,7 +220,7 @@ void sineInit(char *param){
 
   char **ptr;
   uint8_t num = strtol(param, ptr, BASE10);
-
+  sleep_sineExcept = true;
   if(num != 0){
     arduinoArch_PWMTimerinit();
     char* newParams = malloc(sizeof(uint8_t)*3);
@@ -263,6 +263,7 @@ void sineFade(char *param){
     arduinoArch_PWMTimerStop();
     //Restore old led status
     PORTB ^= (-(param[2]^1) ^ PORTB) & (1 << 5);
+    sleep_sineExcept = false;
   }
 }
 
@@ -611,7 +612,7 @@ int main() {
     timeBasedScheduler_schedule(tBScheduler);
 
     //Goes to sleep when there is no available Task
-    if(isSleepTime){
+    if(isSleepTime && !sleep_sineExcept){
       sleep_mode();
     } 
   }
