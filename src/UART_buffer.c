@@ -20,11 +20,12 @@ UART_buffer_t UART_buffer_init(void* receiveBuffer, void* transmitBuffer,
 
         UART_init(MYUBRR);
 
-        UART_buffer_t u_buf = malloc(sizeof(UART_buffer_t));
+        UART_buffer_t u_buf = malloc(sizeof(UART_buffer));
 
         u_buf -> receiveBuffer = (uint8_t*) receiveBuffer;
         u_buf -> transmitBuffer = (uint8_t*) transmitBuffer;
 
+        //Overwrite data on the receive Buffer
         u_buf -> overwrite = circularBuffer_overwrite;
         //Push data on receive Buffer
         u_buf -> push = circularBuffer_push;
@@ -46,9 +47,9 @@ void UART_buffer_overwriteReceive(UART_buffer_t ubuf){
 }
 
 int8_t UART_buffer_receive(UART_buffer_t ubuf){
-    
-    int8_t result = ubuf->push(ubuf -> receiveBuffer, UART_receive());
 
+    uint8_t data = UART_receive();
+    int8_t result = ubuf -> push(ubuf -> receiveBuffer, data);
     return result;
 }
 

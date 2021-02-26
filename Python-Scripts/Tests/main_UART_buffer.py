@@ -28,8 +28,6 @@ else:
     failed += 1
 
 
-
-
 error = False
 print("Test UART_buffer_receive: Expecting echo of random input")
 inputList = []
@@ -44,25 +42,6 @@ for x in range(0, BUFFERSIZE):
     if(received != inputList[x]):
         error = True
         print("Error! Expected ", str(inputList[x]), " Was ", str(received))
-if error == False:
-    successfull += 1
-    print("Test Successfull: Received correct Echo\n")
-else:
-    failed += 1
-
-error = False
-print("Test Simple Echo")
-
-for x in range(0, 1024):
-    randInt8 = random.randint(0,255)   
-    ser.write(randInt8.to_bytes(1,"little")) 
-    received = int.from_bytes(ser.read(1), "little")
-    if(received != randInt8):
-        error = True
-        print("Error! Expected ", str(randInt8), " Was ", str(received))
-    else:
-        #print("Sent: " + str(randInt8) + ", Received: " + str(received))
-        pass
 if error == False:
     successfull += 1
     print("Test Successfull: Received correct Echo\n")

@@ -90,7 +90,8 @@ int main(void){
   
   DDRB = _BV(5);
 
-  pQueue = priorityQueueHeap_init(8);
+  task* prioQueue = malloc(sizeof(task)*8);
+  pQueue = priorityQueueHeap_init(8,prioQueue);
 
   transBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
   recBuffer = malloc(sizeof(uint8_t)*BUFFERSIZE);
@@ -98,7 +99,7 @@ int main(void){
   cTransmitbuffer = circularBuffer_init(transBuffer, BUFFERSIZE);
   cReceivebuffer = circularBuffer_init(recBuffer, BUFFERSIZE);
   
-  tBScheduler = timeBasedScheduler_init(16, pQueue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
+  tBScheduler = timeBasedScheduler_init(&currentTime, pQueue,priorityQueueHeap_size, priorityQueueHeap_capacity, priorityQueueHeap_add, priorityQueueHeap_peekAt, priorityQueueHeap_getNextReady, priorityQueueHeap_deleteItem);
 
   uBuf = UART_interrupt_init(cReceivebuffer, cTransmitbuffer, circularBuffer_overwrite, circularBuffer_push, circularBuffer_read);
 
@@ -111,11 +112,11 @@ int main(void){
   //Periodic tasks here
 
   //Blinking
-  //timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 26, 250, currentTime, 0);
+  timeBasedScheduler_addPeriodicTask(tBScheduler, &toggleLed, 26, 250, 0, 0);
 
-  timeBasedScheduler_addPeriodicTask(tBScheduler, &transmit,24 ,1 , 50, 0);
+  //timeBasedScheduler_addPeriodicTask(tBScheduler, &transmit,24 ,1 , 50, 0);
   
-  timeBasedScheduler_addPeriodicTask(tBScheduler, &test_message, 25, 1000, currentTime, 0);
+  timeBasedScheduler_addPeriodicTask(tBScheduler, &test_message, 25, 1000, 0, 0);
 
   
   //End Periodic tasks
@@ -123,7 +124,7 @@ int main(void){
   //Main Loop
   while (true)
   {
-    timeBasedScheduler_schedule(tBScheduler, &currentTime);
+    timeBasedScheduler_schedule(tBScheduler);
   }
   //Main Loop end
 
@@ -132,23 +133,20 @@ int main(void){
 
 }
 
-
-//Interrupt ISR
 ISR(USART_UDRE_vect){
-
   cli();
   UART_interrupt_setTransmitFlag(uBuf, true);
   UART_disableTransmitInterrupt();
+  //Schedule next transmit
+  timeBasedScheduler_addTask(tBScheduler, &transmit, 240, 0);
   sei();
 }
 
 ISR(USART_TX_vect){
-
   cli();
   if(UART_interrupt_isTransmitComplete(uBuf)){
 
     UART_disableTransmitCompleteInterrupt();
-    timeBasedScheduler_addTask(tBScheduler, &toggleLed, 255, currentTime);
   }
   else{
 
@@ -158,24 +156,21 @@ ISR(USART_TX_vect){
 }
 
 ISR(USART_RX_vect){
-
   cli();
-    UART_disableReceiveInterrupt();
-    UART_interrupt_setReceiveFlag(uBuf, true); 
+  UART_disableReceiveInterrupt();
+  UART_interrupt_setReceiveFlag(uBuf, true);
+  //Schedule receive with highest priority
   sei();
 }
-
-
-ISR(TIMER0_COMPA_vect){
+ISR(TIMER2_COMPA_vect){
 
   cli();
 
   //keeps track of the number of ms passed
-  timeBasedScheduler_incrementTimer(tBScheduler, &currentTime);
+  timeBasedScheduler_incrementTimer(tBScheduler);
   //iterates over tasks in queue and checks
   //if their starttime <= currentTime
-  timeBasedScheduler_markIfReady(tBScheduler,currentTime);
+  timeBasedScheduler_markIfReady(tBScheduler);
   sei();
   }
-
 //Interrupt ISR end

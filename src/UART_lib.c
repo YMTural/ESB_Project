@@ -17,7 +17,7 @@ UART_lib_t UART_lib_init(uint8_t mode, void* receiveBuffer, void* transmitBuffer
     void(*circularBuffer_overwrite)(void* cbuf, uint8_t data),
     int8_t (*circularBuffer_push)(void* cbuf, uint8_t data),
     int8_t(*circularBuffer_read)(void* cbuf, uint8_t* data)){
-    //Nicht schon wieder... sizeOf(UART_lib_t) :')
+
     UART_lib_t ubuf = malloc(sizeof(UART_lib));
     switch (mode)
     {

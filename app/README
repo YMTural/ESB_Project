@@ -6,7 +6,7 @@ Port-Settings:
                 - Stopbits: 1
                 - Parität: Nichts
 
-In den Main files steht in den Kommentaren die erwartete Ausgabe. 
+In den Main files steht in den Kommentaren die erwartete Ausgabe. Für UART_interrupt und UART_lib werden auf Dauer '.' gesendet und wenn eine Eingabe auf dem Arduino ankommt wird die zurückgesendet. Am besten sichtbar wenn über Moserial längere ASCII String gesendet werden
 
 DEBUG in Debug.h muss auf 1 gesetzt werden um Bazel oder Ceedling auszuführen und auf 0 um die main hochzuladen.
 Ich habe mit "Bazel test test:all" getestet und es laufen alle Tests durch.
@@ -19,16 +19,20 @@ UPDATE:
 
     -Keine Zwischenabhängigkeit von Receive und Transmit mehr
     -UART_lib funktioniert nun wie vorgesehen
-    -"main_UART_interrupt.c“ und „–buffer.c" provozieren Testfälle, in denen nebenläufig Daten gesendet und empfangen werden.
+    -"main_UART_interrupt.c“ und „–buffer.c" provozieren Testfälle, in denen nebenläufig Daten gesendet und empfangen werden. Beides wird in main_UART_lib getestet.
     -Unit Test für "adc_temperature.c" hinzugefügt
     -myApplication funktioniert nun wie vorgesehen und enthält einen Counter
     -Im Unit Test test_priorityQueueHeap_swapOnce Assertion ergänzt
     -Timer Overflow handling test hinzugefügt
     -adc_temperature Unit Test hinzugefügt
 
+    
 
 Die Main Application sendet alle paar Sekunden die aktuelle Chip Temperatur und berechnet den Sinus der eingeben Zahl (als ASCII z.B 090.00 oder 123.12). Übertragen muss mit carriage return und new line am Ende.
 Dies geschieht mit moserial, insofern der ASCII Modus ausgewählt wurde, automatisch.
+
+Bei den automatisierten Tests sollte es das Programm hochgeladen und dann das Skript gestartet werden.
+Im Zweifelsfall kann das Skript gestartet und dann der Arduino resettet werden.
 
 //Da Moserial aufgrund eines bugs nur 20 ASCII Zeichen auf einmal senden kann, muss dass Endzeichen (0x0A) manuell am Ende einer Eingabe hinzugefügt werden!
 

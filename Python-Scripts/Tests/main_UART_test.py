@@ -40,6 +40,7 @@ for x in range(0,256):
 if error == False:
     successfull += 1
     print("Test Successfull: Echo received as expected\n")
+
 timeEnd = time.time()
 timeDelta = round((timeEnd - timeStart), 3)
 print("Summary:\n\tSuccessful Tests:" + str(successfull) +"\n\tFailed Tests: " + str(failed) +"\n\tDuration: " + str(timeDelta) + "s")

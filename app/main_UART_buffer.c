@@ -64,10 +64,4 @@ int main(void)
   }
   UART_buffer_transmitMultipleFromBuffer(uBuf, BUFFERSIZE);
   
-  while (true)
-  {
-    //Echo received data
-    UART_buffer_receive(cRbuf);
-    UART_buffer_transmitFromBuffer(cRbuf);
-  }
 }
