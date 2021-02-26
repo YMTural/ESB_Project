@@ -99,14 +99,14 @@ bool canTheKingBeCaptured(Chess_t chessGame){
 
     uint8_t currentColor = !chessGame ->playerTurn;
     uint8_t currentKing =  currentColor == WHITE ? chessGame ->whiteKing : chessGame->blackKing;
-    //Check if Knight can capture King
+    //Check if a Knight can capture King
     for (uint8_t i = 0; i < 8; i++)
     {
-        if(board[currentKing + knightMoves[i]].type == KNIGHT && board[currentKing + knightMoves[i]].color != currentColor) return true;
+        if((board[currentKing + knightMoves[i]].type == KNIGHT) && (board[currentKing + knightMoves[i]].color != currentColor)) return true;
     }
     uint8_t y = currentKing / 8;
     uint8_t x = currentKing % 8;
-
+    //Backtracing from Kings position
     //Check Right side
     for (uint8_t i = 1; i < 8 - x; i++)
     {
@@ -183,7 +183,14 @@ bool tryToMove(Chess_t chessGame, uint8_t movingPiecePos, uint8_t replacedPieceP
     Piece movingPiece = board[movingPiecePos];
     Piece replacedPiece = board[replacedPiecePos];
     Piece none = {NONE, 128};
-
+    if(movingPiece.type == KING){
+        if(movingPiece.color == WHITE){
+            chessGame -> whiteKing = replacedPiecePos;
+        }else
+        {
+            chessGame -> blackKing = replacedPiecePos;
+        }
+    }
     board[replacedPiecePos] = movingPiece;
     board[movingPiecePos] = none;
     chessGame ->playerTurn ^= 1;
@@ -191,6 +198,14 @@ bool tryToMove(Chess_t chessGame, uint8_t movingPiecePos, uint8_t replacedPieceP
         board[replacedPiecePos] = replacedPiece;
         board[movingPiecePos] = movingPiece;
         chessGame ->playerTurn ^= 1;
+        if(movingPiece.type == KING){
+            if(movingPiece.color == WHITE){
+                chessGame -> whiteKing = movingPiecePos;
+            }else
+            {
+                chessGame -> blackKing = movingPiecePos;
+            }
+        }
         return false;
     }else
     {
@@ -199,6 +214,85 @@ bool tryToMove(Chess_t chessGame, uint8_t movingPiecePos, uint8_t replacedPieceP
      
 
 }
+bool isBishopPathFree(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2){
+    uint8_t moveAllowed = true;
+    uint8_t oldPos = x1 + y1 * 8 ;
+    uint8_t newPos = x2 + y2 * 8;
+    uint8_t divisor;
+    bool signPos = newPos - oldPos > 0;
+    divisor = newPos % 7 == 0 ? 7 : 9;
+    for (uint8_t i = 1; i < (abs(newPos - oldPos)/divisor); i++)
+    {
+        if(signPos){
+            if(board[oldPos + i * divisor].type != NONE){
+                moveAllowed = false;
+                break;
+            }
+        }
+        else
+        {
+            if(board[oldPos - i * divisor].type != NONE){
+                moveAllowed = false;
+                break;
+            }
+        }
+    }
+    return moveAllowed;
+}
+
+bool isRookPathFree(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2){
+    uint8_t moveAllowed = true;
+    uint8_t oldPos = x1 + y1 * 8 ;
+    uint8_t newPos = x2 + y2 * 8;
+    uint8_t divisor;
+    bool signPos = newPos - oldPos > 0;
+    if(signPos){
+        if(x1 == x2){
+            for (uint8_t i = 1; i < abs(newPos - oldPos)/divisor; i++)
+            {
+                if(board[oldPos + i * divisor].type != NONE){
+                moveAllowed = false;
+                break;
+                }
+            }
+        }else
+        {
+            for (uint8_t i = 1; i < abs(newPos - oldPos); i++)
+            {
+                if(board[oldPos + i].type != NONE){
+                moveAllowed = false;
+                break;
+                }
+            }
+        }
+        
+    }
+    else
+    {
+        if(x1 == x2){
+            for (uint8_t i = 1; i < abs(newPos - oldPos)/divisor; i++)
+            {
+                if(board[oldPos - i * divisor].type != NONE){
+                moveAllowed = false;
+                break;
+                }
+            }
+        }else
+        {
+            for (uint8_t i = 1; i < abs(newPos - oldPos); i++)
+            {
+                if(board[oldPos - i].type != NONE){
+                moveAllowed = false;
+                break;
+                }
+            }
+        }
+        
+    }
+    return moveAllowed;
+
+}
+
 bool isSquareObstructed(Chess_t chessGame, uint8_t pos){
     return board[pos].type != NONE && board[pos].color == chessGame->playerTurn;
 }
@@ -212,6 +306,10 @@ void movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2
     uint8_t moveAllowed = true;
     uint8_t oldPos = x1 + y1 * 8 ;
     uint8_t newPos = x2 + y2 * 8;
+    uint8_t divisor;
+    bool signPos = newPos - oldPos > 0;
+    bool legalRookMove = (((newPos % 8 == oldPos % 8) && (x1 == x2 && (y1 > y2 || y1 < y2)))    ||  ((newPos / 8 == oldPos / 8) && ((y1 == y2) && (x1 > x2 || x1 < x2))));
+    bool legalBishopMove = (((newPos % 7 == oldPos % 7) && ((x1 < x2 && y1 > y2) || (x1 > x2 && y1 < y2)))   ||   ((newPos % 9 == oldPos % 9) && ((x1 > x2 && y1 > y2) || (x1 < x2 && y1 < y2))));
     //Get Piece
     Piece_t currentPiece = &board[oldPos];
     UART_transmit(currentPiece->type);
@@ -275,54 +373,77 @@ void movePiece(Chess_t chessGame, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2
                 break;
 
             case BISHOP:
-                if( isSquareObstructed(chessGame, newPos )){
+                if(isSquareObstructed(chessGame, newPos )){
                     UART_transmit(0x40);
                     moveAllowed = false;
                     break;
                 }
-                if(!(newPos % 7 == oldPos % 7 || newPos % 9 == oldPos % 9)){
+                if(!legalBishopMove){
 
                     UART_transmit(0x30 + newPos % 9);
                     UART_transmit(0x30 + oldPos % 9);
                     moveAllowed = false;
                     break;
                 }
-                uint8_t divisor = newPos % 7 == 0 ? 7 : 9;
-                bool signPos = newPos - oldPos > 0;
-                for (uint8_t i = 1; i < (abs(newPos - oldPos)/divisor); i++)
-                {
-                    if(signPos){
-                        if(board[oldPos + i * divisor].type != NONE){
-                            moveAllowed = false;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        if(board[oldPos - i * divisor].type != NONE){
-                            moveAllowed = false;
-                            break;
-                        }
-                    }
-                }
+                moveAllowed = isBishopPathFree(x1, y1, x2, y2);
                 break;
 
             case ROOK:
+                if(isSquareObstructed(chessGame, newPos )){
+                    UART_transmit(0x40);
+                    moveAllowed = false;
+                    break;
+                }
+                if(!legalRookMove){
 
-             
+                    UART_transmit(0x30 + newPos % 8);
+                    UART_transmit(0x30 + newPos / 8);
+                    moveAllowed = false;
+                    break;
+                }
+                moveAllowed = isRookPathFree(x1, y1, x2, y2);
                 break;
 
             case QUEEN:
-
-                
+                if( isSquareObstructed(chessGame, newPos )){
+                    UART_transmit(0x40);
+                    moveAllowed = false;
+                    break;
+                }
+                //Both cant be true simultaneously
+                if((legalBishopMove == legalRookMove)){
+                    UART_transmit(0x30 + legalBishopMove);
+                    UART_transmit(0x30 + legalRookMove);
+                    UART_transmit(0x30 + newPos % 8);
+                    UART_transmit(0x30 + newPos / 8);
+                    moveAllowed = false;
+                    break;
+                }
+                if(legalRookMove){
+                    moveAllowed = isRookPathFree(x1, y1, x2, y2);
+                    break;
+                }else
+                {
+                    moveAllowed = isBishopPathFree(x1, y1, x2, y2);
+                    break;
+                }
                 break;
 
             case KING:
-                
+                if( isSquareObstructed(chessGame, newPos)){
+                    UART_transmit(0x40);
+                    moveAllowed = false;
+                    break;
+                }
+                if( !((abs(x1-x2) > abs(y1-y2) ? abs(x1-x2) : abs(y1-y2)) == 1)){
+                    moveAllowed = false;
+                    break;
+                }
                 break;
 
             default:
                 //ERROR MESSAGE HERE
+                UART_transmit(0x60);
                 break;
             }
     if (moveAllowed)
